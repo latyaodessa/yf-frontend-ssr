@@ -1,0 +1,11 @@
+.swiper-wrapper {
+  height: 400px;
+  max-width: 850px;
+  padding: 5px; }
+
+.slider-img {
+  height: 400px;
+  width: 100%;
+  object-fit: cover; }
+
+/*# sourceMappingURL=slider.css.map */

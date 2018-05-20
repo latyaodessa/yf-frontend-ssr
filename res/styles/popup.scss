@@ -1,0 +1,59 @@
+$popup-background : #6d6d6d;
+$left-button-color: #A7C5BD;
+$right-button-color: $brown;
+
+.popup {
+  background: $popup-background;
+  width: 400px;
+  text-align: center;
+  position: fixed;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2), -1px 0 4px rgba(0, 0, 0, 0.2);
+  top: calc(50vh - 150px);
+  left: calc(50vw - 200px);
+  transition: all .7s cubic-bezier(0.845, -0.265, 0.190, 1.280);
+  z-index: 10;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  opacity: 0.9;
+
+  & ul {
+    padding: 0;
+    margin: 0;
+    & li {
+      display: inline-block;
+      width: 50%;
+      & a {
+        width: 100%;
+        border-radius: 0;
+      }
+      &:first-of-type a{
+        background: $left-button-color;
+      }
+      &:last-of-type a{
+        background: $right-button-color;
+      }
+    }
+  }
+
+  & p {
+    font-size: 18px;
+    color: $white;
+    padding: 40px;
+  }
+}
+
+  .button-popup {
+    display: inline-block;
+    min-width: 200px;
+    height: 60px;
+    line-height: 60px;
+    border: none;
+    background: #69B1A9;
+    color: $white;
+    font-size: 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all .3s;
+    letter-spacing: 0.3em;
+    text-decoration: none;
+  }

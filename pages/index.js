@@ -1,38 +1,45 @@
 import React from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {startClock, serverRenderClock} from '../store'
-import Examples from '../components/examples'
-import Link from 'next/link'
+import Grid from '../src/components/home/components/grid-pictures'
+import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
+
 
 class Index extends React.Component {
-  static getInitialProps ({ reduxStore, req }) {
-    const isServer = !!req
-    reduxStore.dispatch(serverRenderClock(isServer))
+    static async getInitialProps({store, isServer}) {
 
-    return {}
-  }
+        await Promise.all([].concat(Grid.initialAction()).map(async (action) => {
+            await store.dispatch(action);
+        }));
 
-  componentDidMount () {
-    const {dispatch} = this.props
-    this.timer = startClock(dispatch)
-  }
+        return {isServer}
+    }
 
-  componentWillUnmount () {
-    clearInterval(this.timer)
-  }
+    componentDidMount() {
+        // this.timer = this.props.startClock()
+    }
 
-  render () {
-    return (
-        <div>
-            <ul>
-                <li><Link href='/blog?id=first' as='/blog/first'><a>My first blog post</a></Link></li>
-                <li><Link href='/blog?id=second' as='/blog/second'><a>My second blog post</a></Link></li>
-                <li><Link href='/blog?id=last' as='/blog/last'><a>My last blog post</a></Link></li>
-            </ul>
-      <Examples />
-        </div>
-    )
-  }
+    componentWillUnmount() {
+        // clearInterval(this.timer)
+    }
+
+    render() {
+        return (
+            <MainLayoutWithNavigation>
+                <div className="child-container">
+                    <Grid/>
+                </div>
+            </MainLayoutWithNavigation>
+        )
+    }
 }
 
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     topNativeFuckYou: bindActionCreators(fetchTopNative(0,10), dispatch),
+//     // startClock: bindActionCreators(startClock, dispatch)
+//   }
+// }
+
+// export default connect(null, mapDispatchToProps)(Counter)
 export default connect()(Index)

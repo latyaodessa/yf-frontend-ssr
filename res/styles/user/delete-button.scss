@@ -1,0 +1,17 @@
+.delete-container {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+  cursor: pointer;
+  -webkit-animation: spinreverse 5s infinite linear;
+  z-index: 10;
+
+  & img {
+    width: 40px;
+    height: 40px;
+  }
+}
+@-webkit-keyframes spinreverse {
+  0%  {-webkit-transform: rotate(0deg);}
+  100% {-webkit-transform: rotate(-360deg);}
+}
