@@ -1,0 +1,28 @@
+{
+  "name": "youngfolks",
+  "version": "1.0.0",
+  "description": "frontend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "dev:server": "node server.js",
+    "start:server": "NODE_ENV=production node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-unfetch": "^2.0.0",
+    "next": "~6.0.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "redux-devtools-extension": "^2.13.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "node-sass": "^4.9.0",
+    "styled-jsx-plugin-sass": "^0.2.4",
+    "path-match": "^1.2.4"
+  }
+}
