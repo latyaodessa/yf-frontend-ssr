@@ -13,6 +13,8 @@ class TopNativeSlider extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("AAA");
+        console.log(this.props);
         this.state = {
             fetched: this.props.fetched,
             post: this.props.post

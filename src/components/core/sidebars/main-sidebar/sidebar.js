@@ -9,34 +9,32 @@ export default class Sidebar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            // width: window.innerWidth,
-            mobileViewSize: 850,
-        };
         this.updateDimensions = this.updateDimensions.bind(this);
     }
 
     componentDidMount() {
-        // window.addEventListener("resize", this.updateDimensions);
+        this.setState({
+            width: window.innerWidth
+        });
+        window.addEventListener("resize", this.updateDimensions);
     }
 
     componentWillUnmount() {
-        // window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.updateDimensions);
     }
 
     updateDimensions() {
-        // this.setState({
-        // width: window.innerWidth
-        // })
+        this.setState({
+            width: window.innerWidth
+        })
     }
 
 
     render() {
-        // let sidebar = this.state.width > this.state.mobileViewSize ? this.getSideBar() : '';
-
+        let sidebar = typeof window !== 'undefined' && this.state && this.state.width > mobileViewSize;
         return (
             <div>
-                {typeof window !== 'undefined' && window.innerWidth <= mobileViewSize ? null :
+                {sidebar ?
                     <div>
                         <style jsx>{styles}</style>
                         <style jsx>{loginStyles}</style>
@@ -45,8 +43,8 @@ export default class Sidebar extends React.Component {
                                 <SidebarHeader/>
                             </div>
                         </div>
-                    </div>
-                }
+                    </div> : null}
+
             </div>
         )
     }

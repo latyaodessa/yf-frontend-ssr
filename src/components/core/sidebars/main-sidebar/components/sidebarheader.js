@@ -1,5 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
+import {Link} from '../../../../../../routes'
+import Router from 'next/router'
 import styles from '../../../../../../res/styles/sidebar.scss'
 import loginStyles from '../../../../../../res/styles/user/login.scss'
 
@@ -26,7 +27,7 @@ class SidebarHeader extends React.Component {
         return <div>
             <style jsx>{styles}</style>
             <div className="sidebar-header">
-                <Link href="/dashboard"><img className='avatar' src={this.getUserThumbnail()}/></Link>
+                <Link route='dashboard'><img className='avatar' src={this.getUserThumbnail()}/></Link>
                 <div className="sidebar-header-text">
                     <h1 className="no-underscore">{this.getUserName()}</h1>
                 </div>
@@ -34,7 +35,7 @@ class SidebarHeader extends React.Component {
             <div className='info'>
                 <ul>
                     <li>
-                        <Link href="/dashboard">Профайл</Link>
+                        <Link route='dashboard'>Профайл</Link>
                     </li>
                     <li>
                         <a onClick={this.logOut.bind(this)}>Выйти</a>
@@ -45,12 +46,12 @@ class SidebarHeader extends React.Component {
     }
 
     navigateToLogin() {
-        this.props.history.push('/login');
+        Router.push('/login');
     }
 
     logOut() {
         localStorage.clear();
-        this.props.history.push('/login');
+        Router.push('/login');
     }
 
     getButton() {

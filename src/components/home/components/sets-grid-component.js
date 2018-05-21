@@ -1,10 +1,8 @@
 import React from 'react';
-import Link from 'next/link'
+import {Link} from '../../../../routes'
 import {connect} from 'react-redux'
 import {fetchSetsPosts} from '../../../actions/post/post-actions'
-// import LoadMoreImg from '../../../res/img/64/load-more.png'
 import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
-import sets from "../../../reducers/post/sets-post-reducer";
 import styles from "../../../../res/styles/main.scss"
 import loaderStyles from "../../../../res/styles/loader.scss"
 import elementsStyles from "../../../../res/styles/common/elements.scss"
@@ -24,7 +22,6 @@ class SetsGrid extends React.Component {
             from: 0,
             to: 6
         };
-        // this.props.dispatch(fetchSetsPosts(this.state.from, this.state.to));
     }
 
     renderPics(posts) {
@@ -33,7 +30,7 @@ class SetsGrid extends React.Component {
             <style jsx>{styles}</style>
             <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
-            <Link to={'post/' + post.id}>
+            <Link route='post' params={{postId: post.id}}>
                 <div className="overlay">
                     <div className="ul-main-list">
                         {post.md ? <ul className="md-white">
@@ -52,8 +49,9 @@ class SetsGrid extends React.Component {
         let currentPhotoSize = this.state.to += this.state.increment_size;
         this.setState({
             to: currentPhotoSize
-        })
-        this.props.dispatch(fetchSetsPosts(this.state.from, thismd - white.state.to));
+        });
+        this.props.dispatch(fetchSetsPosts(this.state.from, this.state.to));
+
     }
 
 
