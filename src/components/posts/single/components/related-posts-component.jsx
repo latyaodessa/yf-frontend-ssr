@@ -4,17 +4,17 @@ import {Link} from 'react-router-dom';
 import Swiper from 'react-id-swiper';
 import {getRelatedPosts} from '../../../../actions/post/single-post-actions';
 
-@connect((store) => {
-	return {
-		relatedPosts: store.related.posts,
-		fetched: store.related.fetched
-	}
-})
+// @connect((store) => {
+// 	return {
+// 		relatedPosts: store.related.posts,
+// 		fetched: store.related.fetched
+// 	}
+// })
 export default class RelatedPostsSliderComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId));
+		// this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId));
 	}
 
 	render() {

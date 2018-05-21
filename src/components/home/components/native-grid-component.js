@@ -1,10 +1,13 @@
 import React from 'react';
-import Link from 'next/link'
 import {fetchNativePosts} from '../../../actions/post/post-actions'
 import {connect} from 'react-redux';
 import styles from "../../../../res/styles/main.scss"
+import loaderStyles from "../../../../res/styles/loader.scss"
+import elementsStyles from "../../../../res/styles/common/elements.scss"
+import {Link} from '../../../../routes'
 
-// import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
+
+import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
 
 class NativeGrid extends React.Component {
 
@@ -21,7 +24,6 @@ class NativeGrid extends React.Component {
             from: 0,
             to: 6
         };
-        // this.props.dispatch(fetchNativePosts(this.state.from, this.state.to));
     }
 
 
@@ -29,8 +31,10 @@ class NativeGrid extends React.Component {
         return posts.map(post => <div key={post.id}
                                       className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 grig-img-container hovereffect">
             <style jsx>{styles}</style>
+            <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
-            <Link href={'post/' + post.id}>
+
+            <Link route='post' params={{postId: post.id}}>
                 <div className="overlay">
                     <div className="ul-main-list">
                         {post.md ? <ul className="md-white">
@@ -59,7 +63,8 @@ class NativeGrid extends React.Component {
     render() {
         return (
             <div>
-                <style>{styles}</style>
+                <style jsx>{styles}</style>
+                <style jsx>{loaderStyles}</style>
                 {this.props.fetched ?
                     <div className="wrapper">
                         <div className="content-wrapper">
@@ -73,7 +78,7 @@ class NativeGrid extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {/*<Sidebar width={this.props.width} mobileViewSize={this.props.mobileViewSize}/>*/}
+                        <Sidebar width={this.props.width} mobileViewSize={this.props.mobileViewSize}/>
                     </div>
                     : null}
             </div>

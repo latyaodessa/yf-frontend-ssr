@@ -79,17 +79,6 @@ export const fetchTopNative = (from, to) => dispatch => {
     })
 };
 
-// export const fetchTopNative = (from, to) => {
-//     return dispatch => axios.get([FIND_TOP_NATIVE_FROM_TO, from, to].join("/"))
-//         .then(({ data }) => { return dispatch({ type: FETCH_TOP_NATIVE_FULFILLED, data })});
-//     // .then((res) =>
-//     //   {type: FETCH_TOP_NATIVE_FULFILLED payload: res.data}
-//     // )
-//     // .catch((err) => {
-//     //   dispatch({type: FETCH_TOP_NATIVE_REJECTED, payload: err})
-//     // })
-// };
-
 export function searchPosts(query) {
   return function (dispatch) {
     axios.get(SEARCH_POSTS + "?query=" + query)

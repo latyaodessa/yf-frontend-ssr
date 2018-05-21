@@ -15,25 +15,13 @@ class Grid extends React.Component {
     }
 
     render() {
-        //   console.log("GRID !!");
-        // console.log(this.props);
         return (
             <div>
-                {/*<TopNativeSlider/>*/}
                 <NativeGrid/>
-                {/*<NativeGrid width={this.props.width} mobileViewSize={this.props.mobileViewSize}/>*/}
                 <SetsGrid/>
             </div>
         )
     }
 }
 
-
-function mapStateToProps(state) {
-    const {type} = state;
-    console.log("GRID !!");
-    console.log(state);
-    return {}
-}
-
-export default connect(mapStateToProps)(Grid)
+export default connect()(Grid)

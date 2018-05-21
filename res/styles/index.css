@@ -249,8 +249,10 @@ input[type="submit"]:hover {
 
 html,
 body {
+  background: #FFF;
   margin: 0;
   padding: 0;
+  font: 100% "Noto Sans", sans-serif;
   display: flex;
   flex-direction: column;
   height: 100%; }

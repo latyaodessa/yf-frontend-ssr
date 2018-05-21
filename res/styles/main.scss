@@ -1,13 +1,13 @@
 @import 'single-post';
 @import "search-post";
-//@import 'common/core';
+@import 'common/core';
 
 html,
 body {
-  //background: $white;
+  background: $white;
   margin: 0;
   padding: 0;
-  //font: 100% $font-main;
+  font: 100% $font-main;
   display: flex;
   flex-direction: column;
   height: 100%;

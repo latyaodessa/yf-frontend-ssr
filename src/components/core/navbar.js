@@ -4,30 +4,18 @@ import DesktopMenu from './main-menu'
 
 const mobileViewSize = 850;
 
-const Navbar = () => (
+class Navbar extends React.Component {
 
-    <div>
-        {/*{console.log(window)}*/}
-        <DesktopMenu/>
-        <MobileMenu />
-    </div>
+    render() {
+        return (
+            <div>
+                {typeof window !== 'undefined' && window.innerWidth <= mobileViewSize ? <MobileMenu/> :
+                    <DesktopMenu/>
+                }
+            </div>);
 
 
-);
+    };
+}
+
 export default Navbar;
-
-// export default class Navbar extends React.Component {
-//
-//     render() {
-//
-//         let mobileMenu = this.props.width <= this.props.mobileViewSize ? <MobileMenu/> : '';
-//         let mainMenu = this.props.width > this.props.mobileViewSize ? <MainMenu/> : '';
-//         return (
-//             <div>
-//                 {/*{mobileMenu}*/}
-//                 {/*{mainMenu}*/}
-//                 <MainMenu/>
-//             </div>
-//         );
-//     }
-// }

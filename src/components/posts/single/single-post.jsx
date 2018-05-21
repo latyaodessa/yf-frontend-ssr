@@ -8,12 +8,12 @@ import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
 // import DocumentMeta from 'react-document-meta';
 
 
-@connect((store) => {
-  return {
-    post: store.single.post,
-    singlePostFethced: store.single.fetched
-  }
-})
+// @connect((store) => {
+//   return {
+//     post: store.single.post,
+//     singlePostFethced: store.single.fetched
+//   }
+// })
 export default class SinglePost extends React.Component {
 
   constructor(props) {
