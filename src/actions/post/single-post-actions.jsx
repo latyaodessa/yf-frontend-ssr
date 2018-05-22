@@ -37,14 +37,12 @@ export function isPostAlreadySavedByUser(postId, userId) {
     }
 }
 
-export function getRelatedPosts(query, excludeId) {
-    return function (dispatch) {
-        axios.get(FIND_RELATED_POSTS + "?query=" + query + "&excludeId=" + excludeId)
-            .then((res) => {
-                dispatch({type: FETCH_RELATED_POSTS_FULFILLED, payload: res.data});
-            })
-            .catch((err) => {
-                dispatch({type: FETCH_RELATED_POSTS_REJECTED, payload: err})
-            })
-    }
-}
+export const getRelatedPosts = (query, excludeId) => dispatch => {
+    return axios.get(FIND_RELATED_POSTS + "?query=" + query + "&excludeId=" + excludeId)
+        .then((res) => {
+            dispatch({type: FETCH_RELATED_POSTS_FULFILLED, payload: res.data});
+        })
+        .catch((err) => {
+            dispatch({type: FETCH_RELATED_POSTS_REJECTED, payload: err})
+        })
+};

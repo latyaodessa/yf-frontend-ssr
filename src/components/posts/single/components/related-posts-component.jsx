@@ -1,63 +1,84 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link} from '../../../../../routes'
 import Swiper from 'react-id-swiper';
 import {getRelatedPosts} from '../../../../actions/post/single-post-actions';
+import TopNativeSlider from "../../lists/top-native-slider";
+import NativeGrid from "../../../home/components/native-grid-component";
+import SetsGrid from "../../../home/components/sets-grid-component";
+import styles from "../../../../../res/styles/main.scss"
+import slider from "../../../../../res/styles/slider.scss"
 
-// @connect((store) => {
-// 	return {
-// 		relatedPosts: store.related.posts,
-// 		fetched: store.related.fetched
-// 	}
-// })
-export default class RelatedPostsSliderComponent extends React.Component {
 
-	constructor(props) {
-		super(props);
-		// this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId));
-	}
+class RelatedPostsSliderComponent extends React.Component {
 
-	render() {
-		const params = {
-			slidesPerView: 3,
-			paginationClickable: true,
-			freeMode: true,
-			loop: true
-		};
 
-		console.log(this.props);
+    constructor(props) {
+        super(props);
 
-		return (
-				<div className="related-post-slider">
-					{this.props.fetched ? <Swiper {...params}>
-						{this.getSlides(this.props.relatedPosts)}
-					</Swiper> : null}
-				</div>
-		);
-	}
+    }
 
-	getSlidesCount() {
-		return this.props.relatedPosts.length >= 3 ? 3 : this.props.relatedPosts.length;
-	}
+    componentDidMount() {
+        console.log(this.props);
+        this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId));
+    }
 
-	getSlides(posts) {
-		return posts.map(post => <div key={post.id}
-																	className="hovereffect">
-				<Link to={ '/post/' + post.id }>
-					<img className="slider-img" src={post.thumbnail}/>
-					<div className="overlay">
-						<div className="ul-main-list">
-							{post.md ? <ul className="md-white">
-								<li>{post.md}</li>
-							</ul> : null}
-							{post.ph ? <ul className="ph-white">
-								<li>{post.ph}</li>
-							</ul> : null}
-						</div>
-					</div>
-				</Link>
-			</div>
-		)
-	}
+    render() {
+        const params = {
+            slidesPerView: 3,
+            paginationClickable: true,
+            freeMode: true,
+            loop: true
+        };
+
+        return (
+            <div>
+                <style jsx>{styles}</style>
+                <div className="related-post-slider">
+                    {this.props.fetched ? <Swiper {...params}>
+                        {this.getSlides(this.props.posts)}
+                    </Swiper> : null}
+                </div>
+            </div>
+        );
+    }
+
+    getSlidesCount() {
+        return this.props.posts.length >= 3 ? 3 : this.props.posts.length;
+    }
+
+    getSlides(posts) {
+        return posts.map(post => <div>
+                <style jsx>{styles}</style>
+                <style jsx>{slider}</style>
+                <div key={post.id}
+                     className="hovereffect">
+                    <Link route='post' params={{postId: post.id}}>
+                        <div>
+                            <img className="slider-img" src={post.thumbnail}/>
+                            <div className="overlay">
+                                <div className="ul-main-list">
+                                    {post.md ? <ul className="md-white">
+                                        <li>{post.md}</li>
+                                    </ul> : null}
+                                    {post.ph ? <ul className="ph-white">
+                                        <li>{post.ph}</li>
+                                    </ul> : null}
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        )
+    }
 
 }
+
+function mapStateToProps(state) {
+    const {related} = state;
+    return related;
+}
+
+
+export default connect(mapStateToProps)(RelatedPostsSliderComponent);

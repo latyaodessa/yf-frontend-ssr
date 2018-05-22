@@ -226,7 +226,9 @@ const MainLayoutEmpty = (props) => (
         `}</style>
 
         <Head>
+            <meta charSet="utf-8"/>
             <title>test title</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
             <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>

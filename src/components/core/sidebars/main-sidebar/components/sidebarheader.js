@@ -9,9 +9,13 @@ class SidebarHeader extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            // userExist: localStorage.getItem('user_id') ? true : false
-        }
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            userExist: localStorage.getItem('user_id') ? true : false
+        });
     }
 
     getUserThumbnail() {
@@ -35,7 +39,7 @@ class SidebarHeader extends React.Component {
             <div className='info'>
                 <ul>
                     <li>
-                        <Link route='dashboard'>Профайл</Link>
+                        <Link route='dashboard'><a>Профайл</a></Link>
                     </li>
                     <li>
                         <a onClick={this.logOut.bind(this)}>Выйти</a>
@@ -71,11 +75,12 @@ class SidebarHeader extends React.Component {
         return (
             <div>
                 <style jsx>{styles}</style>
-                {this.state.userExist ? this.getLoggedInUserData()
+                {this.state && this.state.userExist ? this.getLoggedInUserData()
                     : this.getButton()}
             </div>
         )
     }
 }
+
 
 export default SidebarHeader;

@@ -46,15 +46,15 @@ class PostSearch extends React.Component {
 
     setQueryState(searchQuery) {
         if (searchQuery) {
-            this.state = {
+            this.setState({
                 searchQuery: searchQuery,
                 queryExist: true
-            }
+            });
         } else {
-            this.state = {
+            this.setState({
                 searchQuery: "Может, имя модели или фотографа?",
                 queryExist: false
-            }
+            });
         }
     }
 

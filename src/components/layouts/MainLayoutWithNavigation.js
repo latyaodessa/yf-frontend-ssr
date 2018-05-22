@@ -225,8 +225,15 @@ const MainLayoutWithNavigation = (props) => (
 
         `}</style>
 
+
+        {console.log(props)}
         <Head>
-            <title>test title</title>
+            <meta charSet={props.meta.charset}/>
+            <meta name="description" content={props.meta.description}/>
+            <meta name="keywords" content={props.meta.keywords}/>
+            <link rel="canonical" href={props.meta.canonical}/>
+            <title>{props.meta.title}</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
             <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>

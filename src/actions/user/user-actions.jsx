@@ -10,7 +10,7 @@ export function getUserByID(userId) {
 	return function (dispatch) {
 		axios.get(GET_USER_BY_ID + userId)
 			.then((res) => {
-				if(res.status == STATUS_200){
+				if(res.status === STATUS_200){
 					handleLocalStorage(res.data);
 				}
 				dispatch({type: GET_USER_FULFILLED, payload: res.data});

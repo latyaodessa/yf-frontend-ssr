@@ -1,44 +1,59 @@
 import React from 'react';
+import Router from 'next/router'
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom'
 
-@connect((store) => {
-  return {
-    registered_user: store.user,
-    vk_user: store.vk,
-    fb_user: store.facebook
-  }
-})
+// @connect((store) => {
+//   return {
+//     registered_user: store.user,
+//     vk_user: store.vk,
+//     fb_user: store.facebook
+//   }
+// })
 class Redirector extends React.Component {
 
-  isRegisteredUser(nextProps) {
-    return nextProps.registered_user.user && nextProps.registered_user.fetched;
-  }
+    constructor(props) {
+        super(props);
 
-  isVkUserCreated(nextProps) {
-    return nextProps.vk_user.user && nextProps.vk_user.fetched;
-  }
-
-  isFbUserCreated(nextProps) {
-    return nextProps.fb_user.user && nextProps.fb_user.fetched;
-  }
-
-  componentDidMount() {
-    if (localStorage.getItem('user_id')) {
-      this.props.history.push('/dashboard')
     }
-  }
 
-  componentWillReceiveProps(nextProps) {
+    // isRegisteredUser(nextProps) {
+    //     return nextProps.registered_user.user && nextProps.registered_user.fetched;
+    // }
+    //
+    // isVkUserCreated(nextProps) {
+    //     return nextProps.vk_user.user && nextProps.vk_user.fetched;
+    // }
+    //
+    // isFbUserCreated(nextProps) {
+    //     return nextProps.fb_user.user && nextProps.fb_user.fetched;
+    // }
 
-    if (this.isRegisteredUser(nextProps) || this.isVkUserCreated(nextProps) || this.isFbUserCreated(nextProps)) {
-      this.props.history.push('/dashboard')
+    componentDidMount() {
+        if (localStorage.getItem('user_id')) {
+            Router.push('/dashboard');
+        }
     }
-  }
 
-  render() {
-    return null;
-  }
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps);
+    //
+    //
+    //     if (this.isRegisteredUser(nextProps) || this.isVkUserCreated(nextProps) || this.isFbUserCreated(nextProps)) {
+    //         Router.push('/dashboard');
+    //     }
+    // }
+
+    render() {
+        return null;
+    }
 }
 
-export default withRouter(Redirector);
+function mapStateToProps(state) {
+
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('user_id')) {
+        Router.push('/dashboard');
+    }
+    return state;
+}
+
+export default connect(mapStateToProps)(Redirector)

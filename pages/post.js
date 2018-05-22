@@ -7,7 +7,7 @@ import Header from "../src/components/posts/single/components/header-component";
 import RelatedPostsSliderComponent from "../src/components/posts/single/components/related-posts-component"
 import Sidebar from '../src/components/core/sidebars/main-sidebar/sidebar'
 import styles from "../res/styles/main.scss"
-
+import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
 
 class SinglePost extends React.Component {
 
@@ -20,7 +20,6 @@ class SinglePost extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
         // this.props.dispatch(fetchPostPictures(this.props.match.params.postId));
         this.state = {
             // user_id: localStorage.getItem("user_id"),
@@ -29,9 +28,9 @@ class SinglePost extends React.Component {
             // mobileViewSize: ""
 
         };
-        this.getTitle = this.getTitle.bind(this);
-        this.getCanonical = this.getCanonical.bind(this);
-        this.getKeywords = this.getKeywords.bind(this);
+        // this.getTitle = this.getTitle.bind(this);
+        // this.getCanonical = this.getCanonical.bind(this);
+        // this.getKeywords = this.getKeywords.bind(this);
 //         window.scrollTo(0, 0);
     }
 
@@ -57,45 +56,10 @@ class SinglePost extends React.Component {
         })
     }
 
-    getTitle() {
-        if (this.props.post) {
-            var md = this.props.post.md;
-            var ph = this.props.post.ph;
-            return ["Модель", md, "Фотограф", ph, "-", "Young Folks"].join(" ");
-        }
-    }
-
-    getCanonical() {
-        if (this.props.post) {
-            return "http://youngfolks.ru/post" + this.props.post.id
-        }
-    }
-
-    getKeywords() {
-        if (this.props.post) {
-            var md = this.props.post.md;
-            var ph = this.props.post.ph;
-            return [md, ph, "Модели", "Фотографы", "Россия", "Украина", "Модельное Агентство"].join(", ")
-        }
-    }
-
 
     render() {
-
-        const meta = {
-            title: this.getTitle(),
-            description: this.getTitle() + 'Модельное агентство.Модели и фотографы из Украины, России, Европы, США',
-            canonical: this.getCanonical(),
-            meta: {
-                charset: 'utf-8',
-                name: {
-                    keywords: this.getKeywords()
-                }
-            }
-        };
-
         return (
-            <MainLayoutWithNavigation>
+            <MainLayoutWithNavigation meta={meta(this.props.post)}>
                 <style jsx>{styles}</style>
                 <div className="child-container">
                     {/*<DocumentMeta {...meta} />*/}
@@ -114,11 +78,11 @@ class SinglePost extends React.Component {
                         <Sidebar width={this.state.width} mobileViewSize={this.state.mobileViewSize}/>
                     </div>
                     <h1>Похожие фотосеты</h1>
-                    {/*{this.props.post ?*/}
-                        {/*<RelatedPostsSliderComponent*/}
-                            {/*excludeId={this.props.match.params.postId}*/}
-                            {/*query={[this.props.post.md, this.props.post.ph].join(" ")}/>*/}
-                        {/*: null}*/}
+                    {this.props.post ?
+                        <RelatedPostsSliderComponent
+                            excludeId={this.props.post.id}
+                            query={[this.props.post.md, this.props.post.ph].join(" ")}/>
+                        : null}
                 </div>
             </MainLayoutWithNavigation>
 

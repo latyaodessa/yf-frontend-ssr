@@ -44,7 +44,7 @@ class LoginLogoutButton extends React.Component {
     }
 
     getLoginButton() {
-        return <Link route='login'>Войти</Link>;
+        return <Link route='login'><a>Войти</a></Link>;
     }
 
 

@@ -13,6 +13,25 @@ class Grid extends React.Component {
             .concat(NativeGrid.initialAction())
             .concat(SetsGrid.initialAction());
     }
+    componentDidMount() {
+        this.setState({
+            width: window.innerWidth,
+            screen: screen.width
+        });
+        window.addEventListener("resize", this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    updateDimensions() {
+        this.setState({
+            width: window.innerWidth,
+            screen: screen.width
+        })
+    }
+
 
     render() {
         return (
