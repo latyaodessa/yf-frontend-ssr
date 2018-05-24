@@ -1,10 +1,23 @@
+import React from 'react'
 import Head from 'next/head'
 import Navbar from '../core/navbar'
+import {initGA, logPageView} from '../../utils/analytics'
 
 
-const MainLayoutWithNavigation = (props) => (
-    <div>
-        <style jsx global>{`
+class MainLayoutWithNavigation extends React.Component {
+
+    componentDidMount() {
+        if (!window.GA_INITIALIZED) {
+            initGA();
+            window.GA_INITIALIZED = true
+        }
+        logPageView()
+    }
+
+    render() {
+        return (
+            <div>
+                <style jsx global>{`
         html,
         body {
           background: #FFF;
@@ -224,21 +237,24 @@ const MainLayoutWithNavigation = (props) => (
 
 
         `}</style>
+                {console.log(this.props.meta)}
+                <Head>
+                    <meta charSet={this.props.meta.charset}/>
+                    <meta name="description" content={this.props.meta.description}/>
+                    <meta name="keywords" content={this.props.meta.keywords}/>
+                    <link rel="canonical" href={this.props.meta.canonical}/>
+                    <title>{this.props.meta.title}</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
+                    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
 
-        <Head>
-            <meta charSet={props.meta.charset}/>
-            <meta name="description" content={props.meta.description}/>
-            <meta name="keywords" content={props.meta.keywords}/>
-            <link rel="canonical" href={props.meta.canonical}/>
-            <title>{props.meta.title}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
-            <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
-        </Head>
-        <Navbar/>
-        {props.children}
-    </div>
-);
+                </Head>
+                <Navbar/>
+                {this.props.children}
+            </div>)
+    }
+}
 
 export default MainLayoutWithNavigation;

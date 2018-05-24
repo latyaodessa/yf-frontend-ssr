@@ -1,10 +1,23 @@
+import React from 'react'
 import Head from 'next/head'
 import Footer from '../core/footer'
+import {initGA, logPageView} from '../../utils/analytics'
 
 
-const MainLayoutEmpty = (props) => (
-    <div>
-        <style jsx global>{`
+class MainLayoutEmpty extends React.Component {
+
+    componentDidMount() {
+        if (!window.GA_INITIALIZED) {
+            initGA();
+            window.GA_INITIALIZED = true
+        }
+        logPageView()
+    }
+
+    render() {
+        return (
+            <div>
+                <style jsx global>{`
         html,
         body {
           background: #FFF;
@@ -225,28 +238,30 @@ const MainLayoutEmpty = (props) => (
 
         `}</style>
 
-        <Head>
-            <meta charSet="utf-8"/>
-            <title>test title</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
-            <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
-        </Head>
+                <Head>
+                    <meta charSet="utf-8"/>
+                    <title>test title</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
+                    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
+                </Head>
 
-        <div>
-            <div className="child-container">
-                <div className="wrapper">
-                    <div className="content-wrapper">
-                        <div className="content">
-                            {props.children}
+                <div>
+                    <div className="child-container">
+                        <div className="wrapper">
+                            <div className="content-wrapper">
+                                <div className="content">
+                                    {this.props.children}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <Footer/>
                 </div>
-            </div>
-            <Footer/>
-        </div>
-    </div>
-);
+            </div>)
+    }
+}
 
 export default MainLayoutEmpty;

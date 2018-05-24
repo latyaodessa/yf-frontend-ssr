@@ -16,7 +16,7 @@ class Index extends React.Component {
 
     render() {
         return (
-            <MainLayoutWithNavigation meta={meta}>
+            <MainLayoutWithNavigation meta={meta()}>
                 <div className="child-container">
                     <Grid/>
                 </div>
