@@ -4,6 +4,7 @@ import {Link} from '../routes'
 import {fetchArtPosts} from '../src/actions/post/post-actions';
 import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
+import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
 
 
 const initSizePhoto = 0;
@@ -14,10 +15,6 @@ class NativeList extends React.Component {
 
     static async getInitialProps({store, isServer}) {
 
-        // await Promise.all([].concat(Grid.initialAction()).map(async (action) => {
-        //     await store.dispatch(action);
-        // }));
-
         await store.dispatch(fetchArtPosts(initSizePhoto, incrementSize));
 
         return {isServer}
@@ -27,7 +24,6 @@ class NativeList extends React.Component {
     constructor(props) {
         super(props);
         console.log(this.props);
-        // this.props.dispatch(fetchNativePosts(this.state.initSizePhoto, this.state.incrementSize));
         this.updateScroll = this.updateScroll.bind(this);
 
     }
@@ -53,7 +49,7 @@ class NativeList extends React.Component {
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
-        })
+        });
         if (this.isLoadMore()) {
             this.fetchMorePhotos();
         }
@@ -63,7 +59,7 @@ class NativeList extends React.Component {
         let currentPhotoSize = this.state.currentPhotosLoaded += this.state.incrementSize;
         this.setState({
             currentPhotosLoaded: currentPhotoSize
-        })
+        });
         this.props.dispatch(fetchArtPosts(this.state.initSizePhoto, currentPhotoSize));
     }
 
@@ -94,20 +90,8 @@ class NativeList extends React.Component {
 
 
     render() {
-        const meta = {
-            title: "Young Folks - Модели с Украины России и других стран СНГ",
-            description: "Young Folks - Модели с Украины России и других стран СНГ. Модельное Агенство для начинающих истории работа",
-            canonical: "http://youngfolks.ru/native",
-            meta: {
-                charset: 'utf-8',
-                name: {
-                    keywords: "Модели, модельное агентсво, young folks, модели и фотогафы из России Украины СНГ"
-                }
-            }
-        };
         return (
-            <MainLayoutWithNavigationSidebar>
-                {/*<DocumentMeta {...meta} />*/}
+            <MainLayoutWithNavigationSidebar meta={getMetaData(POST_TYPE.ART)}>
                 <div className="grid-list-container">
                     {this.props.fetched ?
                         <div className="pure-g">{this.renderPics(this.props.post)}</div> : null}

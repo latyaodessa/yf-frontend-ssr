@@ -4,15 +4,11 @@ import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNa
 import styles from '../res/styles/search-post.scss'
 import {searchPosts} from "../src/actions/post/post-actions";
 import {Link} from '../routes'
+import meta from '../src/components/posts/searchMetaGenerator'
 
 
 class PostSearch extends React.Component {
     static async getInitialProps({store, isServer}) {
-
-        // await Promise.all([].concat(Grid.initialAction()).map(async (action) => {
-        //     await store.dispatch(action);
-        // }));
-
         return {isServer}
     }
 
@@ -85,8 +81,9 @@ class PostSearch extends React.Component {
     }
 
     render() {
+        let searchQuery = this.state ? this.state.searchQuery : "";
         return (
-            <MainLayoutWithNavigation>
+            <MainLayoutWithNavigation meta={meta(searchQuery)}>
                 <style jsx>{styles}</style>
                 {this.state ? <div className="search-container" style={{"width": this.state.formWidth}}>
                     <div id="wrap">

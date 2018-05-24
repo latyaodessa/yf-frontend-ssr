@@ -6,6 +6,7 @@ import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
 import TopNativeSlider from '../src/components/posts/lists/top-native-slider'
 import styles from '../res/styles/main.scss'
+import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
 
 const initSizePhoto = 0;
 const incrementSize = 12;
@@ -98,19 +99,8 @@ class NativeList extends React.Component {
 
 
     render() {
-        const meta = {
-            title: "Young Folks - Модели с Украины России и других стран СНГ",
-            description: "Young Folks - Модели с Украины России и других стран СНГ. Модельное Агенство для начинающих истории работа",
-            canonical: "http://youngfolks.ru/native",
-            meta: {
-                charset: 'utf-8',
-                name: {
-                    keywords: "Модели, модельное агентсво, young folks, модели и фотогафы из России Украины СНГ"
-                }
-            }
-        };
         return (
-            <MainLayoutWithNavigationSidebar slider={TopNativeSlider}>
+            <MainLayoutWithNavigationSidebar meta={getMetaData(POST_TYPE.NATIVE)} slider={TopNativeSlider}>
                 <style jsx>{styles}</style>
                 <div className="grid-list-container">
                     {this.props.fetched ?

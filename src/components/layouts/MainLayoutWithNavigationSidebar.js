@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Navbar from '../core/navbar'
 import Footer from '../core/footer'
 import Sidebar from '../core/sidebars/main-sidebar/sidebar'
+// import Slider from "../home/components/slider";
 
-const MainLayoutWithNavigationSidebar = (props, {slider: Slider}) => (
+const MainLayoutWithNavigationSidebar = (props) => (
     <div>
         <style jsx global>{`
         html,
@@ -225,19 +226,24 @@ const MainLayoutWithNavigationSidebar = (props, {slider: Slider}) => (
 
 
         `}</style>
-
-
+        {/*{Slider}*/}
+        {/*{console.log("AAAAA")}*/}
+        {/*{console.log(props)}*/}
+        {/*{{slider : Slider} = props}*/}
         <div>
             <Head>
-                <meta charSet="utf-8"/>
-                <title>test title</title>
+                <meta charSet={props.meta.charset}/>
+                <meta name="description" content={props.meta.description}/>
+                <meta name="keywords" content={props.meta.keywords}/>
+                <link rel="canonical" href={props.meta.canonical}/>
+                <title>{props.meta.title}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
                 <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
             </Head>
             <Navbar/>
-            {Slider && <Slider/>}
+            {/*{{slider : Slider} = props && <Slider/>}*/}
             <div className="child-container">
                 <div className="wrapper">
                     <div className="content-wrapper">

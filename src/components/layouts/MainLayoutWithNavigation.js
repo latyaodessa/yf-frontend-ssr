@@ -225,8 +225,6 @@ const MainLayoutWithNavigation = (props) => (
 
         `}</style>
 
-
-        {console.log(props)}
         <Head>
             <meta charSet={props.meta.charset}/>
             <meta name="description" content={props.meta.description}/>

@@ -5,6 +5,7 @@ import FaceBookLoginButton from '../src/components/user/login/facebook-login';
 import VKLoginButton from '../src/components/user/login/vk-login';
 import Redirector from '../src/components/user/login/redirector';
 import styles from '../res/styles/user/login.scss'
+import meta from '../src/components/home/components/homeMetaGenerator'
 
 class Index extends React.Component {
     static async getInitialProps({store, isServer}) {
@@ -15,7 +16,7 @@ class Index extends React.Component {
 
     render() {
         return (
-            <MainLayoutWithNavigation>
+            <MainLayoutWithNavigation meta={meta}>
                 <style jsx>{styles}</style>
                 <div className="child-container">
                     <div className="wrapper">

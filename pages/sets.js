@@ -4,6 +4,7 @@ import {Link} from '../routes'
 import {fetchSetsPosts} from '../src/actions/post/post-actions';
 import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
+import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
 
 
 const initSizePhoto = 0;
@@ -89,20 +90,8 @@ class SetsList extends React.Component {
 
 
     render() {
-        const meta = {
-            title: "Young Folks - Модели с Украины России и других стран СНГ",
-            description: "Young Folks - Модели с Украины России и других стран СНГ. Модельное Агенство для начинающих истории работа",
-            canonical: "http://youngfolks.ru/native",
-            meta: {
-                charset: 'utf-8',
-                name: {
-                    keywords: "Модели, модельное агентсво, young folks, модели и фотогафы из России Украины СНГ"
-                }
-            }
-        };
         return (
-            <MainLayoutWithNavigationSidebar>
-                {/*<DocumentMeta {...meta} />*/}
+            <MainLayoutWithNavigationSidebar meta={getMetaData(POST_TYPE.SETS)}>
                 <div className="grid-list-container">
                     {this.props.fetched ?
                         <div className="pure-g">{this.renderPics(this.props.post)}</div> : null}
