@@ -8,6 +8,8 @@ import NativeGrid from "../../../home/components/native-grid-component";
 import SetsGrid from "../../../home/components/sets-grid-component";
 import styles from "../../../../../res/styles/main.scss"
 import slider from "../../../../../res/styles/slider.scss"
+import singlePostStyle from "../../../../../res/styles/single-post.scss"
+import selementsStyle from "../../../../../res/styles/common/elements.scss"
 
 
 class RelatedPostsSliderComponent extends React.Component {
@@ -32,14 +34,14 @@ class RelatedPostsSliderComponent extends React.Component {
         };
 
         return (
-            <div>
+            <div className="related-post-slider">
                 <style jsx>{styles}</style>
-                <div className="related-post-slider">
-                    {this.props.fetched ? <Swiper {...params}>
-                        {this.getSlides(this.props.posts)}
-                    </Swiper> : null}
-                </div>
+                <style jsx>{singlePostStyle}</style>
+                {this.props.fetched ? <Swiper {...params}>
+                    {this.getSlides(this.props.posts)}
+                </Swiper> : null}
             </div>
+
         );
     }
 
@@ -51,6 +53,7 @@ class RelatedPostsSliderComponent extends React.Component {
         return posts.map(post => <div>
                 <style jsx>{styles}</style>
                 <style jsx>{slider}</style>
+                <style jsx>{selementsStyle}</style>
                 <div key={post.id}
                      className="hovereffect">
                     <Link route='post' params={{postId: post.id}}>

@@ -12,15 +12,19 @@ import styles from "../../../../../res/styles/single-post.scss"
 // 		savedPost: store.savePost.fetched
 // 	}
 // })
-export default class SavePostButton extends React.Component {
+class SavePostButton extends React.Component {
 
     constructor(props) {
         super(props);
         this.showClosePopup = this.showClosePopup.bind(this);
-        this.state = {
+
+    }
+
+    componentDidMount() {
+        this.setState({
             showPopUp: false,
             popUpData: ""
-        }
+        });
     }
 
     showClosePopup() {
@@ -35,28 +39,23 @@ export default class SavePostButton extends React.Component {
             <div>
                 <style jsx>{styles}</style>
                 <div className="button-container">
-                    {this.state.showPopUp ?
+                    {this.state && this.state.showPopUp ?
                         <PopUp popupHandler={this.showClosePopup} popUpData={this.state.popUpData}/>
                         : null}
                     <div className="save-button-icon">
-                        {this.props.existence ? this.getButtonAlreadySaved() : this.getButtonToSave()}
+                        {this.props.postExistenceByUser.existence ?
+                            <img src="/static/img/64/post_saved.png" onClick={this.savePost.bind(this)}/> :
+                            <img src="/static/img/64/save_post.png" onClick={this.savePost.bind(this)}/>}
                     </div>
                 </div>
             </div>
         )
     }
 
-    getButtonToSave() {
-        return <img src="/static/img/64/save_post.png" onClick={this.savePost.bind(this)}/>;
-    }
-
-    getButtonAlreadySaved() {
-        return <img src="/static/img/64/post_saved.png" onClick={this.savePost.bind(this)}/>;
-    }
-
 
     savePost() {
-        if (this.props.existence) {
+        const userId = localStorage.getItem('user_id');
+        if (this.props.postExistenceByUser.existence) {
             this.setState(
                 {
                     showPopUp: true,
@@ -64,8 +63,8 @@ export default class SavePostButton extends React.Component {
                 }
             )
         }
-        else if (this.props.user_id) {
-            this.props.dispatch(savePostToDashboard(this.props.post.id, this.props.user_id));
+        else if (userId) {
+            this.props.dispatch(savePostToDashboard(this.props.post.id, userId));
             this.setState(
                 {
                     showPopUp: true,
@@ -109,3 +108,13 @@ export default class SavePostButton extends React.Component {
         }
     }
 }
+
+
+function mapStateToProps(state) {
+    console.log("AAAA");
+    console.log(state);
+    return state;
+}
+
+
+export default connect(mapStateToProps)(SavePostButton);

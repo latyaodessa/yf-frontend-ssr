@@ -25,17 +25,16 @@ export const fetchPostPictures = (postId) => dispatch => {
 };
 
 
-export function isPostAlreadySavedByUser(postId, userId) {
-    return function (dispatch) {
-        axios.get(IS_POST_ALREADY_EXIST_BY_USER + "/" + userId + "/" + postId)
-            .then((res) => {
-                dispatch({type: GET_IS_POST_EXIST_FULFILLED, payload: res.data});
-            })
-            .catch((err) => {
-                dispatch({type: GET_IS_POST_EXIST_REJECTED, payload: err})
-            })
-    }
-}
+export const isPostAlreadySavedByUser = (postId, userId) => dispatch => {
+    return axios.get(IS_POST_ALREADY_EXIST_BY_USER + "/" + userId + "/" + postId)
+        .then((res) => {
+            dispatch({type: GET_IS_POST_EXIST_FULFILLED, payload: res.data});
+        })
+        .catch((err) => {
+            dispatch({type: GET_IS_POST_EXIST_REJECTED, payload: err})
+        })
+};
+
 
 export const getRelatedPosts = (query, excludeId) => dispatch => {
     return axios.get(FIND_RELATED_POSTS + "?query=" + query + "&excludeId=" + excludeId)

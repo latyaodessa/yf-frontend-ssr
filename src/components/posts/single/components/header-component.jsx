@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import SavePostButton from '../components/save-post-button';
 import HeaderText from '../components/header-text-component';
 import {isPostAlreadySavedByUser} from "../../../../actions/post/single-post-actions";
+import styles from "../../../../../res/styles/single-post.scss"
 
 // @connect((store) => {
 // 	return {
@@ -10,23 +11,22 @@ import {isPostAlreadySavedByUser} from "../../../../actions/post/single-post-act
 // 	}
 // })
 
-import styles from "../../../../../res/styles/single-post.scss"
 
-
-export default class Header extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
         // this.checkIsPostAlreadySavedByUser = this.checkIsPostAlreadySavedByUser.bind(this);
 
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         this.checkIsPostAlreadySavedByUser();
     }
 
     checkIsPostAlreadySavedByUser() {
-        if (this.props.user_id) {
-            this.props.dispatch(isPostAlreadySavedByUser(this.props.post.id, this.props.user_id))
+        const userId = localStorage.getItem('user_id');
+        if (userId) {
+            this.props.dispatch(isPostAlreadySavedByUser(this.props.post.id, userId))
         }
     }
 
@@ -44,3 +44,10 @@ export default class Header extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return state;
+}
+
+
+export default connect(mapStateToProps)(Header);

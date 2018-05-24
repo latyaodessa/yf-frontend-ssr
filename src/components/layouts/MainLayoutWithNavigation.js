@@ -237,7 +237,6 @@ class MainLayoutWithNavigation extends React.Component {
 
 
         `}</style>
-                {console.log(this.props.meta)}
                 <Head>
                     <meta charSet={this.props.meta.charset}/>
                     <meta name="description" content={this.props.meta.description}/>

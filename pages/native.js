@@ -6,6 +6,7 @@ import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
 import TopNativeSlider from '../src/components/posts/lists/top-native-slider'
 import styles from '../res/styles/main.scss'
+import elementsStyles from '../res/styles/common/elements.scss'
 import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
 
 const initSizePhoto = 0;
@@ -77,6 +78,7 @@ class NativeList extends React.Component {
             <div key={post.id}
                  className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 ">
                 <style jsx>{styles}</style>
+                <style jsx>{elementsStyles}</style>
                 <div className="grig-img-container hovereffect">
 
                     <img className="grig-img" src={post.thumbnail}/>

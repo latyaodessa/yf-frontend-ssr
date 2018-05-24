@@ -34,12 +34,12 @@ class SinglePost extends React.Component {
 //         window.scrollTo(0, 0);
     }
 
-    componentDidUpdate() {
-        // if (this.props.match.params.postId !== this.state.postId) {
-        //     this.handleUpdatePostFromRelative();
-        // }
-
-    }
+    // componentDidUpdate() {
+    //     // if (this.props.match.params.postId !== this.state.postId) {
+    //     //     this.handleUpdatePostFromRelative();
+    //     // }
+    //
+    // }
 
     handleUpdatePostFromRelative() {
         window.scrollTo(0, 0);
@@ -62,7 +62,6 @@ class SinglePost extends React.Component {
             <MainLayoutWithNavigation meta={meta(this.props.post)}>
                 <style jsx>{styles}</style>
                 <div className="child-container">
-                    {/*<DocumentMeta {...meta} />*/}
                     <div className="wrapper">
                         <div className="content-wrapper">
                             <div className="content">
