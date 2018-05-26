@@ -1,0 +1,19 @@
+version: "3"
+services:
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - nginx-proxy
+  frontend:
+    restart: always
+    build: ./../
+    ports:
+      - "3000:3000"
+    networks:
+      - nginx-proxy
+networks:
+  nginx-proxy:
