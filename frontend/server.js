@@ -30,6 +30,11 @@ const options = {
         'Content-Type': 'text/plain;charset=UTF-8',
     }
 };
+
+expr.get('/googlee97847b6446f2225.html', (req, res) => (
+    res.status(200).sendFile('googlee97847b6446f2225.html', options)
+));
+
 expr.get('/robots.txt', (req, res) => (
     res.status(200).sendFile('robots.txt', options)
 ));
