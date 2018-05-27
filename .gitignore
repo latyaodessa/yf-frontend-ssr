@@ -1,3 +1,7 @@
 .idea/
 .next/
 node_modules/
+frontend/node_modules/
+frontend/.idea/
+parsers/node_modules/
+parsers/.idea/

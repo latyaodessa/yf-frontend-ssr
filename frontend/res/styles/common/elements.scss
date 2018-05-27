@@ -1,0 +1,49 @@
+$camera_img_black: url('http://youngfolks.ru/img/32/camera.png');
+$model_img_black: url('http://youngfolks.ru/img/32/model.png');
+$art_img_black: url('http://youngfolks.ru/img/32/painter.png');
+
+$camera_img_white: url('http://youngfolks.ru/img/32/camera-white.png');
+$model_img_white: url('http://youngfolks.ru/img/32/model-white.png');
+$art_img_white: url('http://youngfolks.ru/img/32/painter-white.png');
+
+
+
+/*icon list*/
+.ph{
+  list-style-image: $camera_img_black;
+
+}
+.md{
+  list-style-image: $model_img_black;
+}
+
+.art{
+  list-style-image: $art_img_black;
+}
+.ph li, .md li, .art li  {
+  font-size: 20px;
+  margin-bottom: 15px;
+  line-height: 21px;
+  padding-left: 15px;
+
+}
+.ul-main-list{
+  margin-top: 30px;
+}
+.ph-white{
+  list-style-image: $camera_img_white;
+}
+.md-white{
+  list-style-image: $model_img_white;
+}
+.art-white{
+  list-style-image: $art_img_white;
+}
+
+.ph-white li, .md-white li, .art-white li {
+  font-size: 20px;
+  text-align: center;
+  position: relative;
+  background-color: transparent;
+  color: #FFF;
+}

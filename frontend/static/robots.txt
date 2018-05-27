@@ -1,0 +1,7 @@
+# User-agent: *
+
+# Disallow: /dashboard
+
+# Disallow: *?s=
+
+Sitemap: http://youngfolks.ru/sitemap.xml
