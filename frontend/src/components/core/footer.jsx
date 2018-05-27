@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<ul className="navigation">
 			<li>
-				FOOTER
+				{/*FOOTER*/}
 				{/*<Link to="/" className="active">Главная</Link>*/}
 			</li>
 		</ul>

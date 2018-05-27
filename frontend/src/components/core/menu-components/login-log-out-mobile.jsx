@@ -48,10 +48,11 @@ class MobileLoginLogoutButton extends React.Component {
     getLoginButton() {
         return <div>
             <style jsx>{styles}</style>
-            <Link href="/login">
-                Войти
+            <Link href="/login"><a>
+                Войти</a>
             </Link>
         </div>
+
     }
 
     getLogoutButtonMobile() {
