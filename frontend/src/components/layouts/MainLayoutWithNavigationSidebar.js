@@ -246,6 +246,19 @@ class MainLayoutWithNavigationSidebar extends React.Component {
                     {/*{{slider : Slider} = props}*/}
                     <div>
                         <Head>
+                            <link rel="apple-touch-icon" sizes="57x57" href="/static/img/f/apple-icon-57x57.png"/>
+                            <link rel="apple-touch-icon" sizes="60x60" href="/static/img/f/apple-icon-60x60.png"/>
+                            <link rel="apple-touch-icon" sizes="72x72" href="/static/img/f/apple-icon-72x72.png"/>
+                            <link rel="apple-touch-icon" sizes="76x76" href="/static/img/f/apple-icon-76x76.png"/>
+                            <link rel="apple-touch-icon" sizes="114x114" href="/static/img/f/apple-icon-114x114.png"/>
+                            <link rel="apple-touch-icon" sizes="120x120" href="/static/img/f/apple-icon-120x120.png"/>
+                            <link rel="apple-touch-icon" sizes="144x144" href="/static/img/f/apple-icon-144x144.png"/>
+                            <link rel="apple-touch-icon" sizes="152x152" href="/static/img/f/apple-icon-152x152.png"/>
+                            <link rel="apple-touch-icon" sizes="180x180" href="/static/img/f/apple-icon-180x180.png"/>
+                            <link rel="icon" type="image/png" sizes="192x192" href="/static/img/f/android-icon-192x192.png"/>
+                            <link rel="icon" type="image/png" sizes="32x32" href="/static/img/f/favicon-32x32.png"/>
+                            <link rel="icon" type="image/png" sizes="96x96" href="/static/img/f/favicon-96x96.png"/>
+                            <link rel="icon" type="image/png" sizes="16x16" href="/static/img/f/favicon-16x16.png"/>
                             <meta charSet={this.props.meta.charset}/>
                             <meta name="description" content={this.props.meta.description}/>
                             <meta name="keywords" content={this.props.meta.keywords}/>
