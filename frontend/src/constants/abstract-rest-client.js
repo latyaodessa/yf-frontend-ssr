@@ -1,1 +1,1 @@
-export const HOST = 'http://youngfolks.ru/';
+export const HOST = 'https://youngfolks.ru/';
