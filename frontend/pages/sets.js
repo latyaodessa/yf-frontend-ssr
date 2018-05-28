@@ -76,16 +76,18 @@ class SetsList extends React.Component {
             <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
             <Link route='post' params={{postId: post.id}}>
-                <div className="overlay">
-                    <div className="ul-main-list">
-                        {post.md ? <ul className="md-white">
-                            <li>{post.md}</li>
-                        </ul> : null}
-                        {post.ph ? <ul className="ph-white">
-                            <li>{post.ph}</li>
-                        </ul> : null}
+                <a>
+                    <div className="overlay">
+                        <div className="ul-main-list">
+                            {post.md ? <ul className="md-white">
+                                <li>{post.md}</li>
+                            </ul> : null}
+                            {post.ph ? <ul className="ph-white">
+                                <li>{post.ph}</li>
+                            </ul> : null}
+                        </div>
                     </div>
-                </div>
+                </a>
             </Link>
         </div>)
     }
