@@ -4,12 +4,20 @@ const next = require('next');
 const routes = require('./routes');
 const app = next({dev: process.env.NODE_ENV !== 'production'});
 const handler = routes.getRequestHandler(app);
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 require('body-parser-xml')(bodyParser);
+
+const fs = require('fs'),
+    parseString = require('xml2js').parseString,
+    xml2js = require('xml2js');
+
 
 const express = require('express');
 
 let expr = express();
+
+// expr.use(bodyParser.json({limit: '50mb'}));
+// expr.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 expr.use(bodyParser.json());
 expr.use(bodyParser.xml({
@@ -44,6 +52,37 @@ expr.get('/sitemap.xml', (req, res) => (
 ));
 
 expr.post('/sitemap', function (req, res) {
-    console.log("Got a POST request for the homepage");
-    res.send('Hello POST');
+    const pathToSiteXml = "static/sitemap.xml";
+
+    fs.readFile(pathToSiteXml, 'utf-8', function (err, data) {
+        if (err) console.log(err);
+
+        parseString(data, function (err, result) {
+            if (err) console.log(err);
+
+            let newSiteMap = result;
+
+            req.body.forEach(url => {
+                let existingUrl = result.urlset.url.find(ele => {
+                    return ele.loc[0] === url.loc;
+                });
+
+                if (!existingUrl) {
+                    newSiteMap.urlset.url.unshift(url);
+                }
+
+            });
+
+            let builder = new xml2js.Builder();
+            let xml = builder.buildObject(newSiteMap);
+
+            fs.writeFile(pathToSiteXml, xml, function (err, data) {
+                if (err) console.log(err);
+                console.log("successfully updated SITEMAP");
+            });
+
+
+        });
+        res.send('Request recieved');
+    });
 });
