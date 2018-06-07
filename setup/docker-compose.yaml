@@ -47,5 +47,18 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
       - nginx-proxy
+  elasticsearch:
+    build: ./
+    container_name: elasticsearch
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - nginx-proxy
 networks:
   nginx-proxy:
+volumes:
+  backend:
+  postgres-data:
