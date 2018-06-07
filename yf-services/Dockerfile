@@ -9,3 +9,4 @@ COPY docker/yf-services.war glassfish/domains/domain1/autodeploy/yf-services.war
 EXPOSE 4848
 EXPOSE 8080
 EXPOSE 8181
+EXPOSE 9009

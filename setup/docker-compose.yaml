@@ -14,7 +14,7 @@ services:
     restart: always
     build: ./../frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     networks:
       - nginx-proxy
   backend:
@@ -52,9 +52,12 @@ services:
     container_name: elasticsearch
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
+      - "9009:9009"
     networks:
       - nginx-proxy
 networks:

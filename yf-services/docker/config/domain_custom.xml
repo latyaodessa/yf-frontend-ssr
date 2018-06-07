@@ -69,7 +69,7 @@
             <property name="value" value="http://frontend/"></property>
         </custom-resource>
         <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.parser.uri">
-            <property name="value" value="http://parser/"></property>
+            <property name="value" value="http://parser:8080/"></property>
         </custom-resource>
     </resources>
     <servers>
