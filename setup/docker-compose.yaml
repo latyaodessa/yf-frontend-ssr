@@ -1,6 +1,7 @@
 version: "3"
 services:
   nginx:
+    container_name: nginx
     restart: always
     build: ./nginx
     ports:
@@ -9,10 +10,41 @@ services:
     networks:
       - nginx-proxy
   frontend:
+    container_name: frontend
     restart: always
     build: ./../frontend
     ports:
       - "3000:3000"
+    networks:
+      - nginx-proxy
+  backend:
+    container_name: backend
+    restart: always
+    build: ./../yf-services
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+      - "4848:4848"
+    volumes:
+      - ./backend:/glassfish/domains/domain1/logs/
+    networks:
+      - nginx-proxy
+  parser:
+    container_name: parser
+    restart: always
+    build: ./../parser
+    ports:
+      - "9091:8080"
+    networks:
+      - nginx-proxy
+  database:
+    container_name: database
+    restart: always
+    build: ./database
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     networks:
       - nginx-proxy
 networks:
