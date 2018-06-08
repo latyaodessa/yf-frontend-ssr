@@ -16,8 +16,8 @@ const express = require('express');
 
 let expr = express();
 
-// expr.use(bodyParser.json({limit: '50mb'}));
-// expr.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+expr.use(bodyParser.json({limit: '50mb'}));
+expr.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 expr.use(bodyParser.json());
 expr.use(bodyParser.xml({

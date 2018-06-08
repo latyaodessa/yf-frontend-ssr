@@ -15,6 +15,8 @@ services:
     build: ./../frontend
     ports:
       - "3000:80"
+    volumes:
+      - frontend-data:/app/static
     networks:
       - nginx-proxy
   backend:
@@ -27,7 +29,7 @@ services:
       - "4848:4848"
       - "9009:9009"
     volumes:
-      - backend-data:/glassfish/domains/domain1/logs/
+      - backend-data:/glassfish/domains/domain1/logs
     networks:
       - nginx-proxy
   parser:
