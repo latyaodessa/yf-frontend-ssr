@@ -66,7 +66,7 @@
             <property name="value" value="9300"></property>
         </custom-resource>
         <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.frontend.uri">
-            <property name="value" value="http://frontend/"></property>
+            <property name="value" value="http://frontend:3000/"></property>
         </custom-resource>
         <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.parser.uri">
             <property name="value" value="http://parser:8080/"></property>

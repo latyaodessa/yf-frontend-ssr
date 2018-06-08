@@ -25,8 +25,9 @@ services:
       - "8080:8080"
       - "8181:8181"
       - "4848:4848"
+      - "9009:9009"
     volumes:
-      - ./backend:/glassfish/domains/domain1/logs/
+      - backend-data:/glassfish/domains/domain1/logs/
     networks:
       - nginx-proxy
   parser:
@@ -44,7 +45,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - nginx-proxy
   elasticsearch:
@@ -52,16 +53,16 @@ services:
     container_name: elasticsearch
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes:
-      - ./esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
-      - "9009:9009"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
       - nginx-proxy
 networks:
   nginx-proxy:
 volumes:
-  backend:
+  backend-data:
   postgres-data:
+  elasticsearch-data:
