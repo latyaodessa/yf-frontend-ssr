@@ -68,3 +68,4 @@ volumes:
   backend-data:
   postgres-data:
   elasticsearch-data:
+  frontend-data:
