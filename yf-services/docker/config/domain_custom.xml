@@ -186,7 +186,7 @@
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
                         <property name="dynamic.username.password" value="false"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                     </provider-config>
                     <provider-config provider-type="client" provider-id="ClientProvider" class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule">
                         <request-policy auth-source="content"></request-policy>
@@ -194,7 +194,7 @@
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
                         <property name="dynamic.username.password" value="false"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                         <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"></property>
                     </provider-config>
                     <provider-config provider-type="server" provider-id="XWS_ServerProvider" class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule">
@@ -202,14 +202,14 @@
                         <response-policy auth-source="content"></response-policy>
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                     </provider-config>
                     <provider-config provider-type="server" provider-id="ServerProvider" class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule">
                         <request-policy auth-source="content"></request-policy>
                         <response-policy auth-source="content"></response-policy>
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                         <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"></property>
                     </provider-config>
                 </message-security-config>
@@ -385,7 +385,7 @@
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
                         <property name="dynamic.username.password" value="false"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                     </provider-config>
                     <provider-config provider-type="client" provider-id="ClientProvider" class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule">
                         <request-policy auth-source="content"></request-policy>
@@ -393,7 +393,7 @@
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
                         <property name="dynamic.username.password" value="false"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                         <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"></property>
                     </provider-config>
                     <provider-config provider-type="server" provider-id="XWS_ServerProvider" class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule">
@@ -401,14 +401,14 @@
                         <response-policy auth-source="content"></response-policy>
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                     </provider-config>
                     <provider-config provider-type="server" provider-id="ServerProvider" class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule">
                         <request-policy auth-source="content"></request-policy>
                         <response-policy auth-source="content"></response-policy>
                         <property name="encryption.key.alias" value="s1as"></property>
                         <property name="signature.key.alias" value="s1as"></property>
-                        <property name="debug" value="false"></property>
+                        <property name="debug" value="true"></property>
                         <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"></property>
                     </provider-config>
                 </message-security-config>
@@ -423,8 +423,7 @@
             </notification-service-configuration>
             <monitoring-service-configuration></monitoring-service-configuration>
             <diagnostic-service></diagnostic-service>
-            <java-config classpath-suffix="" debug-options="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUGGER_PORT}" system-classpath="">
-                <jvm-options>-XX:MaxPermSize=192m</jvm-options>
+            <java-config classpath-suffix="" debug-options="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUGGER_PORT}" system-classpath="">                <jvm-options>-XX:MaxPermSize=192m</jvm-options>
                 <jvm-options>-server</jvm-options>
                 <jvm-options>-Djava.awt.headless=true</jvm-options>
                 <jvm-options>-Djdk.corba.allowOutputStreamSubclass=true</jvm-options>

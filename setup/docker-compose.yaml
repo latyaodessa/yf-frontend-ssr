@@ -28,6 +28,7 @@ services:
       - "8181:8181"
       - "4848:4848"
       - "9009:9009"
+      - "29009:29009"
     volumes:
       - backend-data:/glassfish/domains/domain1/logs
     networks:
