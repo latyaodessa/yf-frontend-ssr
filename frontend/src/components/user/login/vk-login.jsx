@@ -1,22 +1,15 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {getUserByID, createVkUser} from '../../../actions/user/user-actions';
+import {createVkUser, getUserByVKID} from '../../../actions/user/user-actions';
 import styles from '../../../../res/styles/user/login.scss'
+import {login} from "../../../actions/core/login-logout-actions";
 
-// @connect((store) => {
-// 	return {
-// 		user: store.user,
-// 		vk_user: store.vk,
-// 		loginLogout: store.loginLogout
-// 	}
-// })
 class VKLoginButton extends React.Component {
 
     constructor(props) {
         super(props);
         this.clickVk = this.clickVk.bind(this);
         this.getVkUserById = this.getVkUserById.bind(this);
-        this.createVkUser = this.createVkUser.bind(this);
 
     }
 
@@ -36,11 +29,6 @@ class VKLoginButton extends React.Component {
         this.loadSdkAsynchronously();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!this.isRegisteredUserFetchedAndExist(nextProps) && !this.isVkUserFetched(nextProps) && this.state.user_type == 'vk') {
-            this.createVkUser(this.state.vk_user_auth.id);
-        }
-    }
 
     isRegisteredUserFetchedAndExist(nextProps) {
         return nextProps.user.user && nextProps.user.fetched;
@@ -62,6 +50,10 @@ class VKLoginButton extends React.Component {
         this.setState({isSdkLoaded: true});
     }
 
+    loginToYF() {
+        this.props.dispatch(login());
+    }
+
     loadSdkAsynchronously() {
         const el = document.createElement('script');
         el.type = 'text/javascript';
@@ -72,12 +64,20 @@ class VKLoginButton extends React.Component {
     }
 
     getVkUserById(userId) {
-        this.props.dispatch(getUserByID(userId));
+        this.props.dispatch(getUserByVKID(userId)).then(() => {
+            if (this.props.user && this.props.user.fetched === true && this.props.user.user) {
+                this.loginToYF();
+            } else {
+                if (this.state.vk_user_auth) {
+                    this.props.dispatch(createVkUser(this.state.vk_user_auth.id)).then(() => {
+                        this.loginToYF();
+                    });
+                }
+            }
+
+        })
     }
 
-    createVkUser(userId) {
-        this.props.dispatch(createVkUser(userId));
-    }
 
     clickVk() {
         VK.Auth.login(function (response) {
@@ -103,6 +103,8 @@ class VKLoginButton extends React.Component {
         )
     }
 }
+function mapStateToProps(state) {
+    return state;
+}
 
-
-export default connect()(VKLoginButton)
+export default connect(mapStateToProps)(VKLoginButton)

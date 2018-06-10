@@ -2,7 +2,8 @@ import {HOST} from './abstract-rest-client'
 
 const BACKEND_REST = "yf-services/rest/";
 
-export const GET_USER_BY_ID = HOST() + BACKEND_REST + "user/get/";
+export const GET_VK_USER_BY_SOCIAL_ID = HOST() + BACKEND_REST + "user/vk/";
+export const GET_FB_USER_BY_SOCIAL_ID = HOST() + BACKEND_REST + "user/fb/";
 export const CREATE_FB_USER = HOST() + BACKEND_REST +  "user/fb/create/";
 export const CREATE_VK_USER = HOST()  + BACKEND_REST + "user/vk/create/";
 

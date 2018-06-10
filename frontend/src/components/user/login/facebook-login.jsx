@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getUserByID, createFBUser} from '../../../actions/user/user-actions';
+import {createFBUser, getUserByFBID} from '../../../actions/user/user-actions';
 import {login} from '../../../actions/core/login-logout-actions';
 import styles from '../../../../res/styles/user/login.scss'
 
@@ -17,6 +17,7 @@ class FaceBookLoginButton extends React.Component {
         super(props);
         this.me = this.me.bind(this);
         this.login = this.login.bind(this);
+        this.getUserByFBID = this.getUserByFBID.bind(this);
     }
 
     state = {
@@ -48,9 +49,9 @@ class FaceBookLoginButton extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && !this.isRegisteredUserFetchedAndExist(nextProps) && !this.isFBUserFetched(nextProps) && this.state.user_type == 'fb') {
-            this.props.dispatch(createFBUser(this.state.user_auth));
-        }
+        // if (nextProps && !this.isRegisteredUserFetchedAndExist(nextProps) && !this.isFBUserFetched(nextProps) && this.state.user_type === 'fb') {
+        //     this.props.dispatch(createFBUser(this.state.user_auth));
+        // }
     }
 
     isRegisteredUserFetchedAndExist(nextProps) {
@@ -71,8 +72,13 @@ class FaceBookLoginButton extends React.Component {
             'website', 'picture.height(200).width(200)'];
 
         FB.api('/me?fields=' + FB_REQUESTED_FIELDS.join(','), function (res) {
+
+            localStorage.clear();
+            localStorage.setItem('user_thumbnail', res.picture.data.url);
+            delete res.picture;
+            console.log(res);
             this.setState({user_auth: res, user_type: "fb"});
-            this.getUserById(res.id);
+            this.getUserByFBID(res.id);
             this.loginToYF();
         }.bind(this));
     }
@@ -83,8 +89,22 @@ class FaceBookLoginButton extends React.Component {
         }.bind(this));
     }
 
-    getUserById(userId) {
-        this.props.dispatch(getUserByID(userId));
+    getUserByFBID(userId) {
+        this.props.dispatch(getUserByFBID(userId)).then(() => {
+
+            if (this.props.user && this.props.user.fetched === true && this.props.user.user) {
+                this.loginToYF();
+
+            } else {
+                if (this.state.user_auth) {
+                    this.props.dispatch(createFBUser(this.state.user_auth)).then(() => {
+                        this.loginToYF();
+                    });
+                }
+            }
+
+
+        });
     }
 
     render() {
