@@ -46,7 +46,7 @@ services:
     restart: always
     build: ./database
     ports:
-      - "5432:5432"
+      - "53249:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -57,8 +57,8 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "3200:9200"
+      - "3300:9300"
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
