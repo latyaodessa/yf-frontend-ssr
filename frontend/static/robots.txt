@@ -2,6 +2,4 @@
 
 # Disallow: /dashboard
 
-# Disallow: *?s=
-
-Sitemap: http://youngfolks.ru/sitemap.xml
+Sitemap: https://youngfolks.ru/sitemap.xml
