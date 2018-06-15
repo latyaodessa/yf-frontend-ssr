@@ -46,6 +46,10 @@ expr.get('/yandex_f923a12f5940f7a4.html', (req, res) => (
     res.status(200).sendFile('yandex_f923a12f5940f7a4.html', options)
 ));
 
+expr.get('/.well-known/pki-validation/E2614052870FBC9733FFDA272E094F14.txt', (req, res) => (
+    res.status(200).sendFile('pki-validation/E2614052870FBC9733FFDA272E094F14.txt', options)
+));
+
 expr.get('/robots.txt', (req, res) => (
     res.status(200).sendFile('robots.txt', options)
 ));
