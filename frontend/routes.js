@@ -6,4 +6,5 @@ routes
     .add('sets')
     .add('art')
     .add('dashboard')
+    .add('profile')
     .add('post', '/post/:postId')
