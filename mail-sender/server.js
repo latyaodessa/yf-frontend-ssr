@@ -46,8 +46,8 @@ router.post('/send', function (req, res) {
 });
 
 
-app.listen(8081);
-console.log("running trigger on 8081");
+app.listen(8080);
+console.log("running trigger on 8080");
 
 
 
