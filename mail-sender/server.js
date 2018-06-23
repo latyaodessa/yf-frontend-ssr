@@ -38,9 +38,9 @@ router.post('/send', function (req, res) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
-            res.send(false);
+            res.status(500).send({error: error});
         }
-        res.send(true);
+        res.status(200).send(info);
 
     });
 });
