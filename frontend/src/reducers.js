@@ -18,27 +18,30 @@ import savePost from './reducers/user/dashboard/save-post-to-dashboard-reducer'
 import deletePost from './reducers/user/dashboard/delete-post-from-dashboard'
 import postExistenceByUser from './reducers/post/post-existence-by-user-reducer'
 
-import { routerReducer as routing } from 'react-router-redux';
+import {login, register, requestPassword, uuid, reset} from './reducers/user/auth/authReducers'
+
+import {routerReducer as routing} from 'react-router-redux';
 
 
 export default combineReducers({
-	native,
-	sets,
-	art,
-	single,
-	related,
-	topNative,
-	topSets,
-	searchPosts,
-	window,
-	loginLogout,
-	user,
-	facebook,
-	vk,
-	savedPosts,
-	savedPhotos,
-	savePost,
-	deletePost,
-	postExistenceByUser,
-	routing
+    native,
+    sets,
+    art,
+    single,
+    related,
+    topNative,
+    topSets,
+    searchPosts,
+    window,
+    loginLogout,
+    user,
+    facebook,
+    vk,
+    savedPosts,
+    savedPhotos,
+    savePost,
+    deletePost,
+    postExistenceByUser,
+    login, register, requestPassword, uuid, reset,
+    routing
 })

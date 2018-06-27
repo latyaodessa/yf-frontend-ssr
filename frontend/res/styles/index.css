@@ -594,12 +594,14 @@ h1 {
 
 .profile-container {
   margin-top: -3.5em;
-  padding: 5em 1.5em 1.5em 1.5em;
-  background: #fbfbfb;
-  max-width: 350px;
+  padding: 1em 0.5em 1em 0.5em;
+  background: #f7f7f7;
+  max-width: 500px;
   text-align: center;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
 
 .button {
   display: block;

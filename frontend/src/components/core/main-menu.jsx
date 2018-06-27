@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import {ART_PAGE, MAIN_PAGE, NATIVE_PAGE, SETS_PAGE} from '../../messages/core'
-import LoginLogoutButton from '../core/menu-components/login-logout-button'
 // import SearchIcon from '../../static/img/64/search-icon.png'
 import styles from '../../../res/styles/navigation.scss'
 import searchStyles from '../../../res/styles/search-post.scss'

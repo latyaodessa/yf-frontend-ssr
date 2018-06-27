@@ -1,0 +1,15 @@
+.form-footer {
+  font-size: 1em;
+  padding: 1em 0 1em 0;
+  text-align: center; }
+
+.form-footer a {
+  color: #8c8c8c;
+  text-decoration: none;
+  transition: border-color 0.3s;
+  cursor: pointer; }
+
+.form-footer a:hover {
+  border-bottom: 1px dotted #8c8c8c; }
+
+/*# sourceMappingURL=login-style.css.map */
