@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'next/router'
 import {connect} from 'react-redux';
-
+import {verifyLoggedInUser} from "../../../services/CookieService";
 
 class Redirector extends React.Component {
 
@@ -10,12 +10,12 @@ class Redirector extends React.Component {
 
     }
 
-
-
     componentDidMount() {
-        if (localStorage.getItem('user_id')) {
-            Router.push('/dashboard');
-        }
+        verifyLoggedInUser().then(valid => {
+            if (valid) {
+                Router.push('/profile');
+            }
+        })
     }
 
 
@@ -25,10 +25,6 @@ class Redirector extends React.Component {
 }
 
 function mapStateToProps(state) {
-
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('user_id')) {
-        Router.push('/dashboard');
-    }
     return state;
 }
 

@@ -25,13 +25,12 @@ class Login extends React.Component {
         if (query.uuid) {
             await store.dispatch(validateVerificationUUID(query.uuid));
         }
+
         return {uuid: query.uuid}
     }
 
     constructor(props) {
         super(props);
-        console.log(props);
-
         this.state = {
             active: props.uuid ? REST_PASSWORD_FORM : LOGIN_FORM,
             uuid: props.uuid
@@ -78,6 +77,7 @@ class Login extends React.Component {
         )
     }
 }
+
 function mapStateToProps(state) {
     const {uuid} = state;
     return uuid;

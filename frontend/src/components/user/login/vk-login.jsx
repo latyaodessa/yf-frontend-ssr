@@ -82,8 +82,9 @@ class VKLoginButton extends React.Component {
     clickVk() {
         VK.Auth.login(function (response) {
             if (response.session) {
-                this.setState({vk_user_auth: response.session.user, user_type: "vk"});
-                this.getVkUserById(response.session.user.id);
+                console.log(response);
+                // this.setState({vk_user_auth: response.session.user, user_type: "vk"});
+                // this.getVkUserById(response.session.user.id);
             }
         }.bind(this))
     };
