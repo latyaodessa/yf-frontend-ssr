@@ -71,6 +71,12 @@
         <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.parser.uri">
             <property name="value" value="http://parser:8080/"></property>
         </custom-resource>
+        <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.domain">
+            <property name="value" value="https://youngfolks.ru/"></property>
+        </custom-resource>
+        <custom-resource factory-class="org.glassfish.resources.custom.factory.PrimitivesAndStringFactory" res-type="java.lang.String" jndi-name="yf.mail.sender">
+            <property name="value" value="http://mailsender:8080/"></property>
+        </custom-resource>
     </resources>
     <servers>
         <server config-ref="server-config" name="server">
@@ -89,6 +95,9 @@
             <resource-ref ref="yf.elastic.port"></resource-ref>
             <resource-ref ref="yf.frontend.uri"></resource-ref>
             <resource-ref ref="yf.parser.uri"></resource-ref>
+            <resource-ref ref="yf.domain"></resource-ref>
+            <resource-ref ref="yf.mail.sender"></resource-ref>
+
         </server>
     </servers>
     <nodes>

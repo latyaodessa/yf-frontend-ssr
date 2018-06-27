@@ -29,8 +29,6 @@ services:
       - "4848:4848"
       - "9009:9009"
       - "29009:29009"
-    volumes:
-      - backend-data:/glassfish/domains/domain1/logs
     networks:
       - nginx-proxy
   parser:
@@ -39,6 +37,14 @@ services:
     build: ./../parser
     ports:
       - "9091:8080"
+    networks:
+      - nginx-proxy
+  mailsender:
+    container_name: mailsender
+    restart: always
+    build: ./../mail-sender
+    ports:
+      - "9092:8080"
     networks:
       - nginx-proxy
   database:
@@ -66,7 +72,6 @@ services:
 networks:
   nginx-proxy:
 volumes:
-  backend-data:
   postgres-data:
   elasticsearch-data:
   frontend-data:
