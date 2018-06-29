@@ -10,15 +10,13 @@ import searchPosts from './reducers/post/search-post-reducer'
 import window from './reducers/window-reducer'
 import loginLogout from './reducers/core/login-logout-reducer'
 import facebook from './reducers/user/facebook-login-reducer'
-import user from './reducers/user/user-reducer'
-import vk from './reducers/user/vk-reducer'
 import savedPosts from './reducers/user/dashboard/saved-posts-reducer'
 import savedPhotos from './reducers/user/dashboard/saved-photos-reducer'
 import savePost from './reducers/user/dashboard/save-post-to-dashboard-reducer'
 import deletePost from './reducers/user/dashboard/delete-post-from-dashboard'
 import postExistenceByUser from './reducers/post/post-existence-by-user-reducer'
 
-import {login, register, requestPassword, uuid, reset, verify} from './reducers/user/auth/authReducers'
+import {login, register, requestPassword, uuid, reset, verify, socialUser} from './reducers/user/auth/authReducers'
 
 import {routerReducer as routing} from 'react-router-redux';
 
@@ -34,14 +32,12 @@ export default combineReducers({
     searchPosts,
     window,
     loginLogout,
-    user,
     facebook,
-    vk,
     savedPosts,
     savedPhotos,
     savePost,
     deletePost,
     postExistenceByUser,
-    login, register, requestPassword, uuid, reset, verify,
+    login, register, requestPassword, uuid, reset, verify, socialUser,
     routing
 })

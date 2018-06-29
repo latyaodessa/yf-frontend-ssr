@@ -12,6 +12,7 @@ import {
     VERIFY_VERIFICATION_FULFILLED,
     VERIFY_VERIFICATION_REJECTED
 } from "../../../constants/user/AuthConstants"
+import {GET_USER_FULFILLED, GET_USER_REJECTED} from "../../../constants/user/user-constants"
 
 export function login(state =
                           {
@@ -168,6 +169,35 @@ export function verify(state =
             return {...state, fetching: false, error: action.payload, data: null}
         }
         case VERIFY_VERIFICATION_FULFILLED: {
+            return {
+                ...state,
+                fetching: false,
+                fetched: true,
+                data: action.payload,
+                error: null
+            }
+        }
+        default: {
+            return {...state}
+        }
+    }
+}
+
+
+export function socialUser(state =
+                               {
+                                   data: null,
+                                   fetching: false,
+                                   fetched: false,
+                                   error: null
+                               }
+    , action) {
+
+    switch (action.type) {
+        case GET_USER_REJECTED: {
+            return {...state, fetching: false, error: action.payload, data: null}
+        }
+        case GET_USER_FULFILLED: {
             return {
                 ...state,
                 fetching: false,

@@ -7,6 +7,7 @@ export const REGISTER_FROM_TITLE = "Новый аккаунт";
 export const REQUEST_NEW_PASSWORD_FROM_TITLE = "Забыли пароль?";
 export const RESET_PASSWORD_FROM_TITLE = "Сбросить пароль";
 export const VERIFICATION_FROM_TITLE = "Верификация";
+export const SOCICAL_AUTH_FROM_TITLE = "Авторизируйте свой аккаунт";
 
 
 export const REGISTER_LINK = "Зарегистрироваться";
@@ -20,6 +21,7 @@ export const TO_PROFILE_LINK = "Перейти в свой профиль";
 
 export const SIGN_IN_BUTTON = "Войти";
 export const REGISTER_BUTTON = "Зарегистрироваться";
+export const SOCIAL_AUTH_BUTTON = "Авторизироваться";
 export const REQUEST_RESET_BUTTON = "Восстановить пароль";
 export const RESET_BUTTON = "Сбросить пароль";
 

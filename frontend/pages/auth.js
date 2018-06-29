@@ -8,6 +8,7 @@ import styles from '../res/styles/user/login.scss'
 import meta from '../src/components/home/components/homeMetaGenerator'
 import LoginForm from '../src/components/user/login/LoginForm'
 import RegistrationForm from '../src/components/user/login/RegisterForm'
+import SocialAuthorizationForm from '../src/components/user/login/SocialAuthorizationForm'
 import RequestNewPasswordForm from '../src/components/user/login/RequestNewPasswordForm'
 import ResetPasswordForm from '../src/components/user/login/ResetPasswordForm'
 import {validateVerificationUUID} from '../src/actions/user/AuthActions'
@@ -16,6 +17,7 @@ export const LOGIN_FORM = 'login';
 export const REGISTRATION_FORM = 'registration';
 export const REQUEST_NEW_PASSWORD_FORM = 'request';
 export const REST_PASSWORD_FORM = 'reset';
+export const AUTH_SOCIAL_FORM = 'authorizeSocialUser';
 
 export const REDIRECT_PROFILE = '/profile';
 
@@ -33,13 +35,21 @@ class Login extends React.Component {
         super(props);
         this.state = {
             active: props.uuid ? REST_PASSWORD_FORM : LOGIN_FORM,
-            uuid: props.uuid
+            uuid: props.uuid,
+            socialUserData: ''
         }
     }
 
     changeActive = (active) => {
         this.setState({
             active: active
+        })
+    };
+
+    goToSocialActivation = (socialUserData) => {
+        this.setState({
+            socialUserData: socialUserData,
+            active: AUTH_SOCIAL_FORM
         })
     };
 
@@ -54,6 +64,8 @@ class Login extends React.Component {
                 return <RequestNewPasswordForm changeActive={this.changeActive}/>;
             case REST_PASSWORD_FORM:
                 return <ResetPasswordForm changeActive={this.changeActive}/>;
+            case AUTH_SOCIAL_FORM:
+                return <SocialAuthorizationForm socialUserData={this.state.socialUserData}/>;
             default:
                 return null;
         }
@@ -69,8 +81,11 @@ class Login extends React.Component {
                     <div className="profile-container">
                         <Redirector/>
                         {this.renderForm(this.state.active)}
-                        <VKLoginButton/>
-                        <FaceBookLoginButton/>
+                        {this.state.active !== AUTH_SOCIAL_FORM && <div>
+                            <VKLoginButton goToSocialActivation={this.goToSocialActivation}/>
+                            <FaceBookLoginButton goToSocialActivation={this.goToSocialActivation}/>
+                        </div>
+                        }
                     </div>
                 </div>
             </MainLayoutWithNavigation>

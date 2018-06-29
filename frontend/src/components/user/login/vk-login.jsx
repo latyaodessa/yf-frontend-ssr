@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {createVkUser, getUserByVKID} from '../../../actions/user/user-actions';
 import styles from '../../../../res/styles/user/login.scss'
 import {login} from "../../../actions/core/login-logout-actions";
+import {socialUser} from "../../../reducers/user/auth/authReducers";
 
 class VKLoginButton extends React.Component {
 
@@ -63,16 +64,19 @@ class VKLoginButton extends React.Component {
         document.getElementsByTagName('head')[0].appendChild(el);
     }
 
-    getVkUserById(userId) {
-        this.props.dispatch(getUserByVKID(userId)).then(() => {
-            if (this.props.user && this.props.user.fetched === true && this.props.user.user) {
-                this.loginToYF();
-            } else {
-                if (this.state.vk_user_auth) {
-                    this.props.dispatch(createVkUser(this.state.vk_user_auth.id)).then(() => {
-                        this.loginToYF();
-                    });
-                }
+    getVkUserById(user) {
+        this.props.dispatch(getUserByVKID(user.id)).then(() => {
+
+            if(this.props.error && !this.props.data) {
+                let socialUser = {
+                    id: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    type:'VK',
+                    dto: user
+                };
+
+                this.props.goToSocialActivation(socialUser);
             }
 
         })
@@ -82,9 +86,7 @@ class VKLoginButton extends React.Component {
     clickVk() {
         VK.Auth.login(function (response) {
             if (response.session) {
-                console.log(response);
-                // this.setState({vk_user_auth: response.session.user, user_type: "vk"});
-                // this.getVkUserById(response.session.user.id);
+                this.getVkUserById(response.session.user);
             }
         }.bind(this))
     };
@@ -105,7 +107,9 @@ class VKLoginButton extends React.Component {
     }
 }
 function mapStateToProps(state) {
-    return state;
+    console.log(state);
+    let {socialUser} = state;
+    return socialUser;
 }
 
 export default connect(mapStateToProps)(VKLoginButton)
