@@ -24,6 +24,7 @@ export const ProfileMainContentNavigation = props => (
                         <span>some text</span>
                     </i>
                 </div>
+
             </div>
         </div>
     )
