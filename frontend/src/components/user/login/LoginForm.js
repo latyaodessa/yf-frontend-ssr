@@ -35,7 +35,6 @@ class LoginForm extends React.Component {
     };
 
     handleSubmit = (evt) => {
-        console.log(this.state);
         this.setState({fetching: true});
 
         evt.preventDefault();

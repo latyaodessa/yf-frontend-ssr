@@ -5,6 +5,7 @@ import mainStyles from '../../../../../../res/styles/main.scss'
 import dashboardStyles from '../../../../../../res/styles/user/dashboard.scss'
 import elementsStyles from '../../../../../../res/styles/common/elements.scss'
 import {Link} from '../../../../../../routes'
+import {getCookieByKey} from "../../../../../services/CookieService";
 
 const incrementSize = 12;
 const initSizePhoto = 0;
@@ -18,7 +19,7 @@ class ProfileSavedPosts extends React.Component {
     }
 
     componentDidMount() {
-        const userId = localStorage.getItem("user_id");
+        const userId = getCookieByKey('user').id;
 
         this.setState({
             currentPhotosLoaded: 12,

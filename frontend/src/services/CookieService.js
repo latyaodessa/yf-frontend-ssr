@@ -37,11 +37,11 @@ export const verifyLoggedInUser = async () => {
 
 };
 
-export const cleanUserCookies = () => {
-    cookies.remove(TOKEN);
-    cookies.remove(USER);
-    cookies.remove(FB_USER);
-    cookies.remove(VK_USER);
+export const cleanUserCookies = async () => {
+    await cookies.remove(TOKEN);
+    await cookies.remove(USER);
+    await cookies.remove(FB_USER);
+    await cookies.remove(VK_USER);
 };
 
 

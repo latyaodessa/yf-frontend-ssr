@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
 import FaceBookLoginButton from '../src/components/user/login/facebook-login';
-import VKLoginButton from '../src/components/user/login/vk-login';
+import VKLoginButton from '../src/components/user/login/VKLoginButton';
 import Redirector from '../src/components/user/login/redirector';
 import styles from '../res/styles/user/login.scss'
 import meta from '../src/components/home/components/homeMetaGenerator'

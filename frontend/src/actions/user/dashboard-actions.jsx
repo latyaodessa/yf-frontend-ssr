@@ -21,23 +21,39 @@ export const getSavedPosts = (userId, from, to) => (dispatch) => {
 
 };
 
-export function savePostToDashboard(postId, userId) {
-    var req = {
+// export function savePostToDashboard(postId, userId) {
+//     var req = {
+//         post_id: postId,
+//         user_id: userId
+//     }
+//
+//     return function (dispatch) {
+//         axios.post(SAVE_POST_TO_DASHBOARD, req)
+//             .then((res) => {
+//                 dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
+//
+//             })
+//             .catch((err) => {
+//                 dispatch({type: SAVE_POST_TO_DASHBOARD_REJECTED, payload: err})
+//             })
+//     }
+// }
+
+export const savePostToDashboard = (postId, userId) => (dispatch, getState) => {
+    let req = {
         post_id: postId,
         user_id: userId
-    }
+    };
+    return axios.post(SAVE_POST_TO_DASHBOARD, req)
+        .then((res) => {
+            dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
 
-    return function (dispatch) {
-        axios.post(SAVE_POST_TO_DASHBOARD, req)
-            .then((res) => {
-                dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
+        })
+        .catch((err) => {
+            dispatch({type: SAVE_POST_TO_DASHBOARD_REJECTED, payload: err})
+        })
 
-            })
-            .catch((err) => {
-                dispatch({type: SAVE_POST_TO_DASHBOARD_REJECTED, payload: err})
-            })
-    }
-}
+};
 
 export function deletePostFromDashboard(id, post_id, user_id) {
     var req = {

@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {getUserByVKID} from '../../../actions/user/user-actions';
 import styles from '../../../../res/styles/user/login.scss'
 import {login} from "../../../actions/core/login-logout-actions";
-import VK from "react-vk";
 
 class VKLoginButton extends React.Component {
 

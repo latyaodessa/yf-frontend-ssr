@@ -60,8 +60,9 @@ class SidebarHeader extends React.Component {
     }
 
     logOut() {
-        cleanUserCookies();
-        Router.push('/auth');
+        cleanUserCookies().then(() => {
+            Router.push('/auth');
+        });
     }
 
     getButton() {
