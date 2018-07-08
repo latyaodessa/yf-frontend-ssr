@@ -1,54 +1,48 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import Link from 'next/link'
 import {logout} from '../../../actions/core/login-logout-actions';
 import styles from '../../../../res/styles/navigation.scss'
+import {Link} from '../../../../routes'
+import {cleanUserCookies, verifyLoggedInUser} from "../../../services/CookieService";
+import Router from "next/router";
 
-// @connect((store) => {
-// 	return {
-// 		loginLogout: store.loginLogout
-// 	}
-// })
 class MobileLoginLogoutButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // isUserLoggedIn: localStorage.getItem('user_id') ? true : false,
+            userAuth: false,
             showDropDownMenu: false
         };
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.loginLogout.executed) {
-            this.state = {
-                isUserLoggedIn: nextProps.loginLogout.isLogin ? true : false
-            };
-        }
+    componentDidMount() {
+        verifyLoggedInUser().then(valid => {
+            this.setState({
+                userAuth: valid
+            });
+        })
     }
 
     logOut() {
-        localStorage.clear();
-        this.props.dispatch(logout());
-        this.props.history.push('/login');
+        cleanUserCookies();
+        Router.push('/auth');
     }
 
     render() {
-        if (!this.state.isUserLoggedIn) {
-            return (
-                <li>{this.getLoginButton()}</li>
-            )
-        } else {
-            return (
-                <ul>{this.getLogoutButtonMobile()}</ul>
-            )
-        }
+        return (
+            <div>
+                {this.state.userAuth ? <div>{this.getLogoutButtonMobile()}</div>
+                    : <li>{this.getLoginButton()}</li>
+                }
+            </div>
+        )
     }
 
     getLoginButton() {
         return <div>
             <style jsx>{styles}</style>
-            <Link href="/login"><a>
+            <Link route='auth'><a>
                 Войти</a>
             </Link>
         </div>
@@ -60,7 +54,7 @@ class MobileLoginLogoutButton extends React.Component {
             <style jsx>{styles}</style>
 
             <div className="login-menu-container">
-                <Link href="/dashboard">
+                <Link route='profile'>
                     <li>Профайл</li>
                 </Link>
                 <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>

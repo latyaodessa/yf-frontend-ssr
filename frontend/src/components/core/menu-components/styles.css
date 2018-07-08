@@ -1,0 +1,59 @@
+.dots {
+  margin: 25px;
+  cursor: pointer; }
+
+.dot, .dot:before, .dot:after {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #FFF; }
+
+.dot:before, .dot:after {
+  content: ""; }
+
+.dot:before {
+  right: 15px;
+  transition: right .3s ease-out; }
+
+.dot:after {
+  left: 15px;
+  transition: left .3s ease-out; }
+
+.dots:hover .dot:before {
+  right: -15px; }
+
+.dots:hover .dot:after {
+  left: -15px; }
+
+.dropdown-list {
+  position: absolute;
+  right: 0;
+  background: #f7f7f7;
+  padding: 10px;
+  line-height: 25px;
+  margin: 32px 0px 0 0;
+  z-index: 1; }
+  .dropdown-list li {
+    list-style-type: none;
+    -webkit-animation: drop 0.9s;
+    animation: drop 0.9s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    cursor: pointer; }
+    .dropdown-list li a {
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      color: #656565;
+      font-weight: 600;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      -webkit-letter-spacing: 0.3em;
+      -moz-letter-spacing: 0.3em;
+      -ms-letter-spacing: 0.3em;
+      letter-spacing: 0.3em;
+      overflow: hidden;
+      text-align: center; }
+
+/*# sourceMappingURL=styles.css.map */

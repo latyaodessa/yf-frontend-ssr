@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {createVkUser, getUserByVKID} from '../../../actions/user/user-actions';
+import {getUserByVKID} from '../../../actions/user/user-actions';
 import styles from '../../../../res/styles/user/login.scss'
 import {login} from "../../../actions/core/login-logout-actions";
-import {socialUser} from "../../../reducers/user/auth/authReducers";
+import VK from "react-vk";
 
 class VKLoginButton extends React.Component {
 
@@ -26,6 +26,7 @@ class VKLoginButton extends React.Component {
             this.sdkLoaded();
             return;
         }
+
         this.setFbAsyncInit();
         this.loadSdkAsynchronously();
     }
@@ -67,12 +68,12 @@ class VKLoginButton extends React.Component {
     getVkUserById(user) {
         this.props.dispatch(getUserByVKID(user.id)).then(() => {
 
-            if(this.props.error && !this.props.data) {
+            if (this.props.error && !this.props.data) {
                 let socialUser = {
                     id: user.id,
                     firstName: user.first_name,
                     lastName: user.last_name,
-                    type:'VK',
+                    type: 'VK',
                     dto: user
                 };
 
@@ -84,6 +85,7 @@ class VKLoginButton extends React.Component {
 
 
     clickVk() {
+        console.log(VK);
         VK.Auth.login(function (response) {
             if (response.session) {
                 this.getVkUserById(response.session.user);
@@ -96,16 +98,19 @@ class VKLoginButton extends React.Component {
         return (
             <div>
                 <style jsx>{styles}</style>
-                <a className="button vk" onClick={this.clickVk} role="button">
-                    <span>Войти через VK</span>
-                    <div className="icon">
-                        <img src="/static/img/social/white/vk.png"/>
-                    </div>
-                </a>
+                {/*<VK apiId={4601875}>*/}
+                    <a className="button vk" onClick={this.clickVk} role="button">
+                        <span>Войти через VK</span>
+                        <div className="icon">
+                            <img src="/static/img/social/white/vk.png"/>
+                        </div>
+                    </a>
+                {/*</VK>*/}
             </div>
         )
     }
 }
+
 function mapStateToProps(state) {
     console.log(state);
     let {socialUser} = state;

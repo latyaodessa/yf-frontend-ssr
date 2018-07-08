@@ -28,6 +28,8 @@ export const login = (userOrEmail, password) => (dispatch, getState) => {
         user: userOrEmail,
         password: password
     };
+
+    console.log(requestObj);
     return axios.post(LOGIN_REQUEST, requestObj)
         .then((res) => {
             dispatch({type: LOGIN_FULFILLED, payload: res.data})

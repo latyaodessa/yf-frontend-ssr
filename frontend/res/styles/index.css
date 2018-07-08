@@ -50,7 +50,6 @@
   border-bottom: 8px solid white; }
 
 .login-menu-container {
-  margin-right: 15px;
   cursor: pointer; }
   .login-menu-container img {
     border-radius: 50%;
@@ -60,8 +59,24 @@
     object-fit: cover;
     border-color: #a98173;
     border-width: 2px; }
+  .login-menu-container li {
+    -webkit-transition: all .15s;
+    transition: all .15s;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    font-size: 2em;
+    padding: 5px;
+    color: #FFF;
+    display: block; }
+    .login-menu-container li:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: all .15s;
+      letter-spacing: 2px;
+      color: #333;
+      border: 1px solid rgba(255, 255, 255, 0.15); }
   .login-menu-container a {
-    padding: 0; }
+    padding: 0;
+    font-size: 1em !important; }
 
 .hamburger {
   background-color: transparent;
