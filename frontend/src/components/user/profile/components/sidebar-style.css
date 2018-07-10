@@ -62,6 +62,14 @@
         background-position: center center;
         left: 0;
         top: 0; }
+    .card-profile_user-infos .field-with-edit {
+      cursor: pointer; }
+      .card-profile_user-infos .field-with-edit img {
+        height: 20px;
+        padding: 0 0 0 5px;
+        display: none; }
+      .card-profile_user-infos .field-with-edit :hover img {
+        display: inline; }
     .card-profile_user-infos .infos_name,
     .card-profile_user-infos .infos_nick {
       display: block;

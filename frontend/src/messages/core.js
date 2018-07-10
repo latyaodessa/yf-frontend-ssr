@@ -9,3 +9,6 @@ export const ART_PAGE = "Art";
 export const LOGIN_DROPDOWN = "Войти";
 export const EXIT_DROPDOWN = "Выйти";
 export const PROFILE_DROPDOWN = "Профиль";
+
+export const SAVE = "Сохранить";
+

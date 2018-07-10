@@ -105,6 +105,20 @@ $card-height: 400px;
       }
     }
 
+    .field-with-edit {
+      cursor: pointer;
+      & img {
+        height: 20px;
+        padding: 0 0 0 5px;
+        display: none;
+      }
+      & :hover {
+        & img {
+          display: inline;
+        }
+      }
+    }
+
     .infos_name,
     .infos_nick {
       display: block;

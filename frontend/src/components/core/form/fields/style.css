@@ -10,9 +10,7 @@
   font-size: 1em;
   height: 50px;
   transition: border-color 0.3s;
-  width: 100%;
-  padding-left: 10px;
-}
+  width: 100%; }
 
 .form-item input:focus {
   border-bottom: 2px solid #c0c0c0;
@@ -26,5 +24,12 @@
   float: left;
   padding: 10px;
   font-size: 0.9em; }
+
+.field-icon input {
+  width: 90% !important;
+  height: 27px !important; }
+.field-icon img {
+  height: 20px;
+  display: inline; }
 
 /*# sourceMappingURL=style.css.map */

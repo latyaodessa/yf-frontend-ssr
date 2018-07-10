@@ -1,7 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import SavePostIcon from "../../../../res/img/64/save_post.png";
-// import PostSavedIcon from "../../../../res/img/64/post_saved.png";
 import styles from "../../../../../res/styles/single-post.scss"
 import MessagesModalWindow, {MESSAGE_TYPES} from '../../../core/modal/MessagesModalWindow'
 import {SubmitButton} from '../../../core/form/buttons/Button'

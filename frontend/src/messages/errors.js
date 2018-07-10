@@ -10,5 +10,8 @@ export const ERRORS = {
     },
     PASSWORDS_NOT_MATCING: {name: "PASSWORDS_NOT_MATCING", transaction: "Пароли не совпадают"},
     VERIFICATION_NOT_VALID: {name: "VERIFICATION_NOT_VALID", transaction: "Верификация не действительна"},
-    PASSWORD_NOT_VALID: {name: "PASSWORD_NOT_VALID", transaction: "Пароль должен содержать не менее 6 символов (только латиница) без пробелов."}
+    PASSWORD_NOT_VALID: {name: "PASSWORD_NOT_VALID", transaction: "Пароль должен содержать не менее 6 символов (только латиница) без пробелов."},
+    ONLY_LETTER_NUMBER_ALLOWED: {name: "ONLY_LETTER_NUMBER_ALLOWED", transaction: "Только буквы (латиница) и цифры"},
+    TOKEN_NOT_VALID: {name: "TOKEN_NOT_VALID", transaction: "Пожалуйста, войдите заново"},
+
 };

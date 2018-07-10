@@ -20,6 +20,24 @@ export const TextFieldEmail = (params) => {
     </div>
 };
 
+export const RequiredTextField = (params) => {
+    let error = null;
+    let errorStyle = null;
+
+    if (!params.data.valid) {
+        error = params.data.errorMessage;
+        errorStyle = errorInput;
+    }
+    return <div className="form-item">
+        <style jsx>{style}</style>
+        <label htmlFor={params.label}/>
+        <input className={errorStyle} type="text" name={params.name} autoComplete='text' required="required"
+               placeholder={params.placeholder} onChange={evt => params.updateInputValue(evt)}
+               defaultValue={params.data.value}/>
+        {error && <label className={"error-label"}>{"*" + error}</label>}
+    </div>
+};
+
 
 export const TextFieldPassword = (params) => {
     let error = null;

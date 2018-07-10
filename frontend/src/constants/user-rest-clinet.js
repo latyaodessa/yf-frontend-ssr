@@ -13,5 +13,7 @@ export const GET_SAVED_PHOTOS = HOST() + BACKEND_REST + "dashboard/saved/photos"
 export const SAVE_POST_TO_DASHBOARD = HOST() + BACKEND_REST + "dashboard/save/post";
 export const DELETE_POST_FROM_DASHBOARD = HOST() + BACKEND_REST + "dashboard/delete/post";
 
+export const UPDATE_FIST_LAST_NAME = HOST() + BACKEND_REST + "user/update/name";
+export const UPDATE_NICKNAME = HOST() + BACKEND_REST + "user/update/nickname";
 
 

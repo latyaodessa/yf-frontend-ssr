@@ -1,13 +1,14 @@
 import axios from "axios"
 
 import {
-    GET_SAVED_POSTS_REJECTED, GET_SAVED_POSTS_FULFILLED,
-    SAVE_POST_TO_DASHBOARD_FULFILLED, SAVE_POST_TO_DASHBOARD_REJECTED,
-    DELETE_POST_FROM_DASHBOARD_FULFILLED, DELETE_POST_FROM_DASHBOARD_REJECTED
+    DELETE_POST_FROM_DASHBOARD_FULFILLED,
+    DELETE_POST_FROM_DASHBOARD_REJECTED,
+    GET_SAVED_POSTS_FULFILLED,
+    GET_SAVED_POSTS_REJECTED,
+    SAVE_POST_TO_DASHBOARD_FULFILLED,
+    SAVE_POST_TO_DASHBOARD_REJECTED
 } from "../../constants/user/user-constants"
-import {SAVE_POST_TO_DASHBOARD, GET_SAVED_POSTS, DELETE_POST_FROM_DASHBOARD} from '../../constants/user-rest-clinet'
-import {FETCH_NATIVE_POSTS_FULFILLED, FETCH_NATIVE_POSTS_REJECTED} from "../../constants/post/posts-constants";
-import {FIND_NATIVE_FROM_TO} from "../../constants/post-rest-client";
+import {DELETE_POST_FROM_DASHBOARD, GET_SAVED_POSTS, SAVE_POST_TO_DASHBOARD} from '../../constants/user-rest-clinet'
 
 
 export const getSavedPosts = (userId, from, to) => (dispatch) => {
@@ -21,23 +22,6 @@ export const getSavedPosts = (userId, from, to) => (dispatch) => {
 
 };
 
-// export function savePostToDashboard(postId, userId) {
-//     var req = {
-//         post_id: postId,
-//         user_id: userId
-//     }
-//
-//     return function (dispatch) {
-//         axios.post(SAVE_POST_TO_DASHBOARD, req)
-//             .then((res) => {
-//                 dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
-//
-//             })
-//             .catch((err) => {
-//                 dispatch({type: SAVE_POST_TO_DASHBOARD_REJECTED, payload: err})
-//             })
-//     }
-// }
 
 export const savePostToDashboard = (postId, userId) => (dispatch, getState) => {
     let req = {
