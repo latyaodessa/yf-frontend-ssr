@@ -4,7 +4,7 @@ import styleSidebar from './sidebar-style.scss'
 import {getCookieByKey} from "../../../../services/CookieService"
 import UserNameTextField from './components/UserNameTextField'
 import NicknameTextField from './components/NicknameTextField'
-import {getRelatedPosts} from "../../../../actions/post/single-post-actions";
+import ProfilePicUploader from './components/ProfilePicUploader'
 
 class ProfileSidebar extends React.Component {
 
@@ -29,6 +29,10 @@ class ProfileSidebar extends React.Component {
         if (this.state.lastName !== this.props.firstLastNameUpdate.data.user.user.lastName) {
             this.setState({lastName: this.props.firstLastNameUpdate.data.user.user.lastName})
         }
+
+        if (this.state.nickName !== this.props.nickNameUpdate.data.user.user.nickName) {
+            this.setState({nickName: this.props.nickNameUpdate.data.user.user.nickName})
+        }
     }
 
 
@@ -42,18 +46,6 @@ class ProfileSidebar extends React.Component {
         });
     };
 
-    renderNickName = () => {
-        if (this.state.nickName) {
-            return <div>
-                <style jsx>{styleSidebar}</style>
-                <span className="infos_nick">{this.state.nickName}</span></div>
-        }
-        return <div>
-            <style jsx>{styleSidebar}</style>
-            <span className="infos_nick">NO NAME</span>
-        </div>
-    };
-
 
     render() {
         return (
@@ -63,8 +55,9 @@ class ProfileSidebar extends React.Component {
                 <div className="profile-container">
 
                     <div className="card-profile">
-                        <div className="card-profile_visual"/>
-
+                        <img className={"pic"} src={"/static/img/brand/youngfolks-logo.jpg"}/>
+                        <ProfilePicUploader />
+                        {/*<div className="card-profile_visual"/>*/}
                         <div className="card-profile_user-infos">
                             {this.state &&
                             <UserNameTextField
@@ -103,8 +96,10 @@ class ProfileSidebar extends React.Component {
 
 function mapStateToProps(state) {
     const {firstLastNameUpdate, nickNameUpdate} = state;
-    return {firstLastNameUpdate: firstLastNameUpdate,
-        nickNameUpdate: nickNameUpdate};
+    return {
+        firstLastNameUpdate: firstLastNameUpdate,
+        nickNameUpdate: nickNameUpdate
+    };
 }
 
 

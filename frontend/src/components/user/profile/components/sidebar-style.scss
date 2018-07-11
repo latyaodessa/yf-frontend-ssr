@@ -14,6 +14,11 @@ $card-height: 400px;
 
 .container-wrapper {
   padding: 5px;
+  & :hover {
+    & .update {
+      display: block;
+    }
+  }
 }
 
 :root {
@@ -35,7 +40,13 @@ $card-height: 400px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-
+  & .pic {
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+  }
   &_visual {
     height: $visual-height;
     overflow: hidden;
@@ -133,6 +144,7 @@ $card-height: 400px;
       font-weight: 800;
       color: #495771;
       letter-spacing: 1px;
+      background: #FFE3D8;
     }
     .infos_nick {
       top: 32px;
@@ -152,6 +164,7 @@ $card-height: 400px;
       width: 100%;
       top: calc(65% + 4em);
       display: flex;
+      background: rgba(49, 41, 37, 0.53);
     }
 
     .user-stats {
@@ -163,7 +176,7 @@ $card-height: 400px;
         float: left;
         clear: both;
         width: 100%;
-        color: #B3B1B2;
+        color: #f5f5f5;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: -0.2px;
@@ -171,10 +184,38 @@ $card-height: 400px;
 
       span {
         font-size: 26px;
-        color: #5E5E5E;
+        color: #e2e2e2;
         padding: .18em 0;
         display: inline-block;
       }
     }
+  }
+}
+
+.update {
+  position: absolute;
+  top: 10%;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  display: none;
+  & img {
+    height: 100px;
+  }
+  & span {
+    display: block;
+    float: left;
+    clear: both;
+    width: 100%;
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-letter-spacing: -0.2px;
+    -moz-letter-spacing: -0.2px;
+    -ms-letter-spacing: -0.2px;
+    letter-spacing: -0.2px;
   }
 }

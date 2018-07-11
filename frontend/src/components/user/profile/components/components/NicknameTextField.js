@@ -17,7 +17,7 @@ class NicknameTextField extends React.Component {
     getUserNameField = () => {
         return <div>
             <style jsx>{styleSidebar}</style>
-            <span className="field-with-edit infos_nick">{this.props.nickname}
+            <span className="field-with-edit infos_nick">@{this.props.nickname}
                 <img src={"/static/img/icons/edit.png"}/>
             </span>
         </div>
@@ -47,7 +47,7 @@ class NicknameTextField extends React.Component {
         return (
             <div>
                 <div onClick={this.changePopUpState.bind(this)}>
-                    {this.props.firstName && this.props.lastName ?
+                    {this.props.nickname?
                         this.getUserNameField()
                         : this.getEmptyUserNameField()}
                 </div>

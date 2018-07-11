@@ -17,7 +17,7 @@ import deletePost from './reducers/user/dashboard/delete-post-from-dashboard'
 import postExistenceByUser from './reducers/post/post-existence-by-user-reducer'
 import {firstLastNameUpdate, nickNameUpdate} from './reducers/user/profileRedicers'
 import {login, register, requestPassword, uuid, reset, verify, socialUser} from './reducers/user/auth/authReducers'
-
+import {upload} from './reducers/files/uploadReducers'
 import {routerReducer as routing} from 'react-router-redux';
 
 
@@ -40,5 +40,6 @@ export default combineReducers({
     postExistenceByUser,
     login, register, requestPassword, uuid, reset, verify, socialUser,
     firstLastNameUpdate, nickNameUpdate,
+    upload,
     routing
 })
