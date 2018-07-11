@@ -25,7 +25,7 @@ class ProfilePicUploader extends React.Component {
     };
 
     handleImageUpload(file) {
-        this.props.dispatch(uploadPic(file)).then(()=> {
+        this.props.dispatch(uploadProfilePic(file)).then(()=> {
            console.log(this.props);
        })
         // upload.end((err, response) => {
