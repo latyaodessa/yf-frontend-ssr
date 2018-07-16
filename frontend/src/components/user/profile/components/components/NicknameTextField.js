@@ -15,16 +15,16 @@ class NicknameTextField extends React.Component {
     }
 
     getUserNameField = () => {
-        return <div>
+        return <div onClick={this.changePopUpState.bind(this, false)}>
             <style jsx>{styleSidebar}</style>
             <span className="field-with-edit infos_nick">@{this.props.nickname}
-                <img src={"/static/img/icons/edit.png"}/>
+                {this.props.edit && <img src={"/static/img/icons/edit.png"}/>}
             </span>
         </div>
     };
 
     getEmptyUserNameField = () => {
-        return <div>
+        return <div onClick={this.changePopUpState.bind(this, true)}>
             <style jsx>{styleSidebar}</style>
             <span className="field-with-edit infos_nick">{EDIT_USER_DATA_EMPTY_NICK_NAME}
                 <img src={"/static/img/icons/edit.png"}/>
@@ -32,30 +32,29 @@ class NicknameTextField extends React.Component {
         </div>
     };
 
-    getEditForm = () => {
-        return <div>test</div>
-    };
 
-    changePopUpState = () => {
-        this.setState({
-            editPopup: !this.state.editPopup
-        })
+    changePopUpState = (forceEdit) => {
+        if (forceEdit || this.props.edit) {
+            this.setState({
+                editPopup: !this.state.editPopup
+            })
+        }
     };
 
 
     render() {
         return (
             <div>
-                <div onClick={this.changePopUpState.bind(this)}>
-                    {this.props.nickname?
+                <div>
+                    {this.props.nickname ?
                         this.getUserNameField()
                         : this.getEmptyUserNameField()}
                 </div>
                 {this.state && this.state.editPopup &&
                 <EditNicknamePopup nickname={this.props.nickname}
-                                      lastName={this.props.lastName}
-                                      showPopUp={this.state.editPopup}
-                                      changePopUpState={this.changePopUpState}/>}
+                                   lastName={this.props.lastName}
+                                   showPopUp={this.state.editPopup}
+                                   changePopUpState={this.changePopUpState}/>}
             </div>
         )
     };

@@ -49,6 +49,13 @@ export const getCookieByKey = (key) => {
     return cookies.get(key);
 };
 
+export const uploadNewProfilePic = async (profilePictureDTO) => {
+    let user = await getCookieByKey(USER);
+    user.profilePictureDTO = profilePictureDTO;
+    await cookies.remove(USER);
+    cookies.set(USER, user);
+};
+
 export const isTokenValid = async (userId, token) => {
     return await validateToken(userId, token);
 

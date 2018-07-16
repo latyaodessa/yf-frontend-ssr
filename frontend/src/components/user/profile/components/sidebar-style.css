@@ -1,7 +1,5 @@
 .container-wrapper {
   padding: 5px; }
-  .container-wrapper :hover .update {
-    display: block; }
 
 :root {
   font-size: 16px; }
@@ -74,8 +72,7 @@
       cursor: pointer; }
       .card-profile_user-infos .field-with-edit img {
         height: 20px;
-        padding: 0 0 0 5px;
-        display: none; }
+        padding: 0 0 0 5px; }
       .card-profile_user-infos .field-with-edit :hover img {
         display: inline; }
     .card-profile_user-infos .infos_name,
@@ -129,14 +126,12 @@
 
 .update {
   position: absolute;
-  top: 10%;
+  top: 0;
   cursor: pointer;
   left: 0;
   right: 0;
   margin-left: auto;
-  margin-right: auto;
-  width: 200px;
-  display: none; }
+  margin-right: auto; }
   .update img {
     height: 100px; }
   .update span {
@@ -151,5 +146,41 @@
     -moz-letter-spacing: -0.2px;
     -ms-letter-spacing: -0.2px;
     letter-spacing: -0.2px; }
+
+.spinning {
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  opacity: 0.8; }
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg); } }
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.info ul li {
+  text-align: left;
+  position: relative;
+  left: -20px;
+  list-style: none;
+  overflow: hidden;
+  height: 30px;
+  border: solid gray;
+  border-width: 0px 0px 1px 0px;
+  font-size: 14px;
+  line-height: 30px;
+  cursor: pointer; }
+  .info ul li a {
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: 0.3em;
+    text-decoration: none; }
 
 /*# sourceMappingURL=sidebar-style.css.map */

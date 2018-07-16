@@ -37,7 +37,7 @@ class EditNicknamePopup extends React.Component {
                 console.log(this.props);
             if (this.props.data) {
                 setAuthCookie(this.props.data.user, this.props.data.token);
-                this.props.changePopUpState();
+                this.props.changePopUpState(true);
             }
             if (this.props.error) {
                 this.handleErrors(this.props.error.data);

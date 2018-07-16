@@ -12,3 +12,12 @@ export const ADDRESS_DESCRIPTION = 'Ваше портфолио будет до�
 export const ADDRESS_HOST = "https://youngfolks.ru/";
 export const ADDRESS_PH = 'ph/';
 export const ADDRESS_MD = 'md/';
+
+export const UPDATE_PROFILE_PIC = "Обновите фотографию";
+
+
+//MENU
+
+export const EXIT = "Выйти";
+export const EDIT_PROFILE = "Редактировать";
+export const SAVE_CHANGES = "Сохранить изминения";

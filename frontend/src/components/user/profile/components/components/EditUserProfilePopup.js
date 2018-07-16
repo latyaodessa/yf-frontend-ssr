@@ -44,7 +44,7 @@ class EditUserProfilePopup extends React.Component {
             console.log(this.props);
             if (this.props.data) {
                 setAuthCookie(this.props.data.user, this.props.data.token);
-                this.props.changePopUpState();
+                this.props.changePopUpState(true);
             }
         })
     };

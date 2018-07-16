@@ -15,16 +15,16 @@ class UserNameTextField extends React.Component {
     }
 
     getUserNameField = () => {
-        return <div>
+        return <div onClick={this.changePopUpState.bind(this, false)}>
             <style jsx>{styleSidebar}</style>
             <span className="field-with-edit infos_name">{this.props.firstName} {this.props.lastName}
-                <img src={"/static/img/icons/edit.png"}/>
+                {this.props.edit && <img src={"/static/img/icons/edit.png"}/>}
             </span>
         </div>
     };
 
     getEmptyUserNameField = () => {
-        return <div>
+        return <div onClick={this.changePopUpState.bind(this, true)}>
             <style jsx>{styleSidebar}</style>
             <span className="field-with-edit infos_name">{EDIT_USER_DATA_EMPTY_NAME}
                 <img src={"/static/img/icons/edit.png"}/>
@@ -32,21 +32,19 @@ class UserNameTextField extends React.Component {
         </div>
     };
 
-    getEditForm = () => {
-        return <div>test</div>
-    };
-
-    changePopUpState = () => {
-        this.setState({
-            editPopup: !this.state.editPopup
-        })
+    changePopUpState = (forceEdit) => {
+        if (forceEdit || this.props.edit) {
+            this.setState({
+                editPopup: !this.state.editPopup
+            })
+        }
     };
 
 
     render() {
         return (
             <div>
-                <div onClick={this.changePopUpState.bind(this)}>
+                <div>
                     {this.props.firstName && this.props.lastName ?
                         this.getUserNameField()
                         : this.getEmptyUserNameField()}
