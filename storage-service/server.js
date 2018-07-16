@@ -93,8 +93,8 @@ async function convertProfilePic(img) {
 }
 
 
-app.listen(9090);
-console.log("running trigger on 9090");
+app.listen(8080);
+console.log("running trigger on 8080");
 
 
 

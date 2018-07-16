@@ -21,3 +21,9 @@ export const UPDATE_PROFILE_PIC = "Обновите фотографию";
 export const EXIT = "Выйти";
 export const EDIT_PROFILE = "Редактировать";
 export const SAVE_CHANGES = "Сохранить изминения";
+
+export const PUBLICATIONS_AMOUNT_TITLE = "Опубликовано";
+export const SUBSCRIBED_TITLE = "Подписчики";
+export const SUBSCRIBERS_TITLE = "Подписки";
+export const FEDDBACKS_TITLE = "Отзывы";
+

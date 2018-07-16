@@ -20,7 +20,8 @@ class ProfilePicUploader extends React.Component {
         super(props);
         this.state = {
             fetching: false,
-            error: ''
+            error: '',
+            dragStyle: style.dropzone
         };
     }
 
@@ -96,17 +97,22 @@ class ProfilePicUploader extends React.Component {
         }).then(dto => uploadNewProfilePic(dto))
     }
 
+    changeDropZoneStyle = (isEnter) => {
+        const dropStyle = isEnter ? style.dropEnter : style.dropzone;
+        this.setState({dragStyle: dropStyle});
+    }
 
     render() {
         return (
             <div>
                 <style jsx>{styleSidebar}</style>
-                <div className={"update"}>
-                    <Dropzone
-                        style={style.dropzone}
-                        multiple={false}
-                        accept="image/*"
-                        onDrop={this.onImageDrop.bind(this)}>
+                {this.state && <div className={"update"}>
+                    <Dropzone onDragEnter={this.changeDropZoneStyle.bind(this, true)}
+                              onDragLeave={this.changeDropZoneStyle.bind(this, false)}
+                              style={this.state.dragStyle}
+                              multiple={false}
+                              accept="image/*"
+                              onDrop={this.onImageDrop.bind(this)}>
                         <img className={this.state.fetching && 'spinning'}
                              src={"/static/img/icons/looping-arrows.png"}/>
                         <span>{UPDATE_PROFILE_PIC}</span>
@@ -114,7 +120,7 @@ class ProfilePicUploader extends React.Component {
                             <span>{this.state.error.transaction}</span>
                         </div>}
                     </Dropzone>
-                </div>
+                </div>}
 
 
             </div>
@@ -138,5 +144,15 @@ const style = {
         borderRadius: '5px',
         height: '300px',
         margin: '10px'
+    },
+    dropEnter: {
+        position: 'relative',
+        borderWidth: '2px',
+        borderColor: 'rgb(255, 255, 255)',
+        borderStyle: 'dashed',
+        borderRadius: '5px',
+        height: '300px',
+        margin: '10px',
+        background: '#797979'
     }
 };

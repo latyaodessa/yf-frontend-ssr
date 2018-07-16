@@ -110,10 +110,11 @@ class ProfileSavedPosts extends React.Component {
                 <style jsx>{mainStyles}</style>
                 <style jsx>{dashboardStyles}</style>
                 <div className="dashboard-container">
-                    {this.props.fetched ?
-                        <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div> : null}
+                    {this.props.fetched &&
+                    <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div>
+                    }
 
-                    {this.isLoadMore.bind(this)}
+                    {/*{this.isLoadMore.bind(this)}*/}
 
                 </div>
             </div>

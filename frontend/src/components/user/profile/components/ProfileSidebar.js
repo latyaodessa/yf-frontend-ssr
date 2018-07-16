@@ -6,6 +6,12 @@ import UserNameTextField from './components/UserNameTextField'
 import NicknameTextField from './components/NicknameTextField'
 import ProfilePicUploader, {FRIENDLY_HOST} from './components/ProfilePicUploader'
 import SidebarMenu from './SidebarMenu'
+import {
+    PUBLICATIONS_AMOUNT_TITLE,
+    SUBSCRIBED_TITLE,
+    SUBSCRIBERS_TITLE,
+    FEDDBACKS_TITLE
+} from "../../../../messages/profile";
 
 const DEFAULT_PROFILE_PIC = "/static/img/brand/youngfolks-logo.jpg";
 
@@ -97,17 +103,17 @@ class ProfileSidebar extends React.Component {
                         <div className="card-profile_user-stats">
                             <div className="stats-holder">
                                 <div className="user-stats">
-                                    <strong>Tweets</strong>
-                                    <span>1,337</span>
+                                    <strong>{PUBLICATIONS_AMOUNT_TITLE}</strong>
+                                    <span>0</span>
                                 </div>
                                 <div className="user-stats">
-                                    <strong>Following</strong>
-                                    <span>561</span>
+                                    <strong>{FEDDBACKS_TITLE}</strong>
+                                    <span>0</span>
                                 </div>
-                                <div className="user-stats">
-                                    <strong>Followers</strong>
-                                    <span>718</span>
-                                </div>
+                                {/*<div className="user-stats">*/}
+                                {/*<strong>{SUBSCRIBERS_TITLE}</strong>*/}
+                                {/*<span>0</span>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
 
