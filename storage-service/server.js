@@ -58,7 +58,7 @@ router.post('/upload/profile', async (req, res, next) => {
     let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
         return result;
     });
-    console.log(bufferFile);
+    console.log(req);
 
 
     const bucketId = "bb504ed77162819668430010";

@@ -73,13 +73,13 @@ class ProfilePicUploader extends React.Component {
         });
     };
 
-
     handleImageUpload(file) {
         this.setState({fetching: true});
         const fd = new FormData();
         fd.append('file', file);
         let user = getCookieByKey(USER);
         fd.append('userId', user.id);
+        fd.append('orientation', window.orientation);
         this.props.dispatch(uploadWithStorageService(fd)).then(() => {
             this.props.changeProfilePic(this.props.data.fileName);
 
