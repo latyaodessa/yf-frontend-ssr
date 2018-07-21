@@ -27,3 +27,11 @@ export const SUBSCRIBED_TITLE = "Подписчики";
 export const SUBSCRIBERS_TITLE = "Подписки";
 export const FEDDBACKS_TITLE = "Отзывы";
 
+export const SAVED_SETS_PICS = "Сохранённые";
+export const PUBLISHED = "Публикации";
+export const FOLLOWING = "Подписки";
+
+export const VERIFICATION_TITLE = "Верификации";
+export const EMAIL_VERIFICATION = "Email";
+export const FACEBOOK_BIND = "Facebook"
+export const VK_BIND = "VK";

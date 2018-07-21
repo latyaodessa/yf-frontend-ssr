@@ -178,10 +178,27 @@
   cursor: pointer; }
   .info ul li a {
     color: #000;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 0.9em;
-    letter-spacing: 0.3em;
-    text-decoration: none; }
+    text-decoration: none;
+    font-weight: 100;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 1em; }
+
+.drop-down-title {
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer; }
+  .drop-down-title img {
+    height: 20px;
+    top: 10px;
+    position: relative; }
+
+.li-with-img {
+  overflow: visible; }
+  .li-with-img img {
+    height: 20px;
+    float: right;
+    top: 5px;
+    position: relative; }
 
 /*# sourceMappingURL=sidebar-style.css.map */

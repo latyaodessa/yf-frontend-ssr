@@ -208,15 +208,30 @@ $card-height: 400px;
 }
 
 .spinning {
-  -webkit-animation:spin 1s linear infinite;
-  -moz-animation:spin 1s linear infinite;
-  animation:spin 1s linear infinite;
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
   opacity: 0.8;
 }
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
 .info {
   & ul li {
@@ -233,12 +248,34 @@ $card-height: 400px;
     cursor: pointer;
     & a {
       color: $color-black;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 0.9em;
-      letter-spacing: 0.3em;
       text-decoration: none;
+      font-weight: 100;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 1em;
+
     }
   }
 
+}
+
+.drop-down-title {
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  img {
+    height: 20px;
+    top: 10px;
+    position: relative;
+  }
+}
+
+.li-with-img {
+  overflow: visible;
+  img {
+    height: 20px;
+    float: right;
+    top: 5px;
+    position: relative;
+  }
 }

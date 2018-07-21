@@ -47,16 +47,17 @@ class FaceBookLoginButton extends React.Component {
 
 
     me() {
-        let FB_REQUESTED_FIELDS = ['id', 'first_name', 'last_name', 'gender', 'birthday',
-            'email', 'hometown', 'languages', 'locale', 'location',
+        let FB_REQUESTED_FIELDS = ['id', 'first_name', 'last_name', 'gender', 'birthday', 'hometown', 'languages', 'locale', 'location',
             'website', 'picture.height(200).width(200)'];
 
         FB.api('/me?fields=' + FB_REQUESTED_FIELDS.join(','), function (res) {
-                // TODO upload avatar
+            // TODO upload avatar
             // localStorage.setItem('user_thumbnail', res.picture.data.url);
-            delete res.picture;
-            this.setState({user_auth: res});
-            this.getUserByFBID(res.id);
+            if (!res.error) {
+                delete res.picture;
+                this.setState({user_auth: res});
+                this.getUserByFBID(res.id);
+            }
         }.bind(this));
     }
 

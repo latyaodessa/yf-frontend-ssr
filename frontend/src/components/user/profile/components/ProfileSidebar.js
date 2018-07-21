@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import ExifOrientationImg from 'react-exif-orientation-img'
 import styleSidebar from './sidebar-style.scss'
 import {getCookieByKey} from "../../../../services/CookieService"
 import UserNameTextField from './components/UserNameTextField'
 import NicknameTextField from './components/NicknameTextField'
 import ProfilePicUploader, {FRIENDLY_HOST} from './components/ProfilePicUploader'
 import SidebarMenu from './SidebarMenu'
+import SidebarVerifications from './SidebarVerifications'
 import {
     PUBLICATIONS_AMOUNT_TITLE,
     SUBSCRIBED_TITLE,
@@ -85,15 +85,9 @@ class ProfileSidebar extends React.Component {
 
                     {this.state && <div className="card-profile">
                         {this.state.profilePic &&
-                        <ExifOrientationImg
-                            src={this.state.profilePic}
-                            alt="A waterfall"
-                        />}
-                        {/*<img className={"pic"} src={this.state.profilePic}/>*/}
-
+                        <img className={"pic"} src={this.state.profilePic}/>}
                         {(this.state.edit || this.state.profilePic === DEFAULT_PROFILE_PIC) &&
                         <ProfilePicUploader changeProfilePic={this.changeProfilePic}/>}
-                        {/*<div className="card-profile_visual"/>*/}
                         <div className="card-profile_user-infos">
                             {this.state &&
                             <UserNameTextField
@@ -116,10 +110,10 @@ class ProfileSidebar extends React.Component {
                                     <strong>{FEDDBACKS_TITLE}</strong>
                                     <span>0</span>
                                 </div>
-                                {/*<div className="user-stats">*/}
-                                {/*<strong>{SUBSCRIBERS_TITLE}</strong>*/}
-                                {/*<span>0</span>*/}
-                                {/*</div>*/}
+                                <div className="user-stats">
+                                    <strong>{SUBSCRIBERS_TITLE}</strong>
+                                    <span>0</span>
+                                </div>
                             </div>
                         </div>
 
@@ -128,7 +122,7 @@ class ProfileSidebar extends React.Component {
 
                 </div>
                 <SidebarMenu editProfile={this.editProfile} edit={this.state.edit}/>
-
+                {/*<SidebarVerifications editProfile={this.editProfile} edit={this.state.edit}/>*/}
             </div>
         )
     }

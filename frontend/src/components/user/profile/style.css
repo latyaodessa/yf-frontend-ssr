@@ -17,16 +17,17 @@
   text-align: center;
   padding: 15px 0 0 0; }
   .block img {
-    height: 55px;
-    margin: 10px 0 20px 0; }
+    height: 50px;
+    margin: 15px 0 20px 0; }
   .block span {
     color: #000;
     text-transform: uppercase;
-    font-weight: 600;
     font-size: 15px;
     font-style: normal;
     -webkit-text-decoration: none;
-    text-decoration: none; }
+    text-decoration: none;
+    position: relative;
+    right: 10px; }
 
 .hovicon {
   display: inline-block;
@@ -162,5 +163,8 @@ section {
     position: absolute;
     top: 58px;
     left: 100px; }
+
+.active-color {
+  background: #FFE3D8 !important; }
 
 /*# sourceMappingURL=style.css.map */
