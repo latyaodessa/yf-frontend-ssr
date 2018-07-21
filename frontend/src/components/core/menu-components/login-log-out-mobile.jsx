@@ -56,7 +56,7 @@ class MobileLoginLogoutButton extends React.Component {
 
             <div className="login-menu-container">
                 <Link route='profile'>
-                    <li>Профайл</li>
+                    <li>Профиль</li>
                 </Link>
                 <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>
             </div>

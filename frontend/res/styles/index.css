@@ -496,14 +496,14 @@ h1 {
 /*button*/
 .under-button {
   text-align: center;
-  margin-top: 10px; }
+  margin-top: 10px;
+  cursor: pointer; }
 
 .under-button img {
   height: 45px;
   opacity: 0.5; }
 
-.under-button img:hover {
-  cursor: pointer;
+.rotate-loader {
   -webkit-animation: spin 1s linear infinite;
   -moz-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
@@ -735,7 +735,7 @@ h1 {
   .delete-container img {
     width: 32px;
     height: 32px;
-    margin: 4px 4px 0 0; }
+    padding: 2px; }
 
 @-webkit-keyframes spinreverse {
   0% {

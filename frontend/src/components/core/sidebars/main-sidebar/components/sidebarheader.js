@@ -45,7 +45,7 @@ class SidebarHeader extends React.Component {
             <div className='info'>
                 <ul>
                     <li>
-                        <Link route='profile'><a>Профайл</a></Link>
+                        <Link route='profile'><a>Профиль</a></Link>
                     </li>
                     <li>
                         <a onClick={this.logOut.bind(this)}>Выйти</a>

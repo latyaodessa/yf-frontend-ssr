@@ -59,9 +59,15 @@ class ProfilePicUploader extends React.Component {
             };
 
             temporaryFileReader.onload = () => {
+                console.log(temporaryFileReader);
+
+
                 let image = new Image();
                 image.src = temporaryFileReader.result;
                 image.onload = function () {
+
+                    console.log(image);
+
                     if (image.width < MIN_WIDTH || image.height < MIN_HEIGHT) {
                         reject(PROFILE_IMGAGE_ERRORS.WRONG_RESOLUTION)
                     } else {
@@ -114,7 +120,7 @@ class ProfilePicUploader extends React.Component {
                               accept="image/*"
                               onDrop={this.onImageDrop.bind(this)}>
                         <img className={this.state.fetching && 'spinning'}
-                             src={"/static/img/icons/looping-arrows.png"}/>
+                             src={"/static/img/icons/refresh-light-grey.png"}/>
                         <span>{UPDATE_PROFILE_PIC}</span>
                         {this.state.error && <div>
                             <span>{this.state.error.transaction}</span>

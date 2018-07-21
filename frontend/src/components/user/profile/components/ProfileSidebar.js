@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import ExifOrientationImg from 'react-exif-orientation-img'
 import styleSidebar from './sidebar-style.scss'
 import {getCookieByKey} from "../../../../services/CookieService"
 import UserNameTextField from './components/UserNameTextField'
@@ -84,7 +85,12 @@ class ProfileSidebar extends React.Component {
 
                     {this.state && <div className="card-profile">
                         {this.state.profilePic &&
-                        <img className={"pic"} src={this.state.profilePic}/>}
+                        <ExifOrientationImg
+                            src={this.state.profilePic}
+                            alt="A waterfall"
+                        />}
+                        {/*<img className={"pic"} src={this.state.profilePic}/>*/}
+
                         {(this.state.edit || this.state.profilePic === DEFAULT_PROFILE_PIC) &&
                         <ProfilePicUploader changeProfilePic={this.changeProfilePic}/>}
                         {/*<div className="card-profile_visual"/>*/}

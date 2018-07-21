@@ -76,7 +76,8 @@ class NativeGrid extends React.Component {
                                     {this.renderPics(this.props.post)}
                                 </div>
                                 <div className="under-button">
-                                    <a onClick={() => this.fetchMorePosts()}> <img src="/static/img/64/load-more.png"/></a>
+                                    <a onClick={() => this.fetchMorePosts()}>
+                                        <img src="/static/img/icons/refresh-black.png"/></a>
                                 </div>
                             </div>
                         </div>
