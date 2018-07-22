@@ -10,10 +10,19 @@ export const FB_USER = "fbUser";
 export const VK_USER = "vkUser";
 
 export const setAuthCookie = (user, token) => {
-    cookies.set(TOKEN, token);
-    cookies.set(USER, user.user);
-    cookies.set(FB_USER, user.fbUser);
-    cookies.set(VK_USER, user.vkUser);
+    let now = new Date();
+    let time = now.getTime();
+    let expireTime = time + 100000 * 360000;
+    now.setTime(expireTime);
+
+    const options = {
+        expires: now
+    };
+
+    cookies.set(TOKEN, token, options);
+    cookies.set(USER, user.user, options);
+    cookies.set(FB_USER, user.fbUser, options);
+    cookies.set(VK_USER, user.vkUser, options);
 };
 
 export const verifyLoggedInUser = async () => {
