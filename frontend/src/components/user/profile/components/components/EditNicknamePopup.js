@@ -30,7 +30,6 @@ class EditNicknamePopup extends React.Component {
         evt.preventDefault();
         const userId = getCookieByKey(USER).id;
         const token = getCookieByKey(TOKEN);
-        console.log(this.state);
         this.props.dispatch(updateUserNickname(userId,
             token,
             this.state.nickname.value)).then(() => {

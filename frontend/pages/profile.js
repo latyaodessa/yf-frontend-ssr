@@ -4,6 +4,7 @@ import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNa
 import meta from '../src/components/home/components/homeMetaGenerator'
 import {Link} from '../routes'
 import ProfilePage from '../src/components/user/profile/ProfilePage'
+import Redirector from '../src/components/user/login/redirector'
 
 class UserDashboard extends React.Component {
     static async getInitialProps({store, isServer}) {
@@ -27,6 +28,7 @@ class UserDashboard extends React.Component {
     render() {
         return (
             <MainLayoutWithNavigation meta={meta()}>
+                <Redirector/>
                 <ProfilePage/>
             </MainLayoutWithNavigation>
         )

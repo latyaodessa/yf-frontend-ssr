@@ -55,6 +55,11 @@ class ProfileSidebar extends React.Component {
 
     getUserData = () => {
         let user = getCookieByKey('user');
+
+        if (!user) {
+            return;
+        }
+
         this.setState({
             userId: user.id,
             firstName: user.firstName,

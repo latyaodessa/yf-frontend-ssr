@@ -14,6 +14,8 @@ class Redirector extends React.Component {
         verifyLoggedInUser().then(valid => {
             if (valid) {
                 Router.push('/profile');
+            } else {
+                Router.push('/auth');
             }
         })
     }

@@ -19,16 +19,20 @@ class ProfileSavedPosts extends React.Component {
     }
 
     componentDidMount() {
-        const userId = getCookieByKey('user').id;
+        const user = getCookieByKey('user');
+
+        if (!user) {
+            return;
+        }
 
         this.setState({
             currentPhotosLoaded: 12,
-            userId: userId,
+            userId: user.id,
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
         });
-        this.props.dispatch(getSavedPosts(userId, initSizePhoto, incrementSize));
+        this.props.dispatch(getSavedPosts(user.id, initSizePhoto, incrementSize));
         window.addEventListener("scroll", this.updateScroll);
     }
 

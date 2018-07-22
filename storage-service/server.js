@@ -85,8 +85,8 @@ router.post('/upload/profile', async (req, res, next) => {
 
 async function convertProfilePic(img) {
     return await Jimp.read(img.data).then(function (image) {
-        return image.resize(Jimp.AUTO, 400)
-            .quality(90);
+        return image.resize(Jimp.AUTO, 400);
+            // .quality(90);
     }).then().catch(function (err) {
         console.log(err);
     });
