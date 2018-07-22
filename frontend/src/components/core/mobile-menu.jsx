@@ -69,7 +69,7 @@ export default class MobileMenu extends React.Component {
     changeToggleState() {
         this.setState({
             showMobileMenu: !this.state.showMobileMenu,
-            toggle: !this.state.showMobileMenu == false ? 'hamburger' : 'hamburger focus'
+            toggle: !this.state.showMobileMenu === false ? 'hamburger' : 'hamburger focus'
         });
     }
 }

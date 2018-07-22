@@ -10,18 +10,34 @@ import styles from "../../../../../res/styles/main.scss"
 import slider from "../../../../../res/styles/slider.scss"
 import singlePostStyle from "../../../../../res/styles/single-post.scss"
 import selementsStyle from "../../../../../res/styles/common/elements.scss"
-
+import LoaderForm from '../../../../components/core/form/LoaderForm'
 
 class RelatedPostsSliderComponent extends React.Component {
 
 
     constructor(props) {
         super(props);
+        this.state = {
+            loaded: false
+        }
+
 
     }
 
     componentDidMount() {
-        this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId));
+        this.setState({loaded: false});
+        this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+            this.setState({loaded: true});
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.excludeId !== this.props.excludeId) {
+            this.setState({loaded: false});
+            this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+                this.setState({loaded: true});
+            });
+        }
     }
 
     render() {
@@ -53,24 +69,26 @@ class RelatedPostsSliderComponent extends React.Component {
                 <style jsx>{styles}</style>
                 <style jsx>{slider}</style>
                 <style jsx>{selementsStyle}</style>
-                <div
-                     className="hovereffect">
-                    <Link route='post' params={{postId: post.id}}>
-                        <div>
-                            <img className="slider-img" src={post.thumbnail}/>
-                            <div className="overlay">
-                                <div className="ul-main-list">
-                                    {post.md ? <ul className="md-white">
-                                        <li>{post.md}</li>
-                                    </ul> : null}
-                                    {post.ph ? <ul className="ph-white">
-                                        <li>{post.ph}</li>
-                                    </ul> : null}
+                {this.state && this.state.loaded ?
+                    <div
+                        className="hovereffect">
+                        <Link route='post' params={{postId: post.id}}>
+                            <div>
+                                <img className="slider-img" src={post.thumbnail}/>
+                                <div className="overlay">
+                                    <div className="ul-main-list">
+                                        {post.md ? <ul className="md-white">
+                                            <li>{post.md}</li>
+                                        </ul> : null}
+                                        {post.ph ? <ul className="ph-white">
+                                            <li>{post.ph}</li>
+                                        </ul> : null}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
-                </div>
+                        </Link>
+                    </div> :
+                    <LoaderForm height={300}/>}
             </div>
         )
     }

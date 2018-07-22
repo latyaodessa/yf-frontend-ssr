@@ -17,6 +17,7 @@
     "babel-loader": "^7.1.4",
     "body-parser": "^1.18.3",
     "body-parser-xml": "^1.1.0",
+    "cloudinary-react": "^1.0.6",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
     "isomorphic-unfetch": "^2.0.0",
@@ -27,11 +28,14 @@
     "path-match": "^1.2.4",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-dropzone": "^4.2.13",
     "react-ga": "^2.5.2",
     "react-id-swiper": "^1.6.4",
+    "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
+    "react-window-size-listener": "^1.2.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
@@ -40,6 +44,8 @@
     "sass-loader": "^7.0.1",
     "styled-jsx-css-loader": "^0.3.0",
     "styled-jsx-plugin-sass": "^0.2.4",
+    "universal-cookie": "^2.2.0",
     "xml2js": "^0.4.19"
-  }
+  },
+  "devDependencies": {}
 }

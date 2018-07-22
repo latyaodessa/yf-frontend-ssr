@@ -68,7 +68,6 @@
 }
 
 .login-menu-container {
-  margin-right: 15px;
   cursor: pointer;
   & img {
     border-radius: 50%;
@@ -79,8 +78,26 @@
     border-color: darken($brown, 5%);
     border-width: 2px;
   }
+  & li {
+    -webkit-transition: all .15s;
+    transition: all .15s;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    font-size: 2em;
+    padding: 5px;
+    color: #FFF;
+    display: block;
+    &:hover {
+      background-color: rgba($white, .8);
+      transition: all .15s;
+      letter-spacing: 2px;
+      color: #333;
+      border: 1px solid rgba(255, 255, 255, .15);
+    }
+  }
   & a{
     padding: 0;
+    font-size: 1em !important;
   }
 }
 

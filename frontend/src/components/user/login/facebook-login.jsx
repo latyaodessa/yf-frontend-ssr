@@ -1,16 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createFBUser, getUserByFBID} from '../../../actions/user/user-actions';
+import {getUserByFBID} from '../../../actions/user/user-actions';
 import {login} from '../../../actions/core/login-logout-actions';
 import styles from '../../../../res/styles/user/login.scss'
+import {setAuthCookie} from "../../../services/CookieService";
+import Router from "next/router";
+import {REDIRECT_PROFILE} from "../../../../pages/auth";
 
 
-// @connect((store) => {
-// 	return {
-// 		user: store.user,
-// 		fb_user: store.facebook
-// 	}
-// })
 class FaceBookLoginButton extends React.Component {
 
     constructor(props) {
@@ -48,38 +45,19 @@ class FaceBookLoginButton extends React.Component {
         }(document, 'script', 'facebook-jssdk'));
     }
 
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps && !this.isRegisteredUserFetchedAndExist(nextProps) && !this.isFBUserFetched(nextProps) && this.state.user_type === 'fb') {
-        //     this.props.dispatch(createFBUser(this.state.user_auth));
-        // }
-    }
-
-    isRegisteredUserFetchedAndExist(nextProps) {
-        return nextProps.user.user && nextProps.user.fetched;
-    }
-
-    isFBUserFetched(nextProps) {
-        return nextProps.facebook.user && nextProps.facebook.fetched;
-    }
-
-    loginToYF() {
-        this.props.dispatch(login());
-    }
 
     me() {
-        let FB_REQUESTED_FIELDS = ['id', 'first_name', 'last_name', 'gender', 'birthday',
-            'email', 'hometown', 'languages', 'locale', 'location',
+        let FB_REQUESTED_FIELDS = ['id', 'first_name', 'last_name', 'gender', 'birthday', 'hometown', 'languages', 'locale', 'location',
             'website', 'picture.height(200).width(200)'];
 
         FB.api('/me?fields=' + FB_REQUESTED_FIELDS.join(','), function (res) {
-
-            localStorage.clear();
-            localStorage.setItem('user_thumbnail', res.picture.data.url);
-            delete res.picture;
-            console.log(res);
-            this.setState({user_auth: res, user_type: "fb"});
-            this.getUserByFBID(res.id);
-            this.loginToYF();
+            // TODO upload avatar
+            // localStorage.setItem('user_thumbnail', res.picture.data.url);
+            if (!res.error) {
+                delete res.picture;
+                this.setState({user_auth: res});
+                this.getUserByFBID(res.id);
+            }
         }.bind(this));
     }
 
@@ -91,18 +69,20 @@ class FaceBookLoginButton extends React.Component {
 
     getUserByFBID(userId) {
         this.props.dispatch(getUserByFBID(userId)).then(() => {
+            if (this.props.error && !this.props.data) {
+                let socialUser = {
+                    id: this.state.user_auth.id,
+                    firstName: this.state.user_auth.first_name,
+                    lastName: this.state.user_auth.last_name,
+                    type: 'FB',
+                    dto: this.state.user_auth
+                };
 
-            if (this.props.user && this.props.user.fetched === true && this.props.user.user) {
-                this.loginToYF();
-
-            } else {
-                if (this.state.user_auth) {
-                    this.props.dispatch(createFBUser(this.state.user_auth)).then(() => {
-                        this.loginToYF();
-                    });
-                }
+                this.props.goToSocialActivation(socialUser);
+            } else if (this.props.data) {
+                setAuthCookie(this.props.data.user, this.props.data.token);
+                Router.push(REDIRECT_PROFILE);
             }
-
 
         });
     }
@@ -123,8 +103,8 @@ class FaceBookLoginButton extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return state;
+    let {socialUser} = state;
+    return socialUser;
 }
 
 export default connect(mapStateToProps)(FaceBookLoginButton)
-

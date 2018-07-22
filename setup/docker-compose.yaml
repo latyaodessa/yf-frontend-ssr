@@ -47,6 +47,14 @@ services:
       - "9092:8080"
     networks:
       - nginx-proxy
+  storage:
+    container_name: storage
+    restart: always
+    build: ./../storage-service
+    ports:
+      - "9093:8080"
+    networks:
+      - nginx-proxy
   database:
     container_name: database
     restart: always

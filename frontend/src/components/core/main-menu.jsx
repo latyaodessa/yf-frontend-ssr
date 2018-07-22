@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import {ART_PAGE, MAIN_PAGE, NATIVE_PAGE, SETS_PAGE} from '../../messages/core'
-import LoginLogoutButton from '../core/menu-components/login-logout-button'
-// import SearchIcon from '../../static/img/64/search-icon.png'
 import styles from '../../../res/styles/navigation.scss'
 import searchStyles from '../../../res/styles/search-post.scss'
+import DropDownNavMenu from './menu-components/DropDownNavMenu'
 
 const DesktopMenu = () => (
     <div>
@@ -27,7 +26,7 @@ const DesktopMenu = () => (
                     <Link href='/search'><a><img src="/static/img/64/search-icon.png"/></a></Link>
                 </div>
             </li>
-            {/*<LoginLogoutButton/>*/}
+            <li><DropDownNavMenu/></li>
         </ul>
     </div>
 );

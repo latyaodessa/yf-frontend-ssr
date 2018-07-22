@@ -3,27 +3,33 @@ import {Link} from '../../../../../../routes'
 import Router from 'next/router'
 import styles from '../../../../../../res/styles/sidebar.scss'
 import loginStyles from '../../../../../../res/styles/user/login.scss'
+import {verifyLoggedInUser, cleanUserCookies, getCookieByKey} from "../../../../../services/CookieService";
 
 
 class SidebarHeader extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            userAuth: false,
+            fetched: false
+        }
 
     }
 
     componentDidMount() {
-        this.setState({
-            userExist: localStorage.getItem('user_id') ? true : false
-        });
-    }
+        verifyLoggedInUser().then(valid => {
+            this.setState({
+                userAuth: valid,
+                fetched: true
+            });
+        })
 
-    getUserThumbnail() {
-        return localStorage.getItem('user_thumbnail');
     }
 
     getUserName() {
-        return [localStorage.getItem('user_first_name'), localStorage.getItem('user_last_name')].join(" ");
+        let user = getCookieByKey('user');
+        return [user.firstName, user.lastName].join(" ");
     }
 
 
@@ -31,7 +37,7 @@ class SidebarHeader extends React.Component {
         return <div>
             <style jsx>{styles}</style>
             <div className="sidebar-header">
-                <Link route='dashboard'><img className='avatar' src={this.getUserThumbnail()}/></Link>
+                {/*<Link route='dashboard'><img className='avatar' src={this.getUserThumbnail()}/></Link>*/}
                 <div className="sidebar-header-text">
                     <h1 className="no-underscore">{this.getUserName()}</h1>
                 </div>
@@ -39,7 +45,7 @@ class SidebarHeader extends React.Component {
             <div className='info'>
                 <ul>
                     <li>
-                        <Link route='dashboard'><a>Профайл</a></Link>
+                        <Link route='profile'><a>Профиль</a></Link>
                     </li>
                     <li>
                         <a onClick={this.logOut.bind(this)}>Выйти</a>
@@ -50,12 +56,13 @@ class SidebarHeader extends React.Component {
     }
 
     navigateToLogin() {
-        Router.push('/login');
+        Router.push('/auth');
     }
 
     logOut() {
-        localStorage.clear();
-        Router.push('/login');
+        cleanUserCookies().then(() => {
+            Router.push('/auth');
+        });
     }
 
     getButton() {
@@ -75,8 +82,10 @@ class SidebarHeader extends React.Component {
         return (
             <div>
                 <style jsx>{styles}</style>
-                {this.state && this.state.userExist ? this.getLoggedInUserData()
-                    : this.getButton()}
+                {this.state.fetched && <div>
+                    {this.state.userAuth ? this.getLoggedInUserData()
+                        : this.getButton()}
+                </div>}
             </div>
         )
     }

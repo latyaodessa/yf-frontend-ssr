@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {createVkUser, getUserByVKID} from '../../../actions/user/user-actions';
+import {getUserByVKID} from '../../../actions/user/user-actions';
 import styles from '../../../../res/styles/user/login.scss'
 import {login} from "../../../actions/core/login-logout-actions";
 
@@ -25,6 +25,7 @@ class VKLoginButton extends React.Component {
             this.sdkLoaded();
             return;
         }
+
         this.setFbAsyncInit();
         this.loadSdkAsynchronously();
     }
@@ -63,16 +64,19 @@ class VKLoginButton extends React.Component {
         document.getElementsByTagName('head')[0].appendChild(el);
     }
 
-    getVkUserById(userId) {
-        this.props.dispatch(getUserByVKID(userId)).then(() => {
-            if (this.props.user && this.props.user.fetched === true && this.props.user.user) {
-                this.loginToYF();
-            } else {
-                if (this.state.vk_user_auth) {
-                    this.props.dispatch(createVkUser(this.state.vk_user_auth.id)).then(() => {
-                        this.loginToYF();
-                    });
-                }
+    getVkUserById(user) {
+        this.props.dispatch(getUserByVKID(user.id)).then(() => {
+
+            if (this.props.error && !this.props.data) {
+                let socialUser = {
+                    id: user.id,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                    type: 'VK',
+                    dto: user
+                };
+
+                this.props.goToSocialActivation(socialUser);
             }
 
         })
@@ -80,10 +84,10 @@ class VKLoginButton extends React.Component {
 
 
     clickVk() {
+        console.log(VK);
         VK.Auth.login(function (response) {
             if (response.session) {
-                this.setState({vk_user_auth: response.session.user, user_type: "vk"});
-                this.getVkUserById(response.session.user.id);
+                this.getVkUserById(response.session.user);
             }
         }.bind(this))
     };
@@ -93,18 +97,23 @@ class VKLoginButton extends React.Component {
         return (
             <div>
                 <style jsx>{styles}</style>
-                <a className="button vk" onClick={this.clickVk} role="button">
-                    <span>Войти через VK</span>
-                    <div className="icon">
-                        <img src="/static/img/social/white/vk.png"/>
-                    </div>
-                </a>
+                {/*<VK apiId={4601875}>*/}
+                    <a className="button vk" onClick={this.clickVk} role="button">
+                        <span>Войти через VK</span>
+                        <div className="icon">
+                            <img src="/static/img/social/white/vk.png"/>
+                        </div>
+                    </a>
+                {/*</VK>*/}
             </div>
         )
     }
 }
+
 function mapStateToProps(state) {
-    return state;
+    console.log(state);
+    let {socialUser} = state;
+    return socialUser;
 }
 
 export default connect(mapStateToProps)(VKLoginButton)

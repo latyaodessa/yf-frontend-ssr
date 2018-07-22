@@ -1,14 +1,8 @@
 import React from 'react';
 import Router from 'next/router'
 import {connect} from 'react-redux';
+import {verifyLoggedInUser} from "../../../services/CookieService";
 
-// @connect((store) => {
-//   return {
-//     registered_user: store.user,
-//     vk_user: store.vk,
-//     fb_user: store.facebook
-//   }
-// })
 class Redirector extends React.Component {
 
     constructor(props) {
@@ -16,32 +10,14 @@ class Redirector extends React.Component {
 
     }
 
-    // isRegisteredUser(nextProps) {
-    //     return nextProps.registered_user.user && nextProps.registered_user.fetched;
-    // }
-    //
-    // isVkUserCreated(nextProps) {
-    //     return nextProps.vk_user.user && nextProps.vk_user.fetched;
-    // }
-    //
-    // isFbUserCreated(nextProps) {
-    //     return nextProps.fb_user.user && nextProps.fb_user.fetched;
-    // }
-
     componentDidMount() {
-        if (localStorage.getItem('user_id')) {
-            Router.push('/dashboard');
-        }
+        verifyLoggedInUser().then(valid => {
+            if (valid) {
+                Router.push('/profile');
+            }
+        })
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps);
-    //
-    //
-    //     if (this.isRegisteredUser(nextProps) || this.isVkUserCreated(nextProps) || this.isFbUserCreated(nextProps)) {
-    //         Router.push('/dashboard');
-    //     }
-    // }
 
     render() {
         return null;
@@ -49,10 +25,6 @@ class Redirector extends React.Component {
 }
 
 function mapStateToProps(state) {
-
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('user_id')) {
-        Router.push('/dashboard');
-    }
     return state;
 }
 
