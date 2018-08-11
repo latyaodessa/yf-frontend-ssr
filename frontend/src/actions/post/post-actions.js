@@ -5,7 +5,8 @@ import {
     FIND_SETS_FROM_TO,
     FIND_TOP_NATIVE_FROM_TO,
     FIND_TOP_SETS_FROM_TO,
-    SEARCH_POSTS
+    SEARCH_POSTS,
+    FIND_PUBLICATION_BY_TYPE
 } from '../../constants/post-rest-client'
 import {
     FETCH_ART_POSTS_FULFILLED,
@@ -20,10 +21,15 @@ import {
     FETCH_TOP_SETS_REJECTED,
     SEARCH_POST_FULFILLED,
     SEARCH_POST_REJECTED
-} from '../../constants/post/posts-constants'
+} from '../../constants/post/posts-constants';
+
+const PUB_TYPE_NATIVE = "NATIVE";
+const PUB_TYPE_SETS = "SETS";
+const PUB_TYPE_ART = "ART";
+
 
 export const fetchNativePosts = (from, to) => (dispatch, getState) => {
-    return axios.get([FIND_NATIVE_FROM_TO, from, to].join("/"))
+    return axios.get([FIND_PUBLICATION_BY_TYPE, PUB_TYPE_NATIVE, from, to].join("/"))
         .then((res) => {
             dispatch({type: FETCH_NATIVE_POSTS_FULFILLED, payload: res.data})
         })
@@ -35,7 +41,7 @@ export const fetchNativePosts = (from, to) => (dispatch, getState) => {
 
 
 export const fetchArtPosts = (from, to) => (dispatch) => {
-    return axios.get([FIND_ART_FROM_TO, from, to].join("/"))
+    return axios.get([FIND_PUBLICATION_BY_TYPE, PUB_TYPE_ART, from, to].join("/"))
         .then((res) => {
             dispatch({type: FETCH_ART_POSTS_FULFILLED, payload: res.data})
         })
@@ -47,7 +53,7 @@ export const fetchArtPosts = (from, to) => (dispatch) => {
 
 
 export const fetchSetsPosts = (from, to) => (dispatch, getState) => {
-    return axios.get([FIND_SETS_FROM_TO, from, to].join("/"))
+    return axios.get([FIND_PUBLICATION_BY_TYPE, PUB_TYPE_SETS, from, to].join("/"))
         .then((res) => {
             dispatch({type: FETCH_SETS_POSTS_FULFILLED, payload: res.data})
         })

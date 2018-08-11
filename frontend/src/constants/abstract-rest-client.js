@@ -10,5 +10,5 @@ export const STORAGE_HOST = () => {
     let backend = typeof window === 'undefined' ? 'http://storage:8080/' : window.location.protocol + "//" + window.location.hostname +  "/";
     return backend;
 };
-
+//
 // export const HOST = () =>  'http://194.1.239.223:8080/';

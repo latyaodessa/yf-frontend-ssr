@@ -82,7 +82,7 @@ class NativeList extends React.Component {
                 <div className="grig-img-container hovereffect">
 
                     <img className="grig-img" src={post.thumbnail}/>
-                    <Link route='post' params={{postId: post.id}}>
+                    <Link route='pub' params={{link: post.link}}>
                         <a>
                             <div className="overlay">
                                 <div className="ul-main-list">
@@ -118,6 +118,7 @@ class NativeList extends React.Component {
 
 function mapStateToProps(state) {
     const {topNative, native} = state;
+    console.log(native);
     return native;
 }
 

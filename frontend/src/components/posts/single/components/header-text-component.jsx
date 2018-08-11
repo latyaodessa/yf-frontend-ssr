@@ -13,13 +13,13 @@ export default class HeaderText extends React.Component {
             <div className="top-text">
                 <style jsx>{styles}</style>
                 <style jsx>{elementsStyle}</style>
-                {this.props.post.md ? <ul className="md">
-                    <li>{this.props.post.md}</li>
+                {this.props.post.mdSimple ? <ul className="md">
+                    <li>{this.props.post.mdSimple}</li>
                 </ul> : null}
-                {this.props.post.ph ? <ul className="ph">
-                    <li>{this.props.post.ph}</li>
+                {this.props.post.phSimple ? <ul className="ph">
+                    <li>{this.props.post.phSimple}</li>
                 </ul> : null}
-                {!this.props.post.ph && !this.props.post.md ? <ul className="art">
+                {!this.props.post.phSimple && !this.props.post.mdSimple ? <ul className="art">
                     <li>{this.regexCleaner(this.props.post.text)}</li>
                 </ul> : null}
             </div>

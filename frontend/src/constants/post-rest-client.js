@@ -13,7 +13,8 @@ export const FIND_TOP_NATIVE_FROM_TO = HOST() + BACKEND_REST +'post/top/yf-nativ
 export const FIND_RELATED_POSTS = HOST() + BACKEND_REST +'post/search/related';
 export const SEARCH_POSTS = HOST() + BACKEND_REST +'post/search/';
 
-export const IS_POST_ALREADY_EXIST_BY_USER = HOST() + BACKEND_REST + "dashboard/isexist/post"
+export const IS_POST_ALREADY_EXIST_BY_USER = HOST() + BACKEND_REST + "dashboard/isexist/post";
 
-
+export const FIND_PUBLICATION_BY_TYPE = HOST() + BACKEND_REST + "publication/get";
+export const FIND_PUBLICATION_BY_LINK = HOST() + BACKEND_REST + "publication/link";
 
