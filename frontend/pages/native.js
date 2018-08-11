@@ -19,7 +19,7 @@ class NativeList extends React.Component {
 
 
         await store.dispatch(fetchNativePosts(initSizePhoto, incrementSize));
-        await store.dispatch(TopNativeSlider.initialAction());
+        // await store.dispatch(TopNativeSlider.initialAction());
 
         return {isServer}
     }

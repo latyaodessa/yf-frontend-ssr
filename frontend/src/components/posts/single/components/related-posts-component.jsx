@@ -3,9 +3,6 @@ import {connect} from 'react-redux';
 import {Link} from '../../../../../routes'
 import Swiper from 'react-id-swiper';
 import {getRelatedPosts} from '../../../../actions/post/single-post-actions';
-import TopNativeSlider from "../../lists/top-native-slider";
-import NativeGrid from "../../../home/components/native-grid-component";
-import SetsGrid from "../../../home/components/sets-grid-component";
 import styles from "../../../../../res/styles/main.scss"
 import slider from "../../../../../res/styles/slider.scss"
 import singlePostStyle from "../../../../../res/styles/single-post.scss"

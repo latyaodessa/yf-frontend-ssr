@@ -9,7 +9,7 @@ class Grid extends React.Component {
 
     static initialAction() {
         return []
-            .concat(TopNativeSlider.initialAction())
+            // .concat(TopNativeSlider.initialAction())
             .concat(NativeGrid.initialAction())
             .concat(SetsGrid.initialAction());
     }
