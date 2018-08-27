@@ -30,7 +30,7 @@ class SetsGrid extends React.Component {
             <style jsx>{styles}</style>
             <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
-            <Link route='post' params={{postId: post.id}}>
+            <Link route='pub' params={{link: post.link}}>
                 <a>
                     <div className="overlay">
                         <div className="ul-main-list">
@@ -90,6 +90,7 @@ class SetsGrid extends React.Component {
 
 function mapStateToProps(state) {
     const {sets} = state;
+    console.log(sets);
     return sets;
 }
 

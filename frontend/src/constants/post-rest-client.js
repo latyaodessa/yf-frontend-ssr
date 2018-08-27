@@ -17,4 +17,6 @@ export const IS_POST_ALREADY_EXIST_BY_USER = HOST() + BACKEND_REST + "dashboard/
 
 export const FIND_PUBLICATION_BY_TYPE = HOST() + BACKEND_REST + "publication/get";
 export const FIND_PUBLICATION_BY_LINK = HOST() + BACKEND_REST + "publication/link";
+export const FIND_RELATED_PUBLICATIONS = HOST() + BACKEND_REST +'publication/search/related';
+export const FIND_PUBLICATION_BY_VK_POST_ID = HOST() + BACKEND_REST +'publication/vkpost/';
 

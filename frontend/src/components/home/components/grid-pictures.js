@@ -1,7 +1,6 @@
 import React from 'react';
 import NativeGrid from './native-grid-component'
 import SetsGrid from './sets-grid-component'
-import TopNativeSlider from '../../../components/posts/lists/top-native-slider'
 import {connect} from "react-redux";
 
 

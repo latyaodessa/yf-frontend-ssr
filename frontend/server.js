@@ -5,6 +5,7 @@ const routes = require('./routes');
 const app = next({dev: process.env.NODE_ENV !== 'production'});
 const handler = routes.getRequestHandler(app);
 const bodyParser = require('body-parser');
+const request = require('request');
 require('body-parser-xml')(bodyParser);
 
 const fs = require('fs'),

@@ -89,7 +89,7 @@ class ProfileSavedPosts extends React.Component {
                                  className="delete-button-img" src="/static/img/icons/close-button.png"/>
                         </div>
                     </div>
-                    <Link to={'post/' + post.post_id}>
+                    <Link route='pub' params={{link: post.link}}>
                         <div className="ul-main-list">
                             {post.md ? <ul className="md-white">
                                 <li>{post.md}</li>
@@ -128,6 +128,7 @@ class ProfileSavedPosts extends React.Component {
 
 function mapStateToProps(state) {
     const {savedPosts} = state;
+    console.log(savedPosts);
     return savedPosts;
 }
 

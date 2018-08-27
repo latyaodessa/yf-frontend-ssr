@@ -34,7 +34,7 @@ class NativeGrid extends React.Component {
             <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
 
-            <Link route='post' params={{postId: post.id}}>
+            <Link route='pub' params={{link: post.link}}>
                 <a>
                     <div className="overlay">
                         <div className="ul-main-list">

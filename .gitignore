@@ -3,5 +3,8 @@
 node_modules/
 frontend/node_modules/
 frontend/.idea/
+frontend/package-lock.json
 parsers/node_modules/
 parsers/.idea/
+parsers/package-lock.json
+

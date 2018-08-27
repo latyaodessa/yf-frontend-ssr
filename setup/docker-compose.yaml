@@ -23,6 +23,7 @@ services:
     container_name: backend
     restart: always
     build: ./../yf-services
+    entrypoint: "/opt/payara41/bin/startInForeground.sh --passwordfile=/opt/pwdfile -d --postbootcommandfile glassfish/domains/domain1"
     ports:
       - "8080:8080"
       - "8181:8181"

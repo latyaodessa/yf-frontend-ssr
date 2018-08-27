@@ -75,7 +75,7 @@ class SetsList extends React.Component {
                                       className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 grig-img-container hovereffect">
             <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
-            <Link route='post' params={{postId: post.id}}>
+            <Link route='pub' params={{link: post.link}}>
                 <a>
                     <div className="overlay">
                         <div className="ul-main-list">

@@ -68,8 +68,7 @@ class SinglePost extends React.Component {
                     <h1>Похожие фотосеты</h1>
                     {this.props.post ?
                         <RelatedPostsSliderComponent
-                            excludeId={this.props.post.id}
-                            query={[this.props.post.md, this.props.post.ph].join(" ")}/>
+                            publication={this.props.post}/>
                         : null}
                 </div>
             </MainLayoutWithNavigation>
@@ -80,7 +79,6 @@ class SinglePost extends React.Component {
 
 function mapStateToProps(state) {
     const {single} = state;
-    console.log(single);
     return single;
 }
 

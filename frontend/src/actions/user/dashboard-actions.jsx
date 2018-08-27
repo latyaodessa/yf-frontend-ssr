@@ -23,12 +23,9 @@ export const getSavedPosts = (userId, from, to) => (dispatch) => {
 };
 
 
-export const savePostToDashboard = (postId, userId) => (dispatch, getState) => {
-    let req = {
-        post_id: postId,
-        user_id: userId
-    };
-    return axios.post(SAVE_POST_TO_DASHBOARD, req)
+export const savePostToDashboard = (publication_id, userId) => (dispatch, getState) => {
+
+    return axios.post([SAVE_POST_TO_DASHBOARD,publication_id, userId].join("/"), {})
         .then((res) => {
             dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
 

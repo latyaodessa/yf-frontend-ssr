@@ -23,21 +23,26 @@ class RelatedPostsSliderComponent extends React.Component {
 
     componentDidMount() {
         this.setState({loaded: false});
-        this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+        console.log(this.props);
+        this.props.dispatch(getRelatedPosts(this.props.publication)).then(() => {
             this.setState({loaded: true});
         });
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.excludeId !== this.props.excludeId) {
+        if (prevProps.publication !== this.props.publication) {
             this.setState({loaded: false});
-            this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+            this.props.dispatch(getRelatedPosts(this.props.publication)).then(() => {
                 this.setState({loaded: true});
             });
         }
     }
 
     render() {
+
+
+        console.log(this.props);
+
         const params = {
             slidesPerView: 3,
             paginationClickable: true,
@@ -69,7 +74,7 @@ class RelatedPostsSliderComponent extends React.Component {
                 {this.state && this.state.loaded ?
                     <div
                         className="hovereffect">
-                        <Link route='post' params={{postId: post.id}}>
+                        <Link route='pub' params={{link: post.link}}>
                             <div>
                                 <img className="slider-img" src={post.thumbnail}/>
                                 <div className="overlay">

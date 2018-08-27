@@ -1,5 +1,10 @@
 import axios from "axios"
-import {FIND_POST_BY_ID, FIND_RELATED_POSTS, IS_POST_ALREADY_EXIST_BY_USER, FIND_PUBLICATION_BY_LINK} from '../../constants/post-rest-client'
+import {
+    FIND_PUBLICATION_BY_VK_POST_ID,
+    FIND_RELATED_PUBLICATIONS,
+    IS_POST_ALREADY_EXIST_BY_USER,
+    FIND_PUBLICATION_BY_LINK
+} from '../../constants/post-rest-client'
 import {
     FETCH_RELATED_POSTS_FULFILLED,
     FETCH_RELATED_POSTS_REJECTED,
@@ -8,13 +13,15 @@ import {
 } from '../../constants/post/posts-constants';
 import {GET_IS_POST_EXIST_FULFILLED, GET_IS_POST_EXIST_REJECTED} from "../../constants/user/user-constants"
 
-export const fetchPostPictures = (postId) => dispatch => {
-    return axios.get(FIND_POST_BY_ID + postId)
+export const fetchPostPictures = (postId) => {
+   return axios.get(FIND_PUBLICATION_BY_VK_POST_ID + postId)
         .then((res) => {
-            dispatch({type: FETCH_SINGLE_POST_FULFILLED, payload: res.data})
+            // console.log(res.data);
+            return res.data;
         })
         .catch((err) => {
-            dispatch({type: FETCH_SINGLE_POST_REJECTED, payload: err})
+            console.log(err);
+            return;
         })
 };
 
@@ -39,8 +46,8 @@ export const isPostAlreadySavedByUser = (postId, userId) => dispatch => {
 };
 
 
-export const getRelatedPosts = (query, excludeId) => dispatch => {
-    return axios.get(FIND_RELATED_POSTS + "?query=" + query + "&excludeId=" + excludeId)
+export const getRelatedPosts = (publication) => dispatch => {
+    return axios.post(FIND_RELATED_PUBLICATIONS, publication)
         .then((res) => {
             dispatch({type: FETCH_RELATED_POSTS_FULFILLED, payload: res.data});
         })
