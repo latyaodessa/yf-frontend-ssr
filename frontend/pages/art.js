@@ -85,6 +85,12 @@ class NativeList extends React.Component {
                             {post.ph ? <ul className="ph-white">
                                 <li>{post.ph}</li>
                             </ul> : null}
+                            {!post.ph && !post.md ? <ul className="art-white">
+                                <li>{post.text}</li>
+                            </ul> : null}
+                            <ul className="like-white">
+                                <li>{post.likes}</li>
+                            </ul>
                         </div>
                     </div>
                 </a>

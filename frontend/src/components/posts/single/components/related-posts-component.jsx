@@ -23,7 +23,6 @@ class RelatedPostsSliderComponent extends React.Component {
 
     componentDidMount() {
         this.setState({loaded: false});
-        console.log(this.props);
         this.props.dispatch(getRelatedPosts(this.props.publication)).then(() => {
             this.setState({loaded: true});
         });
@@ -39,9 +38,6 @@ class RelatedPostsSliderComponent extends React.Component {
     }
 
     render() {
-
-
-        console.log(this.props);
 
         const params = {
             slidesPerView: 3,

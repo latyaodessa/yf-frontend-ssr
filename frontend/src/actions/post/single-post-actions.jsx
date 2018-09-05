@@ -13,10 +13,10 @@ import {
 } from '../../constants/post/posts-constants';
 import {GET_IS_POST_EXIST_FULFILLED, GET_IS_POST_EXIST_REJECTED} from "../../constants/user/user-constants"
 
+
 export const fetchPostPictures = (postId) => {
    return axios.get(FIND_PUBLICATION_BY_VK_POST_ID + postId)
         .then((res) => {
-            // console.log(res.data);
             return res.data;
         })
         .catch((err) => {

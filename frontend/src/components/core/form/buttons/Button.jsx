@@ -5,6 +5,6 @@ export const SubmitButton = (params) => {
     return <div className="button-panel">
         <style jsx>{style}</style>
         <button type="submit" className={buttonStyle} value={params.title}
-                disabled={params.fetching}>{params.title}</button>
+                disabled={true}>{params.title}</button>
     </div>
 };

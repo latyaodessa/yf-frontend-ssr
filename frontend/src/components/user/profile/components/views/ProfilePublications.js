@@ -1,21 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deletePostFromDashboard, getSavedPosts} from '../../../../../actions/user/dashboard-actions';
+import {getPublicationsByUser} from "../../../../../actions/post/post-actions";
 import mainStyles from '../../../../../../res/styles/main.scss'
 import dashboardStyles from '../../../../../../res/styles/user/dashboard.scss'
 import elementsStyles from '../../../../../../res/styles/common/elements.scss'
 import {Link} from '../../../../../../routes'
 import {getCookieByKey} from "../../../../../services/CookieService";
+import {NO_PUBLICATION_PUBLISHED} from "../../../../../messages/profile";
 
 const incrementSize = 12;
 const initSizePhoto = 0;
 
 class ProfilePublications extends React.Component {
 
+
     constructor(props) {
         super(props);
+        // this.props.dispatch(fetchNativePosts(this.state.initSizePhoto, this.state.incrementSize));
         this.updateScroll = this.updateScroll.bind(this);
-        this.isPostsExists = this.isPostsExists.bind(this);
+
     }
 
     componentDidMount() {
@@ -25,17 +28,20 @@ class ProfilePublications extends React.Component {
             return;
         }
 
+
+        this.props.dispatch(getPublicationsByUser(user.id, initSizePhoto, incrementSize));
+
         this.setState({
-            currentPhotosLoaded: 12,
             userId: user.id,
+            initSizePhoto: initSizePhoto,
+            incrementSize: incrementSize,
+            currentPhotosLoaded: 12,
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
         });
-        this.props.dispatch(getSavedPosts(user.id, initSizePhoto, incrementSize));
         window.addEventListener("scroll", this.updateScroll);
     }
-
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.updateScroll);
@@ -46,18 +52,18 @@ class ProfilePublications extends React.Component {
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
-        });
+        })
         if (this.isLoadMore()) {
             this.fetchMorePhotos();
         }
     }
 
     fetchMorePhotos() {
-        let currentPhotoSize = this.state.currentPhotosLoaded += incrementSize;
+        let currentPhotoSize = this.state.currentPhotosLoaded += this.state.incrementSize;
         this.setState({
             currentPhotosLoaded: currentPhotoSize
-        });
-        this.props.dispatch(getSavedPosts(this.state.userId, initSizePhoto, currentPhotoSize));
+        })
+        this.props.dispatch(getPublicationsByUser(this.state.userId, this.state.initSizePhoto, currentPhotoSize));
     }
 
     isLoadMore() {
@@ -66,46 +72,59 @@ class ProfilePublications extends React.Component {
         }
     }
 
-    isPostsExists() {
-        return this.props.fetched && this.props.savedPosts.length !== 0;
-    }
-
-    deltePostFromDashBoard(id, post_id, user_id) {
-        this.props.dispatch(deletePostFromDashboard(id, post_id, user_id));
-    }
-
     renderPics(posts) {
-        return posts.map(post => <div key={post.id}
-                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
-            <style jsx>{mainStyles}</style>
-            <style jsx>{dashboardStyles}</style>
-            <style jsx>{elementsStyles}</style>
-            <div className="grig-img-container hovereffect">
-                <img className="grig-img" src={post.thumbnail}/>
-                <div className="overlay">
-                    <div className="tools-wrapper">
-                        <div className="delete-container">
-                            <img onClick={this.deltePostFromDashBoard.bind(this, post.id, post.post_id, post.user_id)}
-                                 className="delete-button-img" src="/static/img/icons/close-button.png"/>
-                        </div>
-                    </div>
-                    <Link to={'post/' + post.post_id}>
-                        <div className="ul-main-list">
-                            {post.md ? <ul className="md-white">
-                                <li>{post.md}</li>
-                            </ul> : null}
-                            {post.ph ? <ul className="ph-white">
-                                <li>{post.ph}</li>
-                            </ul> : null}
-                        </div>
+        return posts.map(post =>
+            <div key={post.id}
+                 className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 ">
+                <style jsx>{mainStyles}</style>
+                <style jsx>{elementsStyles}</style>
+                <div className="grig-img-container hovereffect">
+
+                    <img className="grig-img" src={post.thumbnail}/>
+                    <Link route='pub' params={{link: post.link}}>
+                        <a>
+                            <div className="overlay">
+                                <div className="ul-main-list">
+                                    {post.md ? <ul className="md-white">
+                                        <li>{post.md}</li>
+                                    </ul> : null}
+                                    {post.ph ? <ul className="ph-white">
+                                        <li>{post.ph}</li>
+                                    </ul> : null}
+                                    <ul className="like-white">
+                                        <li>{post.likes}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
                     </Link>
                 </div>
             </div>
-        </div>)
+        )
     }
 
-    getNotExistSavedPostsNotification() {
-        return <h1 className="no-underscore">Вы еще не сохранили ни одного фотосета</h1>
+    renderContent = () => {
+        console.log(this.props);
+        if (this.props.fetched && this.props.post && this.props.post.length > 0) {
+            return <div className="grid-list-container">
+                <div className="pure-g">{this.renderPics(this.props.post)}</div>
+            </div>
+        }
+
+        return this.getNoPubsInfo();
+
+
+    };
+
+    getNoPubsInfo() {
+        return <h1 className="no-underscore">{NO_PUBLICATION_PUBLISHED}</h1>
+    }
+
+    getDummyWarning() {
+        return <div style={{backgroundColor: "#ffffcc", borderRadius: "5px", padding: "15px"}}>
+            <div><span>На данный момент предложить публикации возможно только через <a href={"https://vk.com/youngfolks"} target="_blank">публичную страницу в VK.</a></span></div>
+            <div><span>В скором времени это возможно будет сделать тут</span></div>
+        </div>
     }
 
     render() {
@@ -113,12 +132,10 @@ class ProfilePublications extends React.Component {
             <div>
                 <style jsx>{mainStyles}</style>
                 <style jsx>{dashboardStyles}</style>
+                {this.getDummyWarning()}
                 <div className="dashboard-container">
-                    {this.props.fetched &&
-                    <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div>
-                    }
+                    {this.props.fetched && this.renderContent()}
 
-                    {/*{this.isLoadMore.bind(this)}*/}
 
                 </div>
             </div>
@@ -127,9 +144,8 @@ class ProfilePublications extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {savedPosts} = state;
-    return savedPosts;
+    const {native} = state;
+    return native;
 }
-
 
 export default connect(mapStateToProps)(ProfilePublications)

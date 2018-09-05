@@ -32,11 +32,11 @@ class MobileLoginLogoutButton extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.userAuth ? <div>{this.getLogoutButtonMobile()}</div>
+            <ul>
+                {this.state.userAuth ? this.getLogoutButtonMobile()
                     : <li>{this.getLoginButton()}</li>
                 }
-            </div>
+            </ul>
         )
     }
 
@@ -51,16 +51,18 @@ class MobileLoginLogoutButton extends React.Component {
     }
 
     getLogoutButtonMobile() {
-        return <div>
+        return <li>
             <style jsx>{styles}</style>
 
             <div className="login-menu-container">
-                <Link route='profile'>
-                    <li>Профиль</li>
-                </Link>
-                <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>
+                <ul>
+                    <Link route='profile'>
+                        <li>Профиль</li>
+                    </Link>
+                    <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>
+                </ul>
             </div>
-        </div>
+        </li>
     }
 
 }

@@ -44,6 +44,9 @@ class NativeGrid extends React.Component {
                             {post.ph ? <ul className="ph-white">
                                 <li>{post.ph}</li>
                             </ul> : null}
+                            <ul className="like-white">
+                                <li>{post.likes}</li>
+                            </ul>
                         </div>
                     </div>
                 </a>

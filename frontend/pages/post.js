@@ -2,47 +2,31 @@ import React from 'react'
 import {fetchPostPictures} from "../src/actions/post/single-post-actions";
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
 import {connect} from "react-redux";
-import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
+import meta from "../src/components/posts/single/components/singlePostMetaGenerator";
+import ErrorPage from 'next/error';
+import Router from 'next/router';
 
 class SinglePost extends React.Component {
 
     static async getInitialProps({res, store, query}) {
 
-        // await store.dispatch(fetchPostPictures(query.postId));
         let data = await fetchPostPictures(query.postId);
 
         if (data) {
-            console.log(data);
             res.redirect(301, "/pub/" + data.link);
         } else {
             res.statusCode = 404;
         }
-
-
-
-        // return { data };
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            postId: this.props.postId,
-        };
-    }
-
-    componentDidMount() {
-        console.log(this.props);
-        window.scrollTo(0, 0);
+        return {statusCode: res.statusCode, data};
     }
 
 
     render() {
-        return (
-            <MainLayoutWithNavigation meta={meta(this.props.post)}>
-
-            </MainLayoutWithNavigation>
-
-        )
+        console.log(this.props.statusCode)
+        if (this.props.statusCode && this.props.statusCode !== 200) {
+            return <ErrorPage statusCode={this.props.statusCode}/>
+        }
+        return <div/>
     }
 }
 

@@ -5,6 +5,7 @@ import styles from '../res/styles/search-post.scss'
 import {searchPosts} from "../src/actions/post/post-actions";
 import {Link} from '../routes'
 import meta from '../src/components/posts/searchMetaGenerator'
+import elementsStyles from '../res/styles/common/elements.scss'
 
 
 class PostSearch extends React.Component {
@@ -61,8 +62,9 @@ class PostSearch extends React.Component {
     renderPics(posts) {
         return posts.map(post => <div key={post.id}
                                       className="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-2 grig-img-container hovereffect">
+            <style jsx>{elementsStyles}</style>
             <img className="grig-img" src={post.thumbnail}/>
-            <Link route='post' params={{postId: post.id}}>
+            <Link route='pub' params={{link: post.link}}>
                 <div className="overlay">
                     <div className="ul-main-list">
                         {post.md ? <ul className="md-white">
