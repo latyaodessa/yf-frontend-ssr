@@ -29,13 +29,13 @@ class SinglePost extends React.Component {
         window.scrollTo(0, 0);
     }
 
-    handleUpdatePostFromRelative() {
-        window.scrollTo(0, 0);
-        this.props.dispatch(fetchPostPictures(this.props.match.params.postId));
-        this.setState({
-            postId: this.props.match.params.postId
-        })
-    }
+    // handleUpdatePostFromRelative() {
+    //     window.scrollTo(0, 0);
+    //     this.props.dispatch(fetchPostPictures(this.props.match.params.postId));
+    //     this.setState({
+    //         postId: this.props.match.params.postId
+    //     })
+    // }
 
     componentWillReceiveProps() {
         this.setState({
@@ -58,7 +58,6 @@ class SinglePost extends React.Component {
                                         <Header post={this.props.post} user_id={this.state.user_id}/>
                                         <PicsRenderer
                                             largePics={this.props.post.publicationPictures ? this.props.post.publicationPictures : this.props.post.vkPost.largePics}/>
-
                                     </div>
                                     : null}
                             </div>

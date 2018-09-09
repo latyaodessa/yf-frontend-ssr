@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {getPublicationsByUser} from "../../../../../actions/post/post-actions";
 import mainStyles from '../../../../../../res/styles/main.scss'
 import dashboardStyles from '../../../../../../res/styles/user/dashboard.scss'
-import elementsStyles from '../../../../../../res/styles/common/elements.scss'
 import {Link} from '../../../../../../routes'
 import {getCookieByKey} from "../../../../../services/CookieService";
 import {NO_PUBLICATION_PUBLISHED} from "../../../../../messages/profile";
+import ThumbnailPicture from '../../../../posts/core/ThumbnailPicture'
 
 const incrementSize = 12;
 const initSizePhoto = 0;
@@ -76,35 +76,12 @@ class ProfilePublications extends React.Component {
         return posts.map(post =>
             <div key={post.id}
                  className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 ">
-                <style jsx>{mainStyles}</style>
-                <style jsx>{elementsStyles}</style>
-                <div className="grig-img-container hovereffect">
-
-                    <img className="grig-img" src={post.thumbnail}/>
-                    <Link route='pub' params={{link: post.link}}>
-                        <a>
-                            <div className="overlay">
-                                <div className="ul-main-list">
-                                    {post.md ? <ul className="md-white">
-                                        <li>{post.md}</li>
-                                    </ul> : null}
-                                    {post.ph ? <ul className="ph-white">
-                                        <li>{post.ph}</li>
-                                    </ul> : null}
-                                    <ul className="like-white">
-                                        <li>{post.likes}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </Link>
-                </div>
+                <ThumbnailPicture post={post}/>
             </div>
         )
     }
 
     renderContent = () => {
-        console.log(this.props);
         if (this.props.fetched && this.props.post && this.props.post.length > 0) {
             return <div className="grid-list-container">
                 <div className="pure-g">{this.renderPics(this.props.post)}</div>

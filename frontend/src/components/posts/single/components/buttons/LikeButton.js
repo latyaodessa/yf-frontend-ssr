@@ -21,7 +21,6 @@ class LikeButton extends React.Component {
     constructor(props) {
         super(props);
         this.showClosePopup = this.showClosePopup.bind(this);
-        console.log(props);
     }
 
 
@@ -51,7 +50,6 @@ class LikeButton extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.post !== this.props.post) {
-            console.log("aaa");
 
             let vkLikes = this.props.post.vkPost ? this.props.post.vkPost.likes : 0;
 
@@ -79,10 +77,11 @@ class LikeButton extends React.Component {
                 });
                 this.props.dispatch(isPostAlreadySavedByUser(this.props.post.id, getCookieByKey('user').id)).then(() => {
                     this.setState({savedId: this.props.postExistenceByUser.existence.id});
-                    console.log(this.state);
                     this.setState({loading: false});
                 });
 
+            } else {
+                this.setState({loading: false});
             }
         });
     }
@@ -130,6 +129,7 @@ class LikeButton extends React.Component {
     };
 
     handleSubmit = (evt) => {
+        console.log("hello?");
         this.setState({fetching: true});
         evt.preventDefault();
         if (this.state.errorMessage === SAVE_SET_NOT_AUTHORIZED) {

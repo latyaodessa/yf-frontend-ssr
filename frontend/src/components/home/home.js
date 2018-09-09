@@ -17,8 +17,6 @@ export class Home extends React.Component {
 	}
 
 	render() {
-    // console.log("HOME");
-    // console.log(this.props.init);
     return (
 			<div className="child-container">
 				<Grid init={this.props.init}/>

@@ -13,7 +13,6 @@ export const REDIRECT_PROFILE = '/profile';
 class Login extends React.Component {
 
     static async getInitialProps({store, query}) {
-        console.log(query);
         if (query.uuid) {
             await store.dispatch(verifyVerification(query.uuid));
         }
@@ -43,7 +42,6 @@ class Login extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     const {verify} = state;
     return verify;
 }

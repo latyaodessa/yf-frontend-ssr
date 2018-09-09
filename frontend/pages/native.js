@@ -6,8 +6,8 @@ import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
 import TopNativeSlider from '../src/components/posts/lists/top-native-slider'
 import styles from '../res/styles/main.scss'
-import elementsStyles from '../res/styles/common/elements.scss'
 import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
+import ThumbnailPicture from '../src/components/posts/core/ThumbnailPicture'
 
 const initSizePhoto = 0;
 const incrementSize = 12;
@@ -77,29 +77,7 @@ class NativeList extends React.Component {
         return posts.map(post =>
             <div key={post.id}
                  className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 ">
-                <style jsx>{styles}</style>
-                <style jsx>{elementsStyles}</style>
-                <div className="grig-img-container hovereffect">
-
-                    <img className="grig-img" src={post.thumbnail}/>
-                    <Link route='pub' params={{link: post.link}}>
-                        <a>
-                            <div className="overlay">
-                                <div className="ul-main-list">
-                                    {post.md ? <ul className="md-white">
-                                        <li>{post.md}</li>
-                                    </ul> : null}
-                                    {post.ph ? <ul className="ph-white">
-                                        <li>{post.ph}</li>
-                                    </ul> : null}
-                                    <ul className="like-white">
-                                        <li>{post.likes}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </Link>
-                </div>
+                <ThumbnailPicture post={post}/>
             </div>
         )
     }
@@ -120,8 +98,7 @@ class NativeList extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {topNative, native} = state;
-    console.log(native);
+    const {native} = state;
     return native;
 }
 

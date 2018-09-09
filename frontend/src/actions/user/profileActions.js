@@ -13,7 +13,6 @@ export const updateUserFirstLastName = (userId, token, firstName, lastName) => (
 };
 
 export const updateUserNickname = (userId, token, nickname) => (dispatch, getState) => {
-    console.log(nickname);
     return axios.post([UPDATE_NICKNAME, userId, token , nickname].join('/'))
         .then((res) => {
             dispatch({type: UPDATE_USER_PROFILE_FULFILLED, payload: res.data})

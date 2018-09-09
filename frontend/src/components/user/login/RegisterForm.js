@@ -37,8 +37,6 @@ class RegisterForm extends React.Component {
     };
 
     handleSubmit = (evt) => {
-        console.log(this.state);
-
         evt.preventDefault();
         if (this.state.email.value && this.state.password.value && this.state.repeat_password.value) {
 
@@ -49,7 +47,6 @@ class RegisterForm extends React.Component {
 
             this.props.dispatch(register(this.state.email.value, this.state.password.value)).then(() => {
                 this.setState({fetching: false});
-                console.log(this.props);
                 if (this.props.error) {
                     this.handleErrors(this.props.error.data);
                 }

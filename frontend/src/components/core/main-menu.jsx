@@ -23,7 +23,7 @@ const DesktopMenu = () => (
             </li>
             <li className="prev-last-li">
                 <div className="search-icon">
-                    <Link href='/search'><a><img src="/static/img/64/search-icon.png"/></a></Link>
+                    <Link href='/search'><a><img src="/static/img/icons/search-white.png"/></a></Link>
                 </div>
             </li>
             <li><DropDownNavMenu/></li>

@@ -20,7 +20,6 @@ export const fetchPostPictures = (postId) => {
             return res.data;
         })
         .catch((err) => {
-            console.log(err);
             return;
         })
 };

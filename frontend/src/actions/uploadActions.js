@@ -6,12 +6,8 @@ export const uploadWithStorageService = (file) => (dispatch, getState) => {
     return axios.post(UPLOAD_PROFILE_PIC, file, {
         timeout: 500000
     }).then((res) => {
-        console.log(res);
         dispatch({type: UPLOAD_FILE_FULFILLED, payload: res.data});
     }).catch((err) => {
-
-        console.log(err);
-
         dispatch({type: UPLOAD_FILE__REJECTED, payload: err})
     })
 };
@@ -21,12 +17,8 @@ export const saveProfilePicToUser = (userId, token, profilePicDto) => (dispatch,
     return axios.put([SAVE_UPLOADED_PIC, userId, token].join("/"), profilePicDto, {
         timeout: 500000
     }).then((res) => {
-        console.log(res);
          dispatch({type: FILE_SAVED, payload: res.data});
     }).catch((err) => {
-
-        console.log(err);
-
         dispatch({type: FILE_REJECTED, payload: err})
     })
 };

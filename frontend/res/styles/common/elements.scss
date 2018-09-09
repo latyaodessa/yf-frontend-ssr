@@ -49,11 +49,33 @@ $like_img_white: url('/static/img/32/like_white.png');
   list-style-image: $art_img_white;
 }
 
-.ph-white li, .md-white li, .art-white li, .like-white li {
-  font-size: 20px;
-  text-align: center;
-  position: relative;
-  background-color: transparent;
-  color: #FFF;
-  list-style-type: none;
+//.ph-white li, .md-white li, .art-white li, .like-white li {
+//  font-size: 20px;
+//  text-align: center;
+//  position: relative;
+//  background-color: transparent;
+//  color: #FFF;
+//  list-style-type: none;
+//}
+
+.participant-preview-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  & img {
+    height: 35px !important;
+    width: 35px !important;
+    vertical-align: middle;
+    line-height: normal;
+  }
+  & span {
+    font-size: 20px;
+    color: #FFF;
+    padding-left: 15px;
+    top: 5px;
+    position: relative;
+    margin-right: auto;
+  }
 }
+

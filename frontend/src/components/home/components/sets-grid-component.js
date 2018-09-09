@@ -5,7 +5,7 @@ import {fetchSetsPosts} from '../../../actions/post/post-actions'
 import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
 import styles from "../../../../res/styles/main.scss"
 import loaderStyles from "../../../../res/styles/loader.scss"
-import elementsStyles from "../../../../res/styles/common/elements.scss"
+import ThumbnailPicture from '../../posts/core/ThumbnailPicture'
 
 
 class SetsGrid extends React.Component {
@@ -26,27 +26,8 @@ class SetsGrid extends React.Component {
 
     renderPics(posts) {
         return posts.map(post => <div key={post.id}
-                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 grig-img-container hovereffect">
-            <style jsx>{styles}</style>
-            <style jsx>{elementsStyles}</style>
-            <img className="grig-img" src={post.thumbnail}/>
-            <Link route='pub' params={{link: post.link}}>
-                <a>
-                    <div className="overlay">
-                        <div className="ul-main-list">
-                            {post.md ? <ul className="md-white">
-                                <li>{post.md}</li>
-                            </ul> : null}
-                            {post.ph ? <ul className="ph-white">
-                                <li>{post.ph}</li>
-                            </ul> : null}
-                            <ul className="like-white">
-                                <li>{post.likes}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-            </Link>
+                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
+            <ThumbnailPicture post={post}/>
         </div>)
     }
 
@@ -93,7 +74,6 @@ class SetsGrid extends React.Component {
 
 function mapStateToProps(state) {
     const {sets} = state;
-    console.log(sets);
     return sets;
 }
 

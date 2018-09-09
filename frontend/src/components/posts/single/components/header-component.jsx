@@ -5,7 +5,6 @@ import styles from "../../../../../res/styles/single-post.scss";
 import SocialSharingButtons from './buttons/SocialSharingButtons';
 import LikeButton from './buttons/LikeButton';
 import componentsStyle from './buttons/style.scss'
-import SavePostButton from './save-post-button';
 
 class Header extends React.Component {
     constructor(props) {

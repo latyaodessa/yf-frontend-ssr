@@ -5,8 +5,8 @@ import {
     FacebookShareButton,
     TelegramIcon,
     TelegramShareButton,
-    TumblrIcon,
-    TumblrShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
     TwitterIcon,
     TwitterShareButton,
     VKIcon,
@@ -84,16 +84,16 @@ export default class SocialSharingButtons extends React.Component {
                 </div>
 
                 <div className="Demo__some-network">
-                    <TumblrShareButton
+                    <WhatsappShareButton
                         url={shareUrl}
                         title={title}
                         windowWidth={660}
                         windowHeight={460}
                         className="Demo__some-network__share-button">
-                        <TumblrIcon
+                        <WhatsappIcon
                             size={32}
                             round/>
-                    </TumblrShareButton>
+                    </WhatsappShareButton>
                 </div>
             </div>
             }
@@ -129,13 +129,14 @@ export default class SocialSharingButtons extends React.Component {
                         this.setState({mobile: windowSize.windowWidth <= mobileViewSize})}>
 
 
-                    {this.state.mobile ?
-                        this.renderExtendible() :
-                        this.renderButtons(shareUrl, title)
-                    }
+                    {/*{this.state.mobile ?*/}
+                        {/*this.renderExtendible() :*/}
+                        {/*this.renderButtons(shareUrl, title)*/}
+                    {/*}*/}
 
-                    {this.state.mobile && this.state.expand &&
-                    this.renderButtons(shareUrl, title)}
+                    {/*{this.state.mobile && this.state.expand &&*/}
+                    { this.renderButtons(shareUrl, title)}
+
 
 
                 </WindowSizeListener>

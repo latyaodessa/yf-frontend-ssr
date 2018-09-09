@@ -5,7 +5,7 @@ import {fetchSetsPosts} from '../src/actions/post/post-actions';
 import Loader from '../src/components/core/loader';
 import MainLayoutWithNavigationSidebar from '../src/components/layouts/MainLayoutWithNavigationSidebar'
 import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
-import elementsStyles from '../res/styles/common/elements.scss'
+import ThumbnailPicture from '../src/components/posts/core/ThumbnailPicture'
 
 
 const initSizePhoto = 0;
@@ -24,7 +24,6 @@ class SetsList extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.updateScroll = this.updateScroll.bind(this);
 
     }
@@ -72,26 +71,8 @@ class SetsList extends React.Component {
 
     renderPics(posts) {
         return posts.map(post => <div key={post.id}
-                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 grig-img-container hovereffect">
-            <style jsx>{elementsStyles}</style>
-            <img className="grig-img" src={post.thumbnail}/>
-            <Link route='pub' params={{link: post.link}}>
-                <a>
-                    <div className="overlay">
-                        <div className="ul-main-list">
-                            {post.md ? <ul className="md-white">
-                                <li>{post.md}</li>
-                            </ul> : null}
-                            {post.ph ? <ul className="ph-white">
-                                <li>{post.ph}</li>
-                            </ul> : null}
-                            <ul className="like-white">
-                                <li>{post.likes}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-            </Link>
+                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
+            <ThumbnailPicture post={post}/>
         </div>)
     }
 

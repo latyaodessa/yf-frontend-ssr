@@ -22,7 +22,6 @@ class SinglePost extends React.Component {
 
 
     render() {
-        console.log(this.props.statusCode)
         if (this.props.statusCode && this.props.statusCode !== 200) {
             return <ErrorPage statusCode={this.props.statusCode}/>
         }
