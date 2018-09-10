@@ -9,37 +9,39 @@ const ThumbnailPicture = (props) => (
         <div className="grig-img-container hovereffect">
             <img className="grig-img" src={props.post.thumbnail}/>
             <div className="overlay">
-                {props.children && props.children}
-                <Link route='pub' params={{link: props.post.link}}>
 
-                    <div className="ul-main-list">
-                        {props.post.md &&
-                        <div className={"participant-preview-container"}>
-                            <img src={"/static/img/icons/woman-white.png"}/>
-                            <span>{props.post.md}</span>
-                        </div>}
+                    {props.children && props.children}
+                    <Link route='pub' params={{link: props.post.link}}>
+                        <a>
+                        <div className="ul-main-list">
+                            {props.post.md &&
+                            <div className={"participant-preview-container"}>
+                                <img src={"/static/img/icons/woman-white.png"}/>
+                                <span>{props.post.md}</span>
+                            </div>}
 
-                        {props.post.ph &&
-                        <div className={"participant-preview-container"}>
-                            <img src={"/static/img/icons/photo-camera-white.png"}/>
-                            <span>{props.post.ph}</span>
+                            {props.post.ph &&
+                            <div className={"participant-preview-container"}>
+                                <img src={"/static/img/icons/photo-camera-white.png"}/>
+                                <span>{props.post.ph}</span>
+                            </div>
+                            }
+
+                            {!props.post.ph && !props.post.md && props.post.text &&
+                            <div className={"participant-preview-container"}>
+                                <img src={"/static/img/icons/artist-white.png"}/>
+                                <span>{props.post.text.replace(/#.*s/, '').replace(/\[.*\|/, '').replace(/]/, '').replace(/http.*/, '')}</span>
+                            </div>
+                            }
+
+                            <div className={"preview-like-container"}>
+                                <img src={"/static/img/icons/like-white.png"}/>
+                                <span>{props.post.likes}</span>
+                            </div>
+
                         </div>
-                        }
-
-                        {!props.post.ph && !props.post.md && props.post.text &&
-                        <div className={"participant-preview-container"}>
-                            <img src={"/static/img/icons/artist-white.png"}/>
-                            <span>{props.post.text.replace(/#.*s/, '').replace(/\[.*\|/, '').replace(/]/, '').replace(/http.*/, '')}</span>
-                        </div>
-                        }
-
-                        <div className={"preview-like-container"}>
-                            <img src={"/static/img/icons/like-white.png"}/>
-                            <span>{props.post.likes}</span>
-                        </div>
-
-                    </div>
-                </Link>
+                        </a>
+                    </Link>
 
             </div>
         </div>

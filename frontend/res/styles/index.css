@@ -400,6 +400,8 @@ h1 {
   -webkit-transform: scale(0, 1);
   -ms-transform: scale(0, 1);
   transform: scale(0, 1); }
+  .hovereffect .overlay a {
+    text-decoration: none; }
 
 .hovereffect:hover .overlay {
   opacity: 1;
