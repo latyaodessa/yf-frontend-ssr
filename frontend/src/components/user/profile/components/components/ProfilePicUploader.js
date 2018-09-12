@@ -21,7 +21,8 @@ class ProfilePicUploader extends React.Component {
         this.state = {
             fetching: false,
             error: '',
-            dragStyle: style.dropzone
+            dragStyle: style.dropzone,
+            loadCounter: 0
         };
     }
 
@@ -80,13 +81,22 @@ class ProfilePicUploader extends React.Component {
     };
 
     handleImageUpload(file) {
+
+        const config = {
+            onUploadProgress: progressEvent => {
+                this.setState({loadCounter: Math.round((progressEvent.loaded * 100) / progressEvent.total)})
+            },
+            timeout: 500000
+        };
+
+
         this.setState({fetching: true});
         const fd = new FormData();
         fd.append('file', file);
         let user = getCookieByKey(USER);
         fd.append('userId', user.id);
         fd.append('orientation', window.orientation);
-        this.props.dispatch(uploadWithStorageService(fd)).then(() => {
+        this.props.dispatch(uploadWithStorageService(fd, config)).then(() => {
             this.props.changeProfilePic(this.props.data.fileName);
 
             let profilePicDto = {
@@ -121,6 +131,7 @@ class ProfilePicUploader extends React.Component {
                               onDrop={this.onImageDrop.bind(this)}>
                         <img className={this.state.fetching && 'spinning'}
                              src={"/static/img/icons/refresh-light-grey.png"}/>
+                        {this.state.fetching && <span>{this.state.loadCounter}%</span>}
                         <span>{UPDATE_PROFILE_PIC}</span>
                         {this.state.error && <div>
                             <span>{this.state.error.transaction}</span>

@@ -6,13 +6,7 @@ import UserNameTextField from './components/UserNameTextField'
 import NicknameTextField from './components/NicknameTextField'
 import ProfilePicUploader, {FRIENDLY_HOST} from './components/ProfilePicUploader'
 import SidebarMenu from './SidebarMenu'
-import SidebarVerifications from './SidebarVerifications'
-import {
-    PUBLICATIONS_AMOUNT_TITLE,
-    SUBSCRIBED_TITLE,
-    SUBSCRIBERS_TITLE,
-    FEDDBACKS_TITLE
-} from "../../../../messages/profile";
+import {FEDDBACKS_TITLE, PUBLICATIONS_AMOUNT_TITLE, SUBSCRIBERS_TITLE} from "../../../../messages/profile";
 
 const DEFAULT_PROFILE_PIC = "/static/img/brand/youngfolks-logo.jpg";
 

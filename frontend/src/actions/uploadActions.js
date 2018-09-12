@@ -2,10 +2,8 @@ import axios from "axios/index";
 import {UPLOAD_FILE__REJECTED, UPLOAD_FILE_FULFILLED, FILE_SAVED, FILE_REJECTED} from '../constants/files/uploadConstants'
 import {SAVE_UPLOADED_PIC, UPLOAD_PROFILE_PIC} from '../constants/rest/StorageRestClient'
 
-export const uploadWithStorageService = (file) => (dispatch, getState) => {
-    return axios.post(UPLOAD_PROFILE_PIC, file, {
-        timeout: 500000
-    }).then((res) => {
+export const uploadWithStorageService = (file, config) => (dispatch, getState) => {
+    return axios.post(UPLOAD_PROFILE_PIC, file, config).then((res) => {
         dispatch({type: UPLOAD_FILE_FULFILLED, payload: res.data});
     }).catch((err) => {
         dispatch({type: UPLOAD_FILE__REJECTED, payload: err})
