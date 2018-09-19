@@ -64,7 +64,7 @@
   left: 50%;
   z-index: 10;
   transform: translate3d(-50%, -50%, 0);
-  fill: #fff; }
+  fill: #FFF; }
 
 .checkmark__back {
   animation: rotate 35s linear both infinite; }

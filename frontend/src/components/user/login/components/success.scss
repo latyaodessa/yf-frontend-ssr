@@ -1,8 +1,3 @@
-$blue: #a75779;
-$white: #fff;
-$curve: cubic-bezier(0.420, 0.000, 0.275, 1.155);
-$time: 1.4s;
-
 .label-success {
   position: relative;
   font-size: 1em;
@@ -21,7 +16,7 @@ $time: 1.4s;
 
 .confetti {
   position: absolute;
-  animation: grow $time $curve both;
+  animation: grow 1.4s cubic-bezier(0.420, 0.000, 0.275, 1.155) both;
 
   &:nth-child(1) {
     @include size(12px);
@@ -61,7 +56,7 @@ $time: 1.4s;
 
   @for $i from 1 through 6 {
     &:nth-child(#{$i}) {
-      animation-delay: $i*($time/2);
+      animation-delay: $i*(1.4s/2);
     }
   }
 }
@@ -78,7 +73,7 @@ $time: 1.4s;
   left: 50%;
   z-index: 10;
   transform: translate3d(-50%, -50%, 0);
-  fill: $white;
+  fill: #FFF;
 }
 
 .checkmark__back {

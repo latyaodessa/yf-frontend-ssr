@@ -76,7 +76,7 @@ class NativeList extends React.Component {
     renderPics(posts) {
         return posts.map(post =>
             <div key={post.id}
-                 className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3 ">
+                 className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
                 <ThumbnailPicture post={post}/>
             </div>
         )
