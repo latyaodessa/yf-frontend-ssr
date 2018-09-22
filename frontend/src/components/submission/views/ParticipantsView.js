@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {Formik, Form as FormFormik, Field} from 'formik';
+import {FieldArray, Form as FormFormik, Formik, ErrorMessage, Field, Debug} from 'formik';
 import {Element, Events, scroller, scrollSpy} from 'react-scroll'
-import * as Yup from 'yup'
 import {Button, Dropdown, Form, Grid, Icon, Label} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import styles from './styles.scss'
+import * as Yup from 'yup';
+
 import {
     ADD_HAIR_STYLIST,
     ADD_MD_BUTTON,
@@ -39,16 +40,6 @@ class ParticipantsView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mds: [
-                this.generateEmptyObject(1)
-            ],
-            phs: [
-                this.generateEmptyObject(1)
-            ],
-            muas: [],
-            hairStylists: [],
-            setDesigner: [],
-            wardrobeStylists: [],
             selectedAdditional: '',
             scrollToElement: ''
         };
@@ -87,53 +78,54 @@ class ParticipantsView extends React.Component {
         }
     };
 
-    handleAddNewCard = (selectedType) => {
+    handleAddNewCard = (selectedType, arrayParticipants) => {
+        console.log(arrayParticipants);
         switch (selectedType) {
             case MODEL:
-                const modelNumber = this.getNewNumber(this.state.mds);
+                const modelNumber = this.getNewNumber(arrayParticipants);
                 const newMd = this.generateEmptyObject(modelNumber);
+                arrayParticipants.push(newMd);
                 this.setState({
-                    mds: [...this.state.mds, newMd],
                     scrollToElement: selectedType + modelNumber
                 });
                 break;
             case PHOTOGRAPHER:
-                const phNumber = this.getNewNumber(this.state.phs);
+                const phNumber = this.getNewNumber(arrayParticipants);
                 const newPh = this.generateEmptyObject(phNumber);
+                arrayParticipants.push(newPh);
                 this.setState({
-                    phs: [...this.state.phs, newPh],
                     scrollToElement: selectedType + phNumber
                 });
                 break;
             case MUA:
-                const muaNumber = this.getNewNumber(this.state.muas);
+                const muaNumber = this.getNewNumber(arrayParticipants);
                 const newMua = this.generateEmptyObject(muaNumber);
+                arrayParticipants.push(newMua);
                 this.setState({
-                    muas: [...this.state.muas, newMua],
                     scrollToElement: selectedType + muaNumber
                 });
                 break;
             case HAIR_STYLIST:
-                const hairNumber = this.getNewNumber(this.state.hairStylists);
+                const hairNumber = this.getNewNumber(arrayParticipants);
                 const newHs = this.generateEmptyObject(hairNumber);
+                arrayParticipants.push(newHs);
                 this.setState({
-                    hairStylists: [...this.state.hairStylists, newHs],
                     scrollToElement: selectedType + hairNumber
                 });
                 break;
             case WARDROBE_STYLIST:
-                const wdNumber = this.getNewNumber(this.state.wardrobeStylists);
+                const wdNumber = this.getNewNumber(arrayParticipants);
                 const newWd = this.generateEmptyObject(wdNumber);
+                arrayParticipants.push(newWd);
                 this.setState({
-                    wardrobeStylists: [...this.state.wardrobeStylists, newWd],
                     scrollToElement: selectedType + wdNumber
                 });
                 break;
             case SET_DESIGNER:
-                const sdNumber = this.getNewNumber(this.state.setDesigner);
+                const sdNumber = this.getNewNumber(arrayParticipants);
                 const newSd = this.generateEmptyObject(sdNumber);
+                arrayParticipants.push(newSd);
                 this.setState({
-                    setDesigner: [...this.state.setDesigner, newSd],
                     scrollToElement: selectedType + sdNumber
                 });
                 break;
@@ -146,7 +138,7 @@ class ParticipantsView extends React.Component {
 
     getNewNumber = (array) => {
         if (array.length === 0) {
-            return 1;
+            return 0;
         }
         return Math.max.apply(Math, array.map((p) => p.number)) + 1;
     };
@@ -215,7 +207,8 @@ class ParticipantsView extends React.Component {
         })
     };
 
-    renderCardForm(participant, imgAddress, type) {
+    renderCardForm(participant, imgAddress, type, props) {
+       // console.log(props);
         return <Element name={type + participant.number}>
             <style jsx>{styles}</style>
             <div className="login-form">
@@ -223,7 +216,7 @@ class ParticipantsView extends React.Component {
                 <div className="profile-container">
                     <div className={"header"}>
                         <div className={"left-side"}>{type}</div>
-                        {!(FIRST_REMOVAL_EXCEPTIONS.includes(type) && participant.number === 1) &&
+                        {!(FIRST_REMOVAL_EXCEPTIONS.includes(type) && participant.number === 0) &&
                         <div className="delete-container">
                             <img className="delete-button-img" src={"/static/img/icons/close-button-red.png"}
                                  onClick={this.handleDeleteCard.bind(this, type, participant.number)}/>
@@ -232,27 +225,37 @@ class ParticipantsView extends React.Component {
                     </div>
                     <div className={"card-style"}>
                     </div>
+
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label={FIRST_NAME} placeholder={FIRST_NAME_MODEL_DESCR}/>
-                        <Form.Input fluid label={LAST_NAME} placeholder={LAST_NAME_MODEL_DESCR}/>
+                        <Form.Input onChange={props.handleChange} fluid name={`${type}.${participant.number}.firstName`}
+                                    label={FIRST_NAME}
+                                    placeholder={FIRST_NAME_MODEL_DESCR}/>
+                        <Form.Input onChange={props.handleChange} fluid label={LAST_NAME}
+                                    name={`${type}.${participant.number}.lastName`}
+                                    placeholder={LAST_NAME_MODEL_DESCR}/>
                     </Form.Group>
                     <Form.Group unstackable widths={2}>
-                        <Form.Input label={COUNTRY} placeholder={COUNTRY}/>
-                        <Form.Input label={CITY} placeholder={CITY}/>
+                        <Form.Input onChange={props.handleChange} label={COUNTRY} placeholder={COUNTRY}
+                                    name={`${type}.${participant.number}.country`}/>
+                        <Form.Input onChange={props.handleChange} label={CITY} placeholder={CITY}
+                                    name={`${type}.${participant.number}.city`}/>
                     </Form.Group>
                     <div className={"independent-label"}>
                         <Label pointing='below'>{CHOOSE_SOCIAL}</Label>
                     </div>
-                    <Form.Input fluid iconPosition='left' placeholder={INSTAGRAM_DESCR}>
+                    <Form.Input onChange={props.handleChange} fluid iconPosition='left' placeholder={INSTAGRAM_DESCR}
+                                name={`${type}.${participant.number}.instagram`}>
 
                         <Icon name='instagram'/>
                         <input/>
                     </Form.Input>
-                    <Form.Input fluid iconPosition='left' placeholder={VK_DESCR}>
+                    <Form.Input onChange={props.handleChange} fluid iconPosition='left' placeholder={VK_DESCR}
+                                name={`${type}.${participant.number}.vk`}>
                         <Icon name='vk'/>
                         <input/>
                     </Form.Input>
-                    <Form.Input fluid iconPosition='left' placeholder={FACEBOOK_DESCR}>
+                    <Form.Input onChange={props.handleChange} fluid iconPosition='left' placeholder={FACEBOOK_DESCR}
+                                name={`${type}.${participant.number}.facebook`}>
                         <Icon name='facebook official'/>
                         <input/>
                     </Form.Input>
@@ -262,24 +265,31 @@ class ParticipantsView extends React.Component {
     }
 
 
-    renderCardGrid = (type, arrayParticipants, thumbnail, buttonText) => {
-        return <Grid>
-            <style jsx>{styles}</style>
-            {arrayParticipants.map(p => {
-                return <Grid.Column key={p.number} mobile={16} tablet={16} computer={16}>
-                    {this.renderCardForm(p, thumbnail, type)}
-                </Grid.Column>
-            })}
+    renderCardGrid = (type, arrayParticipants, thumbnail, buttonText, props) => {
+        return <FieldArray
+            name="mds"
+            render={({insert, remove, push}) => (
+                <Grid>
+                    <style jsx>{styles}</style>
+                    {arrayParticipants.map(p => {
+                        return <Grid.Column key={p.number} mobile={16} tablet={16} computer={16}>
+                            {this.renderCardForm(p, thumbnail, "mds", props)} //TODO
+                        </Grid.Column>
+                    })}
 
-            <Grid.Column mobile={16} tablet={16} computer={16}>
-                <div className={"centered"}>
-                    <Button onClick={this.handleAddNewCard.bind(this, type)} icon labelPosition='left'>
-                        <Icon name='plus'/>
-                        {buttonText}
-                    </Button>
-                </div>
-            </Grid.Column>
-        </Grid>
+                    <Grid.Column mobile={16} tablet={16} computer={16}>
+                        <div className={"centered"}>
+                            <Button type="button"
+                                    onClick={this.handleAddNewCard.bind(this, type, arrayParticipants)} icon
+                                    labelPosition='left'>
+                                <Icon name='plus'/>
+                                {buttonText}
+                            </Button>
+                        </div>
+                    </Grid.Column>
+                </Grid>
+            )}/>
+
     };
 
     renderAdditionalParticipant() {
@@ -329,28 +339,28 @@ class ParticipantsView extends React.Component {
     };
 
 
-    renderFormContent = () => {
+    renderFormContent = (props) => {
         return <Grid>
-            {this.state.mds && this.state.mds.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(MODEL, this.state.mds, "/static/img/icons/woman-black.png", ADD_MD_BUTTON)}
+            {props.values.mds && props.values.mds.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
+                {this.renderCardGrid(MODEL, props.values.mds, "/static/img/icons/woman-black.png", ADD_MD_BUTTON, props)}
             </Grid.Column>}
-            {this.state.phs && this.state.phs.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(PHOTOGRAPHER, this.state.phs, "/static/img/icons/photo-camera-black.png", ADD_PH_BUTTON)}
+            {props.values.phs && props.values.phs.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
+                {this.renderCardGrid(PHOTOGRAPHER, props.values.phs, "/static/img/icons/photo-camera-black.png", ADD_PH_BUTTON)}
             </Grid.Column>}
-            {this.state.muas && this.state.muas.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(MUA, this.state.muas, "/static/img/icons/mascara.png", ADD_MUA)}
+            {props.values.muas && props.values.muas.length !== 0 && <Grid.Column mobile={16} tablet={8} computer={8}>
+                {this.renderCardGrid(MUA, props.values.muas, "/static/img/icons/mascara.png", ADD_MUA)}
             </Grid.Column>}
-            {this.state.hairStylists && this.state.hairStylists.length !== 0 &&
+            {props.values.hairStylists && props.values.hairStylists.length !== 0 &&
             <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(HAIR_STYLIST, this.state.hairStylists, "/static/img/icons/salon.png", ADD_HAIR_STYLIST)}
+                {this.renderCardGrid(HAIR_STYLIST, props.values.hairStylists, "/static/img/icons/salon.png", ADD_HAIR_STYLIST)}
             </Grid.Column>}
-            {this.state.wardrobeStylists && this.state.wardrobeStylists.length !== 0 &&
+            {props.values.wardrobeStylists && props.values.wardrobeStylists.length !== 0 &&
             <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(WARDROBE_STYLIST, this.state.wardrobeStylists, "/static/img/icons/hanger.png", ADD_WARDROBE_STYLIST)}
+                {this.renderCardGrid(WARDROBE_STYLIST, props.values.wardrobeStylists, "/static/img/icons/hanger.png", ADD_WARDROBE_STYLIST)}
             </Grid.Column>}
-            {this.state.setDesigner && this.state.setDesigner.length !== 0 &&
+            {props.values.setDesigner && props.values.setDesigner.length !== 0 &&
             <Grid.Column mobile={16} tablet={8} computer={8}>
-                {this.renderCardGrid(SET_DESIGNER, this.state.setDesigner, "/static/img/icons/hands-framing.png", ADD_SET_DESIGNER)}
+                {this.renderCardGrid(SET_DESIGNER, props.values.setDesigner, "/static/img/icons/hands-framing.png", ADD_SET_DESIGNER)}
             </Grid.Column>}
             <Grid.Column mobile={16} tablet={16} computer={16}>
                 {this.renderBottomGrid()}
@@ -362,10 +372,10 @@ class ParticipantsView extends React.Component {
         return <Formik
             initialValues={{
                 mds: [
-                    this.generateEmptyObject(1)
+                    this.generateEmptyObject(0)
                 ],
                 phs: [
-                    this.generateEmptyObject(1)
+                    // this.generateEmptyObject(0)
                 ],
                 muas: [],
                 hairStylists: [],
@@ -379,9 +389,9 @@ class ParticipantsView extends React.Component {
                 console.log(values);
             }}
             render={props => (
-                <Form onSubmit={props.handleSubmit}>
-                    {this.renderFormContent()}
-                </Form>
+                    <Form onSubmit={props.handleSubmit}>
+                        {this.renderFormContent(props)}
+                    </Form>
             )}
 
         />
@@ -394,7 +404,6 @@ class ParticipantsView extends React.Component {
                 <style jsx>{styles}</style>
                 <div className={"submitter-container"}>
                     {this.renderForm()}
-
                 </div>
 
             </div>
