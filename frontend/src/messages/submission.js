@@ -32,3 +32,38 @@ export const WARDROBE_STYLIST = "Wardrobe stylist";
 export const SET_DESIGNER = "Photoset designer";
 
 export const ADDITIONAL_PARTICIPANTS = "Добавить участников фотосъемки";
+
+export const ERROR_REQUIRED_FIELD = "Обязательное поле";
+
+
+export const PARTICIPANTS_TYPE = {
+    mds: {
+        type: "mds",
+        transcript: MODEL
+    }
+    ,
+    phs: {
+        type: "phs",
+        transcript: PHOTOGRAPHER
+    }
+    ,
+    muas: {
+        type: "muas",
+        transcript: MUA
+    }
+    ,
+    hairStylists: {
+        type: "hairStylists",
+        transcript: HAIR_STYLIST
+    }
+    ,
+    setDesigner: {
+        type: "setDesigner",
+        transcript: SET_DESIGNER
+    }
+    ,
+    wardrobeStylists: {
+        type: "wardrobeStylists",
+        transcript: WARDROBE_STYLIST
+    }
+};
