@@ -129,7 +129,6 @@ class LikeButton extends React.Component {
     };
 
     handleSubmit = (evt) => {
-        console.log("hello?");
         this.setState({fetching: true});
         evt.preventDefault();
         if (this.state.errorMessage === SAVE_SET_NOT_AUTHORIZED) {

@@ -1,3 +1,5 @@
+export const DATE_PICKER_LOCALE = "ru-ru";
+
 export const LAST_NAME = "Фамилия";
 export const FIRST_NAME = "Имя";
 
@@ -30,11 +32,22 @@ export const MUA = "Makeup artist";
 export const HAIR_STYLIST = "Hair stylist";
 export const WARDROBE_STYLIST = "Wardrobe stylist";
 export const SET_DESIGNER = "Photoset designer";
+export const IT_IS_ME = "Это я";
+
 
 export const ADDITIONAL_PARTICIPANTS = "Добавить участников фотосъемки";
 
 export const ERROR_REQUIRED_FIELD = "Обязательное поле";
+export const ERROR_ME_NOT_CHECKED = "Отметьте, кем являетесь вы в фотосъемке";
 
+export const PHOTOSHOOTING_DESCRIPTION = "Расскажите что-то интересное о фотосъемке";
+export const GENERAL_PHSHOOTING_INFO_LABEL = "Информация о фотосъемке";
+export const GENERAL_DATE_DESCR_LABEL = "Дата фотосъемки";
+export const PH_EQ_EXAMPLE = "Canon EOS 7D Mark II,  Sigma 12-24mm f/4.5-5.6 EX DG";
+export const PH_EQ_LABEL = "Использованное оборудование";
+
+export const UPLOAD_PICS_LABEL = "Загрузить фотографии";
+export const UPLOAD_FORMATS_LABEL = "Формат фотографий: jpg, jpeg, png";
 
 export const PARTICIPANTS_TYPE = {
     mds: {

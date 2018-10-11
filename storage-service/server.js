@@ -9,7 +9,8 @@ const express = require('express'),
     cors = require('cors'),
     fileUpload = require('express-fileupload'),
     axios = require('axios'),
-    qs = require('qs');
+    qs = require('qs'),
+    fs = require('fs');
 
 const Jimp = require("jimp");
 
@@ -83,10 +84,50 @@ router.post('/upload/profile', async (req, res, next) => {
 
 });
 
+router.post('/submission/pic', async (req, res, next) => {
+
+    if (!req.files && !req.files.file) {
+        return res.status(500).send(errors.BASIC_ERROS.NO_FILE);
+    }
+
+    let imageFile = req.files.file;
+    let extention = imageFile.name.split('.').pop();
+    let editedFile = await convertProfilePic(imageFile);
+    let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
+        return result;
+    });
+    console.log(req);
+
+    await fs.writeFile(`${__dirname}/uploads/${imageFile.name}`, bufferFile, err => {
+        if (err) {
+            return console.log(err);
+        }
+
+        console.log("The file was saved!");
+    });
+
+    res.send(200)
+
+});
+
+router.delete('/submission/pic', async (req, res, next) => {
+
+    await fs.unlink(`${__dirname}/uploads/${req.query.fileName}`, (err) => {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+
+        res.send(200)
+    });
+
+
+});
+
 async function convertProfilePic(img) {
     return await Jimp.read(img.data).then(function (image) {
         return image.resize(Jimp.AUTO, 400);
-            // .quality(90);
+        // .quality(90);
     }).then().catch(function (err) {
         console.log(err);
     });

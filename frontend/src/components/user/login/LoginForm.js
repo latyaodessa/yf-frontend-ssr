@@ -46,7 +46,11 @@ class LoginForm extends React.Component {
                 }
                 else if (this.props.data) {
                     setAuthCookie(this.props.data.user, this.props.data.token);
-                    Router.push(REDIRECT_PROFILE);
+                    if (this.props.stayOnPage) {
+                        this.props.stayOnPage()
+                    } else {
+                        Router.push(REDIRECT_PROFILE);
+                    }
                 }
             });
         }
@@ -92,7 +96,8 @@ class LoginForm extends React.Component {
 
                 <TextFieldEmail updateInputValue={this.updateInputValue} data={this.state.email}/>
 
-                <TextFieldPassword placeholder={PASSWORD} updateInputValue={this.updateInputValue} data={this.state.password}
+                <TextFieldPassword placeholder={PASSWORD} updateInputValue={this.updateInputValue}
+                                   data={this.state.password}
                                    current={true} name={"password"}/>
 
                 <SubmitButton title={SIGN_IN_BUTTON} fetching={this.state.fetching}/>

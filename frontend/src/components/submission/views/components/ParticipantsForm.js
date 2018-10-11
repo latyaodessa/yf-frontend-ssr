@@ -10,7 +10,7 @@ const renderCardGrid = (participantType, arrayParticipants, thumbnail, handleDel
     return <Grid>
         <style jsx>{styles}</style>
         {arrayParticipants.map((p, index) => {
-            return <Grid.Column key={index} mobile={16} tablet={16} computer={16}>
+            return <Grid.Column textAlign='left' key={index} mobile={16} tablet={16} computer={16}>
                 <ParticipantCardForm participant={p} imgAddress={thumbnail} participantType={participantType}
                                      index={index} handleDeleteCardEvent={handleDeleteCardEvent}
                                      handleChangeEvent={handleChangeEvent}

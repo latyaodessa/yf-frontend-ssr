@@ -116,7 +116,7 @@ class ProfilePicUploader extends React.Component {
     changeDropZoneStyle = (isEnter) => {
         const dropStyle = isEnter ? style.dropEnter : style.dropzone;
         this.setState({dragStyle: dropStyle});
-    }
+    };
 
     render() {
         return (

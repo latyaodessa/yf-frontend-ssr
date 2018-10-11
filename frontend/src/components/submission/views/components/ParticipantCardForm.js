@@ -2,25 +2,21 @@ import React from 'react'
 import styles from './../styles.scss'
 import {Element} from 'react-scroll'
 import {
-    CHOOSE_SOCIAL,
     CITY,
     COUNTRY,
-    FACEBOOK_DESCR,
     FIRST_NAME,
-    FIRST_NAME_MODEL_DESCR,
     HAIR_STYLIST,
     INSTAGRAM_DESCR,
     LAST_NAME,
-    LAST_NAME_MODEL_DESCR,
     MODEL,
     MUA,
     PARTICIPANTS_TYPE,
     PHOTOGRAPHER,
     SET_DESIGNER,
-    VK_DESCR,
-    WARDROBE_STYLIST
+    WARDROBE_STYLIST,
+    IT_IS_ME
 } from "../../../../messages/submission";
-import {Form, Icon, Label} from 'semantic-ui-react'
+import {Form, Icon, Label, Checkbox} from 'semantic-ui-react'
 import {generateEmptyObject} from "./FunctionServices";
 import {connect} from "react-redux";
 
@@ -141,13 +137,13 @@ class ParticipantCardForm extends React.PureComponent {
                             {this.renderInputFieldWithValidation(
                                 `${this.props.participantType.type}.${this.props.participant.number}.firstName`,
                                 FIRST_NAME,
-                                FIRST_NAME_MODEL_DESCR)
+                                FIRST_NAME)
                             }
 
                             {this.renderInputFieldWithValidation(
                                 `${this.props.participantType.type}.${this.props.participant.number}.lastName`,
                                 LAST_NAME,
-                                LAST_NAME_MODEL_DESCR)
+                                LAST_NAME)
                             }
 
                         </Form.Group>
@@ -167,9 +163,9 @@ class ParticipantCardForm extends React.PureComponent {
 
 
                         </Form.Group>
-                        <div className={"independent-label"}>
-                            <Label pointing='below'>{CHOOSE_SOCIAL}</Label>
-                        </div>
+                        {/*<div className={"independent-label"}>*/}
+                        {/*<Label pointing='below'>{CHOOSE_SOCIAL}</Label>*/}
+                        {/*</div>*/}
                         <Form.Input
                             fluid iconPosition='left' placeholder={INSTAGRAM_DESCR}
                             name={`${this.props.participantType.type}.${this.props.participant.number}.instagram`}>
@@ -177,18 +173,28 @@ class ParticipantCardForm extends React.PureComponent {
                             <Icon name='instagram'/>
                             <input/>
                         </Form.Input>
-                        <Form.Input
-                            fluid iconPosition='left' placeholder={VK_DESCR}
-                            name={`${this.props.participantType.type}.${this.props.participant.number}.vk`}>
-                            <Icon name='vk'/>
-                            <input/>
-                        </Form.Input>
-                        <Form.Input
-                            fluid iconPosition='left' placeholder={FACEBOOK_DESCR}
-                            name={`${this.props.participantType.type}.${this.props.participant.number}.facebook`}>
-                            <Icon name='facebook official'/>
-                            <input/>
-                        </Form.Input>
+
+                        <Form.Field>
+                            <Checkbox name={`${this.props.participantType.type}.${this.props.participant.number}.me`}
+                                      label={IT_IS_ME}/>
+                            {this.props.errors
+                            && this.props.errors.isMeChecked
+                            && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
+                                *{this.props.errors.isMeChecked}
+                            </Label>}
+                        </Form.Field>
+                        {/*<Form.Input*/}
+                        {/*fluid iconPosition='left' placeholder={VK_DESCR}*/}
+                        {/*name={`${this.props.participantType.type}.${this.props.participant.number}.vk`}>*/}
+                        {/*<Icon name='vk'/>*/}
+                        {/*<input/>*/}
+                        {/*</Form.Input>*/}
+                        {/*<Form.Input*/}
+                        {/*fluid iconPosition='left' placeholder={FACEBOOK_DESCR}*/}
+                        {/*name={`${this.props.participantType.type}.${this.props.participant.number}.facebook`}>*/}
+                        {/*<Icon name='facebook official'/>*/}
+                        {/*<input/>*/}
+                        {/*</Form.Input>*/}
                     </div>
                 </div>
             </Element>

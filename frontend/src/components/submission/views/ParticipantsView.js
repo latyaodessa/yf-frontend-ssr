@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {Events, scroller, scrollSpy} from 'react-scroll'
+import _ from 'lodash';
+
 import {Form, Grid} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import styles from './styles.scss'
@@ -13,11 +15,13 @@ import {
     PARTICIPANTS_TYPE,
     PHOTOGRAPHER,
     SET_DESIGNER,
-    WARDROBE_STYLIST
+    WARDROBE_STYLIST,
+    ERROR_ME_NOT_CHECKED
 } from "../../../messages/submission";
 import ParticipantsForm from './components/ParticipantsForm';
 import AdditionalParticipantDropDown from './components/AdditionalParticipantDropDown';
 
+export const PARTICIPATS_VIEW = "participants";
 
 class ParticipantsView extends React.Component {
 
@@ -185,8 +189,15 @@ class ParticipantsView extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
+        this.setState({
+            errors: {
+                isMeChecked: ERROR_ME_NOT_CHECKED
+            }
+        });
+
         let errors = {};
         let participants = {};
+
 
         await Promise.all([PARTICIPANTS_TYPE.mds.type,
             PARTICIPANTS_TYPE.phs.type,
@@ -203,6 +214,7 @@ class ParticipantsView extends React.Component {
                 })
             ));
 
+
         this.setState({
             mds: participants[PARTICIPANTS_TYPE.mds.type],
             phs: participants[PARTICIPANTS_TYPE.phs.type],
@@ -210,8 +222,21 @@ class ParticipantsView extends React.Component {
             hairStylists: participants[PARTICIPANTS_TYPE.hairStylists.type],
             setDesigner: participants[PARTICIPANTS_TYPE.setDesigner.type],
             wardrobeStylists: participants[PARTICIPANTS_TYPE.wardrobeStylists.type],
-            errors: errors
+            errors: Object.assign(this.state.errors, errors)
         });
+
+        console.log(this.state);
+
+        if(_.isEmpty(errors)) {
+            this.props.commitParticipants({
+                mds: participants[PARTICIPANTS_TYPE.mds.type],
+                phs: participants[PARTICIPANTS_TYPE.phs.type],
+                muas: participants[PARTICIPANTS_TYPE.muas.type],
+                hairStylists: participants[PARTICIPANTS_TYPE.hairStylists.type],
+                setDesigner: participants[PARTICIPANTS_TYPE.setDesigner.type],
+                wardrobeStylists: participants[PARTICIPANTS_TYPE.wardrobeStylists.type]
+            });
+        }
 
     };
 
@@ -225,9 +250,9 @@ class ParticipantsView extends React.Component {
                 country: e.target[`${type}.${p.number}.country`].value,
                 city: e.target[`${type}.${p.number}.city`].value,
                 instagram: e.target[`${type}.${p.number}.instagram`].value,
-                vk: e.target[`${type}.${p.number}.vk`].value,
-                facebook: e.target[`${type}.${p.number}.facebook`].value,
-                me: false
+                // vk: e.target[`${type}.${p.number}.vk`].value,
+                // facebook: e.target[`${type}.${p.number}.facebook`].value,
+                me:  e.target[`${type}.${p.number}.me`].checked
             });
         });
         return participants;
@@ -247,6 +272,11 @@ class ParticipantsView extends React.Component {
             }
             if (this.isBlank(p.city)) {
                 errors[`${type}.${p.number}.city`] = ERROR_REQUIRED_FIELD;
+            }
+            if(p.me) {
+                this.setState({
+                    errors: _.omit(this.state.errors, "isMeChecked")
+                })
             }
         });
         return errors;
@@ -270,7 +300,6 @@ class ParticipantsView extends React.Component {
                                 <AdditionalParticipantDropDown handleAddCardEvent={this.handleAddCardEvent}
                                                                state={this.state}/>
                             </Grid.Column>
-                            <input type="submit" value="Submit" onClick={(e) => this.handleSubmit(e)}/>
                         </Grid>
 
                     </Form>
