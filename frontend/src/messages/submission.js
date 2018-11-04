@@ -38,7 +38,7 @@ export const IT_IS_ME = "Это я";
 export const ADDITIONAL_PARTICIPANTS = "Добавить участников фотосъемки";
 
 export const ERROR_REQUIRED_FIELD = "Обязательное поле";
-export const ERROR_ME_NOT_CHECKED = "Отметьте, кем являетесь вы в фотосъемке";
+export const ERROR_ME_NOT_CHECKED = "Отметьте, кем вы являетесь в фотосъемке";
 
 export const PHOTOSHOOTING_DESCRIPTION = "Расскажите что-то интересное о фотосъемке";
 export const GENERAL_PHSHOOTING_INFO_LABEL = "Информация о фотосъемке";
@@ -48,6 +48,13 @@ export const PH_EQ_LABEL = "Использованное оборудовани�
 
 export const UPLOAD_PICS_LABEL = "Загрузить фотографии";
 export const UPLOAD_FORMATS_LABEL = "Формат фотографий: jpg, jpeg, png";
+export const MAX_FILES_LABEL = "Минимум 5 и максимум 15 фотографий";
+export const MAX_SIZE_LABEL = "Максимум 10 мб";
+export const MIN_DIMENTIONS_LABEL = "Минимальный размер 1280px по меньшей стороне";
+
+export const NEXT_BUTTON = "Далее";
+export const BACK_BUTTON = "Назад";
+export const SUBMIT_BUTTON = "Отправить заявку на публикацию";
 
 export const PARTICIPANTS_TYPE = {
     mds: {

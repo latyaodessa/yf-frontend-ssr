@@ -4,8 +4,10 @@ import ParticipantsView, {PARTICIPATS_VIEW} from './views/ParticipantsView'
 import PhotoshootingView, {PHOTOSHOOTING_VIEW} from "./views/PhotoshootingView";
 import AuthModalWindow from './../core/modal/auth/AuthModalWindow';
 import {verifyLoggedInUser} from "../../services/CookieService";
+import {getSubmissionByUUid, initSubmission, updateSubmission} from "../../actions/submission/submissionActions";
+import {Router} from './../../../routes';
 
-const VIEWS = {
+export const VIEWS = {
     PARTICIPATS_VIEW: PARTICIPATS_VIEW,
     PHOTOSHOOTING_VIEW: PHOTOSHOOTING_VIEW
 };
@@ -17,38 +19,83 @@ class SubmissionViewsWrapper extends React.Component {
         this.state = {
             participants: {},
             currentView: VIEWS.PARTICIPATS_VIEW,
-            showAuthPopUp: false
+            showAuthPopUp: false,
+            showInitPopUp: false,
+            submission: null
         }
 
     }
 
     componentDidMount() {
+        const uuid = new URLSearchParams(location.search).get('uuid');
+        if (uuid) {
+            verifyLoggedInUser().then(valid => {
+                if (valid) {
+                    this.props.dispatch(getSubmissionByUUid(uuid)).then(() => {
+                        if (this.props.data != null) {
+                            this.setState({
+                                submission: this.props.data
+                            })
+                        }
+                    })
+                } else {
+                    this.setState({
+                        showInitPopUp: true
+                    })
+                }
+            })
+
+        }
         window.scrollTo(0, 0);
     }
 
     commitParticipants = (participants) => {
 
+        this.setState({
+            participants: participants
+        });
+
+        this.validateAndMakeFirstSubmit();
+
+    };
+
+    commitPhotoshooting = (photoshooting) => {
+
+    };
+
+    validateAndMakeFirstSubmit = () => {
+
         verifyLoggedInUser().then(valid => {
             if (valid) {
-                this.setState({
-                    participants: participants
-                });
-                this.goToNextPage();
+                if (this.state.submission) {
+                    const submission = this.state.submission;
+                    submission.allParticipants = this.state.participants;
+                    this.setState({
+                        submission: submission
+                    });
+                    this.props.dispatch(updateSubmission(submission)).then(() => {
+                        Router.pushRoute('submission', {uuid: this.props.data.uuid});
+                        this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
+                    });
+                } else {
+                    this.props.dispatch(initSubmission(this.state.participants)).then(() => {
+                        console.log(this.props);
+                        Router.pushRoute('submission', {uuid: this.props.data.uuid});
+                        this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
+                    });
+                }
+
             } else {
                 this.setState({
-                    participants: participants,
                     showAuthPopUp: true
                 })
             }
         })
-
-
     };
 
-    goToNextPage = () => {
-        console.log(this.state);
+    goToPage = (page) => {
         this.setState({
-            currentView: VIEWS.PHOTOSHOOTING_VIEW
+            currentView: page
         })
     };
 
@@ -56,15 +103,24 @@ class SubmissionViewsWrapper extends React.Component {
         return (
             <div>
                 {this.state.currentView === VIEWS.PARTICIPATS_VIEW
-                && <ParticipantsView commitParticipants={this.commitParticipants}/>}
+                &&
+                <ParticipantsView commitParticipants={this.commitParticipants}/>}
                 {this.state.currentView === VIEWS.PHOTOSHOOTING_VIEW
-                && <PhotoshootingView participants={this.state.participants}/>}
+                && <PhotoshootingView goToPage={this.goToPage} commitPhotoshooting={this.commitPhotoshooting}
+                                      participants={this.state.participants} initUuid={this.props.data.uuid}/>}
 
                 {this.state && <AuthModalWindow
-                    handleSubmit={this.goToNextPage}
+                    handleSubmit={this.validateAndMakeFirstSubmit}
                     showPopUp={this.state.showAuthPopUp}
                     close={() => this.setState({showAuthPopUp: false})}
                     type={this.state.error}/>}
+
+                {this.state && <AuthModalWindow
+                    handleSubmit={this.componentDidMount}
+                    showPopUp={this.state.showInitPopUp}
+                    close={() => this.setState({showInitPopUp: false})}
+                    type={this.state.error}/>}
+
 
             </div>
 
@@ -73,7 +129,9 @@ class SubmissionViewsWrapper extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return state;
+    const {submission} = state;
+    console.log(state);
+    return submission;
 }
 
 export default connect(mapStateToProps)(SubmissionViewsWrapper);

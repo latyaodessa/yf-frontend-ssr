@@ -2,13 +2,16 @@ import React from 'react'
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
 import {connect} from "react-redux";
 import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
-import SubmissionViewsWrapper from "../src/components/submission/SubmissionViewsWrapper"
+import InitServiceView from './../src/components/service/create/InitServiceView';
 
-class Submission extends React.Component {
-
-    static async getInitialProps({store, query}) {
-        return {}
-    }
+class CreateService extends React.Component {
+    //
+    // static async getInitialProps({store, query}) {
+    //
+    //     // await store.dispatch(fetchPublicationDetails(query.link));
+    //
+    //     return {link: query}
+    // }
 
     constructor(props) {
         super(props);
@@ -23,7 +26,12 @@ class Submission extends React.Component {
     render() {
         return (
             <MainLayoutWithNavigation meta={meta()}>
-                <SubmissionViewsWrapper/>
+                <div>
+                    <span>
+                        Предлажите свои услуги
+                    </span>
+                </div>
+                <InitServiceView/>
             </MainLayoutWithNavigation>
 
         )
@@ -35,5 +43,5 @@ function mapStateToProps(state) {
     return single;
 }
 
-export default connect(mapStateToProps)(Submission);
+export default connect(mapStateToProps)(CreateService);
 

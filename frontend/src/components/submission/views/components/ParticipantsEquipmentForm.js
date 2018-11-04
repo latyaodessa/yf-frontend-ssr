@@ -1,7 +1,7 @@
 import {Card, Form, Image} from 'semantic-ui-react'
 import {PH_EQ_EXAMPLE, PH_EQ_LABEL, PHOTOGRAPHER} from "../../../../messages/submission";
 
-const ParticipantsEquipmentForm = ({participants}) => {
+const ParticipantsEquipmentForm = ({participants, handlePhEquipmentChange}) => {
     console.log(participants);
     return <Card.Group>
         {participants.phs.map((ph, index) => {
@@ -14,7 +14,7 @@ const ParticipantsEquipmentForm = ({participants}) => {
                         <Form>
                             <Form.Field>
                                 <label>{PH_EQ_LABEL}</label>
-                                <input placeholder={PH_EQ_EXAMPLE}/>
+                                <input name={index} onChange={handlePhEquipmentChange} placeholder={PH_EQ_EXAMPLE}/>
                             </Form.Field>
                         </Form>
                     </Card.Description>

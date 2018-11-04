@@ -2,14 +2,9 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     B2 = require('backblaze-b2'),
-    multer = require('multer'),
-    uuidv4 = require('uuid/v4'),
-    path = require('path'),
-    sha1 = require('sha1'),
+    mkdirp = require('mkdirp'),
     cors = require('cors'),
     fileUpload = require('express-fileupload'),
-    axios = require('axios'),
-    qs = require('qs'),
     fs = require('fs');
 
 const Jimp = require("jimp");
@@ -18,15 +13,16 @@ const errors = require('./FileUploadErrors');
 
 let app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 /* Use cors and fileUpload*/
 app.use(cors());
 app.use(fileUpload());
-app.use('/public', express.static(__dirname + '/public'));
+
 
 let router = express.Router();
 app.use('/storage', router);
+
 
 const ACCOUNT_ID = "b0e712168300";
 const APP_KEY = "002e882d72dcd720004bf5e2ce2dec740da06492e5";
@@ -50,7 +46,7 @@ async function getUploadUrl(bucketId) {
 router.post('/upload/profile', async (req, res, next) => {
 
     if (!req.files && !req.files.file) {
-        return res.status(500).send(errors.BASIC_ERROS.NO_FILE);
+        return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
     }
 
     let imageFile = req.files.file;
@@ -79,46 +75,64 @@ router.post('/upload/profile', async (req, res, next) => {
         res.json(upload.data);
     } catch (e) {
         console.log('Error upload:', e);
-        return res.status(500).send(e);
+        return res.status(500).sendStatus(e);
     }
 
 });
 
-router.post('/submission/pic', async (req, res, next) => {
+router.get('/uploads/:userId/:uuid/:file', (req, res) => {
+    const options = {
+        root: __dirname + `/uploads/${req.params.userId}/${req.params.uuid}/`,
+        headers: {
+            'Content-Type': 'text/plain;charset=UTF-8',
+        }
+    };
+    res.status(200).sendFile(req.params.file, options);
+});
+
+router.get('/user/uploads/:userId/:uuid/', async (req, res) => {
+    const dirPath = __dirname + `/uploads/${req.params.userId}/${req.params.uuid}/`;
+    const files = fs.readdirSync(dirPath);
+    const formatedFiles = await files.map(file => {
+        return {name: file, loadCounter: 100, uploaded: true}
+    });
+    res.json(formatedFiles);
+});
+
+router.post('/submission/pic/:userId/:uuid', async (req, res, next) => {
 
     if (!req.files && !req.files.file) {
-        return res.status(500).send(errors.BASIC_ERROS.NO_FILE);
+        return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
     }
-
     let imageFile = req.files.file;
-    let extention = imageFile.name.split('.').pop();
-    let editedFile = await convertProfilePic(imageFile);
-    let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
-        return result;
-    });
-    console.log(req);
 
-    await fs.writeFile(`${__dirname}/uploads/${imageFile.name}`, bufferFile, err => {
-        if (err) {
-            return console.log(err);
+    const dirPath = `${__dirname}/uploads/${req.params.userId}/${req.params.uuid}`;
+
+    mkdirp(dirPath, async err => {
+        if (err) console.error(err);
+        else {
+            await fs.writeFile(`${dirPath}/${imageFile.name}`, imageFile.data, err => {
+                if (err) {
+                    return console.log(err);
+                }
+                res.sendStatus(200);
+                console.log(`Saved! ${dirPath}/${imageFile.name}`);
+            });
         }
-
-        console.log("The file was saved!");
     });
 
-    res.send(200)
 
 });
 
-router.delete('/submission/pic', async (req, res, next) => {
+router.delete('/submission/pic/:userId/:uuid', async (req, res, next) => {
 
-    await fs.unlink(`${__dirname}/uploads/${req.query.fileName}`, (err) => {
+    await fs.unlink(`${__dirname}/uploads/${req.params.userId}/${req.params.uuid}/${req.query.fileName}`, (err) => {
         if (err) {
             console.log(err);
-            res.send(500);
+            res.sendStatus(500);
         }
 
-        res.send(200)
+        res.sendStatus(200)
     });
 
 
@@ -134,7 +148,7 @@ async function convertProfilePic(img) {
 }
 
 
-app.listen(8080);
+app.listen(8081); //TODO
 console.log("running trigger on 8080");
 
 

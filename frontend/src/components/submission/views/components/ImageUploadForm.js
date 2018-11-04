@@ -4,17 +4,31 @@ import Dropzone from 'react-dropzone';
 import styles from './../styles.scss'
 import {cloneDeep} from 'lodash';
 
-import {Grid, Progress, Segment,} from 'semantic-ui-react'
-import {UPLOAD_FORMATS_LABEL, UPLOAD_PICS_LABEL} from "../../../../messages/submission";
+import {PROFILE_IMGAGE_ERRORS} from "../../../../messages/profile-image-errors";
+
+import {Form, Grid, Label, Progress, Segment} from 'semantic-ui-react'
 import {
-    uploadPicsForSumbissionWithStorageService,
-    deletePicForSumbissionWithStorageService
+    ERROR_REQUIRED_FIELD,
+    MAX_FILES_LABEL,
+    MAX_SIZE_LABEL,
+    MIN_DIMENTIONS_LABEL,
+    UPLOAD_FORMATS_LABEL,
+    UPLOAD_PICS_LABEL
+} from "../../../../messages/submission";
+import {
+    deletePicForSumbissionWithStorageService,
+    getPicsSubmission,
+    getSubmissionImgPic,
+    uploadPicsForSumbissionWithStorageService
 } from "../../../../actions/uploadActions";
+import moment from "moment/moment";
+import _ from "lodash";
 
 const ALLOWED_FILE_FROMATS = ["png", "jpg", "jpeg"];
-// const MAX_BYTES = 1,5e+7;
-const MIN_HEIGHT = 400;
-const MIN_WIDTH = 400;
+const MAX_BYTES = 10485760;
+const MIN_HEIGHT = 1280;
+const MIN_WIDTH = 1280;
+const MAX_FILES = 15;
 
 const UploadInfo = () => {
     return <div>
@@ -24,6 +38,9 @@ const UploadInfo = () => {
             <div>
                 <h2>{UPLOAD_PICS_LABEL}</h2>
                 <span>{UPLOAD_FORMATS_LABEL}</span>
+                <div>
+                    <span>{MAX_FILES_LABEL}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -36,51 +53,84 @@ class ImageUploadForm extends React.Component {
         this.state = {
             imageFiles: [],
             dragStyle: style.dropzone,
-            error: ''
+            error: '',
+            uuid: props.initUuid
         }
+    }
+
+    componentDidMount() {
+        this.props.dispatch(getPicsSubmission(this.state.uuid)).then(() => {
+            this.setState({
+                imageFiles: this.props.submissionPicsList.data
+            })
+        })
     }
 
     onDrop = async (imageFiles) => {
 
-        this.setState({
-            imageFiles
-        });
+        try {
+            this.setState({error: ''});
 
-        imageFiles.map(async (img, index) => {
-            try {
-                // await this.isDimentionsValid(img).catch(err => {
-                //     this.setState({error: err});
-                //     throw err;
-                // });
-                // let fileName = img.name.split('.').pop();
-                // if (!ALLOWED_FILE_FROMATS.includes(fileName)) {
-                //     this.setState({error: PROFILE_IMGAGE_ERRORS.WRONG_FORMAT});
-                //     // } else if (img.size > MAX_BYTES) {
-                //     //     this.setState({error: PROFILE_IMGAGE_ERRORS.FILE_TOO_LARGE});
-                // } else {
-                await this.handleImageUpload(img, index);
-                // }
-            } catch (e) {
-                console.log(e);
+
+            await imageFiles.map(async (img, index) => {
+
+                let fileName = img.name.split('.').pop();
+
+                await this.validateFile(img).catch(err => {
+                    throw err;
+                });
+
+                let uniqueId = Math.random().toString(36).substring(2)
+                    + (new Date()).getTime().toString(36);
+
+                let blob = img.slice(0, img.size, img.type);
+                let newFile = new File([blob], `${uniqueId}.${fileName}`, {type: img.type});
+                newFile.preview = img.preview;
+
+                await this.setState({imageFiles: [...this.state.imageFiles, newFile]});
+
+                await this.handleImageUpload(newFile, index);
+
+
+            });
+        } catch (e) {
+            this.setState({error: e});
+        }
+
+    };
+
+
+    validateFile = async (img) => {
+        try {
+            let fileName = img.name.split('.').pop();
+
+            if (this.state.imageFiles.length > MAX_FILES) {
+                throw MAX_FILES_LABEL;
+            }
+            if (!ALLOWED_FILE_FROMATS.includes(fileName)) {
+                throw PROFILE_IMGAGE_ERRORS.WRONG_FORMAT.transaction;
+            }
+            if (img.size > MAX_BYTES) {
+                throw MAX_SIZE_LABEL;
             }
 
-        });
+            await this.isDimentionsValid(img).catch(err => {
+                throw err;
+            });
+        } catch (e) {
+            this.setState({error: e});
+            throw e;
+        }
 
     };
 
     handleImageUpload = async (file, index) => {
-        console.log(index);
 
         const config = {
             onUploadProgress: progressEvent => {
-                console.log("ping");
                 const imageFiles = cloneDeep(this.state.imageFiles);
                 const counter = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 imageFiles[index].loadCounter = counter;
-                // console.log(counter);
-                // console.log("AAA");
-                console.log(imageFiles);
-                // this.setState({counter: counter}); //TEST
                 this.setState({imageFiles});
             },
             timeout: 500000
@@ -93,8 +143,7 @@ class ImageUploadForm extends React.Component {
         // let user = getCookieByKey(USER);
         // fd.append('userId', user.id);
         fd.append('orientation', window.orientation);
-        await this.props.dispatch(uploadPicsForSumbissionWithStorageService(fd, config)).then(() => {
-            console.log("uploaded");
+        await this.props.dispatch(uploadPicsForSumbissionWithStorageService(this.state.uuid, fd, config)).then(() => {
 
             // this.props.changeProfilePic(this.props.data.fileName);
             //
@@ -113,35 +162,33 @@ class ImageUploadForm extends React.Component {
         // .then(dto => uploadNewProfilePic(dto))
     };
 
-    // isDimentionsValid = inputFile => {
-    //     const temporaryFileReader = new FileReader();
-    //
-    //     return new Promise((resolve, reject) => {
-    //         temporaryFileReader.onerror = () => {
-    //             temporaryFileReader.abort();
-    //             reject(new DOMException("Problem parsing input file."));
-    //         };
-    //
-    //         temporaryFileReader.onload = () => {
-    //             console.log(temporaryFileReader);
-    //
-    //
-    //             let image = new Image();
-    //             image.src = temporaryFileReader.result;
-    //             image.onload = function () {
-    //
-    //                 console.log(image);
-    //
-    //                 if (image.width < MIN_WIDTH || image.height < MIN_HEIGHT) {
-    //                     reject(PROFILE_IMGAGE_ERRORS.WRONG_RESOLUTION)
-    //                 } else {
-    //                     resolve(image);
-    //                 }
-    //             };
-    //         };
-    //         temporaryFileReader.readAsDataURL(inputFile);
-    //     });
-    // };
+    isDimentionsValid = inputFile => {
+        const temporaryFileReader = new FileReader();
+
+        return new Promise((resolve, reject) => {
+            temporaryFileReader.onerror = () => {
+                temporaryFileReader.abort();
+                reject(new DOMException("Problem parsing input file."));
+            };
+
+            temporaryFileReader.onload = () => {
+
+
+                let image = new Image();
+                image.src = temporaryFileReader.result;
+                image.onload = function () {
+
+
+                    if (image.width < MIN_WIDTH || image.height < MIN_HEIGHT) {
+                        reject(MIN_DIMENTIONS_LABEL)
+                    } else {
+                        resolve(image);
+                    }
+                };
+            };
+            temporaryFileReader.readAsDataURL(inputFile);
+        });
+    };
 
     changeDropZoneStyle = (isEnter) => {
         const dropStyle = isEnter ? style.dropEnter : style.dropzone;
@@ -153,18 +200,26 @@ class ImageUploadForm extends React.Component {
     };
 
     deleteImg = (file, index) => {
-        console.log(file.name)
         const obj = {
             fileName: file.name
         };
 
-        this.props.dispatch(deletePicForSumbissionWithStorageService(obj)).then(() => {
+        this.props.dispatch(deletePicForSumbissionWithStorageService(this.state.uuid, obj)).then(() => {
             let imageFiles = this.state.imageFiles;
             imageFiles.splice(index, 1);
             this.setState({
                 imageFiles
             })
         })
+    };
+
+
+    commit = async () => {
+        this.setState({error: ''});
+        if(this.state.imageFiles.length < 5) {
+            this.setState({error: MAX_FILES_LABEL});
+            throw MAX_FILES_LABEL;
+        }
     };
 
     renderImages = () => {
@@ -190,7 +245,7 @@ class ImageUploadForm extends React.Component {
                                     </div>
                                 </div>
                                 <img onDragStart={this.preventDragHandler}
-                                     src={file.preview}/>
+                                     src={file.uploaded ? getSubmissionImgPic(this.state.uuid, file.name) : file.preview}/>
                             </div>
                         </Segment>
                     </div>
@@ -199,6 +254,18 @@ class ImageUploadForm extends React.Component {
 
             </Grid>
         </div>
+    };
+
+    getErrorText = () => {
+        return <Grid.Column>
+            <Segment textAlign='center' basic>
+                <Form.Field>
+                    <Label style={{background: "#de6262", color: "#FFF"}} pointing='below'>
+                        {this.state.error}
+                    </Label>
+                </Form.Field>
+            </Segment>
+        </Grid.Column>
     };
 
     render() {
@@ -210,6 +277,7 @@ class ImageUploadForm extends React.Component {
                     <Grid.Column>
                         {this.renderImages()}
                     </Grid.Column>
+                    {this.state.error && this.getErrorText()}
                     <Grid.Column>
                         <Segment textAlign='left' basic>
                             {/*<Label attached='top'>{GENERAL_PHSHOOTING_INFO_LABEL}</Label>*/}
@@ -265,6 +333,8 @@ const style = {
 
 
 function mapStateToProps(state) {
+    // const {submissionUuid} = state;
+    // return {submissionUuid: submissionUuid, submissionPicsList: submissionPicsList};
     return state;
 }
 

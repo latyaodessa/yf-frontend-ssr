@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css'
 import styles from './styles.scss'
 import {generateEmptyObject, getNewNumber} from "./components/FunctionServices";
 import {
+    ERROR_ME_NOT_CHECKED,
     ERROR_REQUIRED_FIELD,
     HAIR_STYLIST,
     MODEL,
@@ -15,11 +16,11 @@ import {
     PARTICIPANTS_TYPE,
     PHOTOGRAPHER,
     SET_DESIGNER,
-    WARDROBE_STYLIST,
-    ERROR_ME_NOT_CHECKED
+    WARDROBE_STYLIST
 } from "../../../messages/submission";
 import ParticipantsForm from './components/ParticipantsForm';
 import AdditionalParticipantDropDown from './components/AdditionalParticipantDropDown';
+import ModalLoader from './../../core/loaders/ModalLoader';
 
 export const PARTICIPATS_VIEW = "participants";
 
@@ -27,6 +28,8 @@ class ParticipantsView extends React.Component {
 
     constructor(props) {
         super(props);
+
+
         this.state = {
             mds: [
                 generateEmptyObject(0)
@@ -40,7 +43,11 @@ class ParticipantsView extends React.Component {
             wardrobeStylists: [],
             selectedAdditional: '',
             scrollToElement: '',
-            errors: {}
+            errors: {},
+            countries: [],
+            cities: [],
+            showLoader: false,
+            test: {}
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,13 +55,27 @@ class ParticipantsView extends React.Component {
 
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.data) {
+            return {
+                mds: nextProps.data.allParticipants.mds,
+                phs: nextProps.data.allParticipants.phs,
+                muas: nextProps.data.allParticipants.muas,
+                hairStylists: nextProps.data.allParticipants.hairStylists,
+                setDesigner: nextProps.data.allParticipants.setDesigner,
+                wardrobeStylists: nextProps.data.allParticipants.wardrobeStylists
+            };
+        } else {
+            return null;
+        }
+    }
+
+
     componentDidMount() {
         Events.scrollEvent.register('begin', function () {
-            console.log("begin", arguments);
         });
 
         Events.scrollEvent.register('end', function () {
-            console.log("end", arguments);
         });
         scrollSpy.update();
     }
@@ -66,6 +87,15 @@ class ParticipantsView extends React.Component {
         }
     }
 
+    updateMeta = (name, value, type) => {
+        if (type === 'country') {
+            const countries = this.state.countries;
+            countries[name] = value;
+            this.setState({
+                countries: countries
+            })
+        }
+    };
 
     handleAddCardEvent = (selectedType) => {
 
@@ -192,7 +222,8 @@ class ParticipantsView extends React.Component {
         this.setState({
             errors: {
                 isMeChecked: ERROR_ME_NOT_CHECKED
-            }
+            },
+            showLoader: true
         });
 
         let errors = {};
@@ -225,9 +256,7 @@ class ParticipantsView extends React.Component {
             errors: Object.assign(this.state.errors, errors)
         });
 
-        console.log(this.state);
-
-        if(_.isEmpty(errors)) {
+        if (_.isEmpty(this.state.errors)) {
             this.props.commitParticipants({
                 mds: participants[PARTICIPANTS_TYPE.mds.type],
                 phs: participants[PARTICIPANTS_TYPE.phs.type],
@@ -238,21 +267,25 @@ class ParticipantsView extends React.Component {
             });
         }
 
+        this.setState({showLoader: false})
+
     };
 
     commitForm = async (type, e) => {
+
         let participants = [];
         await this.state[type].map(p => {
             participants.push({
                 number: p.number,
                 firstName: e.target[`${type}.${p.number}.firstName`].value,
                 lastName: e.target[`${type}.${p.number}.lastName`].value,
-                country: e.target[`${type}.${p.number}.country`].value,
+                // country: e.target[`${type}.${p.number}.country`].value,
+                country: this.state.countries[`${type}.${p.number}.country`],
                 city: e.target[`${type}.${p.number}.city`].value,
                 instagram: e.target[`${type}.${p.number}.instagram`].value,
                 // vk: e.target[`${type}.${p.number}.vk`].value,
                 // facebook: e.target[`${type}.${p.number}.facebook`].value,
-                me:  e.target[`${type}.${p.number}.me`].checked
+                me: e.target[`${type}.${p.number}.me`].checked
             });
         });
         return participants;
@@ -273,7 +306,7 @@ class ParticipantsView extends React.Component {
             if (this.isBlank(p.city)) {
                 errors[`${type}.${p.number}.city`] = ERROR_REQUIRED_FIELD;
             }
-            if(p.me) {
+            if (p.me) {
                 this.setState({
                     errors: _.omit(this.state.errors, "isMeChecked")
                 })
@@ -289,12 +322,14 @@ class ParticipantsView extends React.Component {
     render() {
         return (
             <div>
+                <ModalLoader showLoader={this.state.showLoader}/>
                 <style jsx>{styles}</style>
                 <div className={"submitter-container"}>
                     <Form onSubmit={this.handleSubmit}>
                         <ParticipantsForm state={this.state}
                                           handleDeleteCardEvent={this.handleDeleteCardEvent}
-                                          handleChangeEvent={this.handleChangeEvent}/>
+                                          handleChangeEvent={this.handleChangeEvent}
+                                          updateMeta={this.updateMeta}/>
                         <Grid>
                             <Grid.Column mobile={16} tablet={16} computer={16}>
                                 <AdditionalParticipantDropDown handleAddCardEvent={this.handleAddCardEvent}
@@ -312,7 +347,8 @@ class ParticipantsView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return state;
+    const {submission} = state;
+    return submission;
 }
 
 export default connect(mapStateToProps)(ParticipantsView);

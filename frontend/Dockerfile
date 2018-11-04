@@ -1,6 +1,6 @@
 FROM node:10
 
-# Create app directory
+# CreateService app directory
 RUN mkdir -p /app
 WORKDIR /app
 

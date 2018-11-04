@@ -6,7 +6,8 @@ import {
     MUA,
     PHOTOGRAPHER,
     SET_DESIGNER,
-    WARDROBE_STYLIST
+    WARDROBE_STYLIST,
+    NEXT_BUTTON
 } from "../../../../messages/submission";
 import {Button, Dropdown, Grid} from 'semantic-ui-react'
 import styles from './../styles.scss';
@@ -49,7 +50,7 @@ const AdditionalParticipantDropDown = ({handleAddCardEvent, props, state}) => {
             </div>
         </Grid.Column>
         <Grid.Column mobile={16} tablet={8} computer={8}>
-            <Button type="submit" content='Next' icon='right arrow' labelPosition='right'/>
+            <Button type="submit" content={NEXT_BUTTON} icon='right arrow' labelPosition='right'/>
         </Grid.Column>
     </Grid>
 

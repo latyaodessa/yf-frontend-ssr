@@ -5,20 +5,14 @@ import {
     CITY,
     COUNTRY,
     FIRST_NAME,
-    HAIR_STYLIST,
     INSTAGRAM_DESCR,
+    IT_IS_ME,
     LAST_NAME,
-    MODEL,
-    MUA,
-    PARTICIPANTS_TYPE,
-    PHOTOGRAPHER,
-    SET_DESIGNER,
-    WARDROBE_STYLIST,
-    IT_IS_ME
+    PARTICIPANTS_TYPE
 } from "../../../../messages/submission";
-import {Form, Icon, Label, Checkbox} from 'semantic-ui-react'
-import {generateEmptyObject} from "./FunctionServices";
+import {Checkbox, Form, Icon, Label, Dropdown, Input} from 'semantic-ui-react'
 import {connect} from "react-redux";
+import {searchCountry} from "../../../../actions/metaActions";
 
 const FIRST_REMOVAL_EXCEPTIONS = [PARTICIPANTS_TYPE.mds.type, PARTICIPANTS_TYPE.phs.type];
 
@@ -27,81 +21,38 @@ class ParticipantCardForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            mds: [
-                generateEmptyObject(0)
-            ],
-            phs: [
-                generateEmptyObject(0)
-            ],
-            muas: [],
-            hairStylists: [],
-            setDesigner: [],
-            wardrobeStylists: [],
-            selectedAdditional: '',
-            scrollToElement: ''
+            countries: ""
         };
 
     }
 
+    componentDidMount() {
 
-    handleDeleteCard = (selectedType, number) => {
-        switch (selectedType) {
-            case MODEL:
-                this.setState({
-                    mds: this.state.mds.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            case PHOTOGRAPHER:
-                this.setState({
-                    phs: this.state.phs.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            case MUA:
-                this.setState({
-                    muas: this.state.muas.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            case HAIR_STYLIST:
-                this.setState({
-                    hairStylists: this.state.hairStylists.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            case WARDROBE_STYLIST:
-                this.setState({
-                    wardrobeStylists: this.state.wardrobeStylists.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            case SET_DESIGNER:
-                this.setState({
-                    setDesigner: this.state.setDesigner.filter((p) => {
-                        return p.number !== number
-                    })
-                });
-                break;
-            default:
-                break;
+        this.props.dispatch(searchCountry()).then(() => {
+            this.setState({
+                countries: this.props.country.data.map(cntr => {
+                    return {key: cntr.id, value: cntr.titleRu, text: cntr.titleRu}
+                })
+            })
+        })
+    }
 
-        }
-
+    handleCountryChange = (e, data) => {
+        const {value} = data;
+        const selectedValue = data.options.find(o => o.value === value);
+        this.props.updateMeta(data.name, selectedValue, "country");
     };
 
-    renderInputFieldWithValidation = (name, label, descr) => {
+
+    renderInputFieldWithValidation = (name, label, descr, defalutValue) => {
         return <Form.Field>
             <Form.Input
                 fluid
                 name={name}
                 label={label}
-                placeholder={descr}/>
+                placeholder={descr}
+                defaultValue={defalutValue}
+            />
 
             {this.props.errors
             && this.props.errors[name]
@@ -111,8 +62,40 @@ class ParticipantCardForm extends React.PureComponent {
         </Form.Field>
     };
 
-    render() {
+    loadingField = (name, placeholder) => {
+        return <Form.Field>
+            <Form.Input label={placeholder} name={name} loading placeholder={placeholder}/> </Form.Field>
 
+    };
+
+
+    renderCountriesDropdow = () => {
+        if (this.props.participant && this.props.participant.country) {
+            this.props.updateMeta(`${this.props.participantType.type}.${this.props.participant.number}.country`,
+                this.props.participant.country,
+                "country");
+        }
+
+
+        return <Form.Field>
+            <Form.Dropdown selection
+                           onChange={this.handleCountryChange}
+                           name={`${this.props.participantType.type}.${this.props.participant.number}.country`}
+                           label={COUNTRY}
+                           placeholder={COUNTRY} fluid search={true}
+                           options={this.state.countries}
+                           // value={this.props.participant.country.value}
+            />
+
+            {this.props.errors
+            && this.props.errors[`${this.props.participantType.type}.${this.props.participant.number}.country`]
+            && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
+                *{this.props.errors[`${this.props.participantType.type}.${this.props.participant.number}.country`]}
+            </Label>}
+        </Form.Field>
+    };
+
+    render() {
         return (
             <Element name={this.props.participantType.type + this.props.participant.number}>
                 <style jsx>{styles}</style>
@@ -137,28 +120,29 @@ class ParticipantCardForm extends React.PureComponent {
                             {this.renderInputFieldWithValidation(
                                 `${this.props.participantType.type}.${this.props.participant.number}.firstName`,
                                 FIRST_NAME,
-                                FIRST_NAME)
+                                FIRST_NAME,
+                                this.props.participant.firstName)
                             }
 
                             {this.renderInputFieldWithValidation(
                                 `${this.props.participantType.type}.${this.props.participant.number}.lastName`,
                                 LAST_NAME,
-                                LAST_NAME)
+                                LAST_NAME,
+                                this.props.participant.lastName)
                             }
 
                         </Form.Group>
                         <Form.Group unstackable widths={2}>
 
-                            {this.renderInputFieldWithValidation(
-                                `${this.props.participantType.type}.${this.props.participant.number}.country`,
-                                COUNTRY,
-                                COUNTRY)
-                            }
+
+                            {this.props.country.data && this.state.countries ? this.renderCountriesDropdow() : this.loadingField(`${this.props.participantType.type}.${this.props.participant.number}.country`, COUNTRY)}
+
 
                             {this.renderInputFieldWithValidation(
                                 `${this.props.participantType.type}.${this.props.participant.number}.city`,
                                 CITY,
-                                CITY)
+                                CITY,
+                                this.props.participant.city)
                             }
 
 
@@ -166,23 +150,36 @@ class ParticipantCardForm extends React.PureComponent {
                         {/*<div className={"independent-label"}>*/}
                         {/*<Label pointing='below'>{CHOOSE_SOCIAL}</Label>*/}
                         {/*</div>*/}
-                        <Form.Input
-                            fluid iconPosition='left' placeholder={INSTAGRAM_DESCR}
-                            name={`${this.props.participantType.type}.${this.props.participant.number}.instagram`}>
+                        <Form.Group widths='equal'>
 
-                            <Icon name='instagram'/>
-                            <input/>
-                        </Form.Input>
+                            <Form.Input label={""}
+                                        fluid iconPosition='left' placeholder={INSTAGRAM_DESCR}
+                                        name={`${this.props.participantType.type}.${this.props.participant.number}.instagram`}
+                                        defaultValue={this.props.participant.instagram}>
 
-                        <Form.Field>
-                            <Checkbox name={`${this.props.participantType.type}.${this.props.participant.number}.me`}
-                                      label={IT_IS_ME}/>
-                            {this.props.errors
-                            && this.props.errors.isMeChecked
-                            && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
-                                *{this.props.errors.isMeChecked}
-                            </Label>}
-                        </Form.Field>
+                                <Icon name='instagram'/>
+                                <input/>
+                            </Form.Input>
+
+                        </Form.Group>
+
+                        <Form.Group widths='equal'>
+
+                            <Form.Field>
+                                <Checkbox
+                                    name={`${this.props.participantType.type}.${this.props.participant.number}.me`}
+                                    label={IT_IS_ME}
+                                    // checked={this.props.participant.me}
+                                    />
+                                <div className={"checkbox-error"}>
+                                    {this.props.errors
+                                    && this.props.errors.isMeChecked
+                                    && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
+                                        *{this.props.errors.isMeChecked}
+                                    </Label>}
+                                </div>
+                            </Form.Field>
+                        </Form.Group>
                         {/*<Form.Input*/}
                         {/*fluid iconPosition='left' placeholder={VK_DESCR}*/}
                         {/*name={`${this.props.participantType.type}.${this.props.participant.number}.vk`}>*/}
@@ -204,7 +201,10 @@ class ParticipantCardForm extends React.PureComponent {
 }
 
 function mapStateToProps(state) {
-    return state;
+    const {country} = state;
+
+
+    return {country: country};
 }
 
 export default connect(mapStateToProps)(ParticipantCardForm);
