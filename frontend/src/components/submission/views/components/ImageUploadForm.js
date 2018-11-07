@@ -76,7 +76,7 @@ class ImageUploadForm extends React.Component {
 
                 let fileName = img.name.split('.').pop();
 
-                await this.validateFile(img).catch(err => {
+                await this.validateFile(img, imageFiles.length).catch(err => {
                     throw err;
                 });
 
@@ -100,11 +100,13 @@ class ImageUploadForm extends React.Component {
     };
 
 
-    validateFile = async (img) => {
+    validateFile = async (img, newImgLength) => {
         try {
-            let fileName = img.name.split('.').pop();
+            let fileName = img.name.split('.').pop().toLowerCase();
 
-            if (this.state.imageFiles.length > MAX_FILES) {
+            console.log(MAX_FILES);
+            console.log(this.state.imageFiles.length+newImgLength);
+            if ((this.state.imageFiles.length+newImgLength) > MAX_FILES) {
                 throw MAX_FILES_LABEL;
             }
             if (!ALLOWED_FILE_FROMATS.includes(fileName)) {

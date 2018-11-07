@@ -92,11 +92,16 @@ router.get('/uploads/:userId/:uuid/:file', (req, res) => {
 
 router.get('/user/uploads/:userId/:uuid/', async (req, res) => {
     const dirPath = __dirname + `/uploads/${req.params.userId}/${req.params.uuid}/`;
-    const files = fs.readdirSync(dirPath);
-    const formatedFiles = await files.map(file => {
-        return {name: file, loadCounter: 100, uploaded: true}
-    });
-    res.json(formatedFiles);
+    if (fs.existsSync(dirPath)) {
+        const files = fs.readdirSync(dirPath);
+        const formatedFiles = await files.map(file => {
+            return {name: file, loadCounter: 100, uploaded: true}
+        });
+        res.json(formatedFiles);
+    } else {
+        res.json([]);
+    }
+
 });
 
 router.post('/submission/pic/:userId/:uuid', async (req, res, next) => {
