@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import SavePostButton from '../components/save-post-button';
 import HeaderText from '../components/header-text-component';
-import styles from "../../../../../res/styles/single-post.scss"
-
+import styles from "../../../../../res/styles/single-post.scss";
+import SocialSharingButtons from './buttons/SocialSharingButtons';
+import LikeButton from './buttons/LikeButton';
+import componentsStyle from './buttons/style.scss'
 
 class Header extends React.Component {
     constructor(props) {
@@ -12,16 +13,18 @@ class Header extends React.Component {
     }
 
 
-
     render() {
         return (
             <div>
                 <style jsx>{styles}</style>
+                <style jsx>{componentsStyle}</style>
                 <div className="single-post-header">
                     <HeaderText post={this.props.post}/>
-                    <SavePostButton checkPostSavedHandler={this.checkIsPostAlreadySavedByUser}
-                                    user_id={this.props.user_id} existence={this.props.existence}
-                                    post={this.props.post}/>
+                    {/*<SavePostButton post={this.props.post}/>*/}
+                </div>
+                <div className={"button-bar"}>
+                    <SocialSharingButtons/>
+                    <LikeButton post={this.props.post}/>
                 </div>
             </div>
         )

@@ -1,0 +1,25 @@
+.loading-container {
+  display: block;
+  float: right;
+  padding: 0 25px 0 0; }
+
+.loading-button {
+  animation: rotate 1.5s linear infinite;
+  animation-delay: .2s;
+  background-color: transparent;
+  border: .3em solid #e1e1e1;
+  border-radius: 1.5em;
+  border-top-color: #444;
+  box-sizing: border-box;
+  height: 2.4em;
+  color: transparent;
+  padding: 0;
+  pointer-events: none;
+  width: 2.4em;
+  padding: 0 25px 0 0; }
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg); } }
+
+/*# sourceMappingURL=style.css.map */

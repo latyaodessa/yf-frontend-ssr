@@ -40,8 +40,8 @@ class LoginForm extends React.Component {
         evt.preventDefault();
         if (this.state.email.value && this.state.password.value) {
             this.props.dispatch(login(this.state.email.value, this.state.password.value)).then(() => {
-                this.setState({fetching: false});
                 if (this.props.error) {
+                    this.setState({fetching: false});
                     this.handleErrors(this.props.error.data);
                 }
                 else if (this.props.data) {

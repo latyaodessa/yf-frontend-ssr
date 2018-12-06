@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import styles from '../style.scss'
 import {ProfileMainContentNavigation} from './ProfileMainContentNavigation'
-import ProfileSavedPosts from './views/ProfileSavedPosts';
+import ProfileSavedPosts from './views/ProfileSavedPosts'
+import ProfilePublications from './views/ProfilePublications'
 
 export const SAVED_POST_PAGE = "saved";
 export const PUBLISHED_PAGE = "published";
@@ -35,7 +36,7 @@ class ProfileMainContent extends React.Component {
             case SAVED_POST_PAGE:
                 return <ProfileSavedPosts/>;
             case PUBLISHED_PAGE:
-                return this.getMaintantancePage();
+                return <ProfilePublications/>;
             case FOLLOWING_PAGE:
                 return this.getMaintantancePage();
             default:

@@ -1,21 +1,31 @@
 import axios from "axios"
 import {
-    FIND_POST_BY_ID,
+    FIND_PUBLICATION_BY_VK_POST_ID,
+    FIND_RELATED_PUBLICATIONS,
     IS_POST_ALREADY_EXIST_BY_USER,
-    FIND_RELATED_POSTS,
-    FIND_TOP_NATIVE_FROM_TO
+    FIND_PUBLICATION_BY_LINK
 } from '../../constants/post-rest-client'
 import {
-    FETCH_SINGLE_POST_FULFILLED,
-    FETCH_SINGLE_POST_REJECTED,
     FETCH_RELATED_POSTS_FULFILLED,
     FETCH_RELATED_POSTS_REJECTED,
-    FETCH_TOP_NATIVE_FULFILLED, FETCH_TOP_NATIVE_REJECTED
+    FETCH_SINGLE_POST_FULFILLED,
+    FETCH_SINGLE_POST_REJECTED
 } from '../../constants/post/posts-constants';
 import {GET_IS_POST_EXIST_FULFILLED, GET_IS_POST_EXIST_REJECTED} from "../../constants/user/user-constants"
 
-export const fetchPostPictures = (postId) => dispatch => {
-    return axios.get(FIND_POST_BY_ID + postId)
+
+export const fetchPostPictures = (postId) => {
+   return axios.get(FIND_PUBLICATION_BY_VK_POST_ID + postId)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            return;
+        })
+};
+
+export const fetchPublicationDetails = (link) => dispatch => {
+    return axios.get(FIND_PUBLICATION_BY_LINK + "/" + link)
         .then((res) => {
             dispatch({type: FETCH_SINGLE_POST_FULFILLED, payload: res.data})
         })
@@ -23,7 +33,6 @@ export const fetchPostPictures = (postId) => dispatch => {
             dispatch({type: FETCH_SINGLE_POST_REJECTED, payload: err})
         })
 };
-
 
 export const isPostAlreadySavedByUser = (postId, userId) => dispatch => {
     return axios.get(IS_POST_ALREADY_EXIST_BY_USER + "/" + userId + "/" + postId)
@@ -36,8 +45,8 @@ export const isPostAlreadySavedByUser = (postId, userId) => dispatch => {
 };
 
 
-export const getRelatedPosts = (query, excludeId) => dispatch => {
-    return axios.get(FIND_RELATED_POSTS + "?query=" + query + "&excludeId=" + excludeId)
+export const getRelatedPosts = (publication) => dispatch => {
+    return axios.post(FIND_RELATED_PUBLICATIONS, publication)
         .then((res) => {
             dispatch({type: FETCH_RELATED_POSTS_FULFILLED, payload: res.data});
         })

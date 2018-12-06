@@ -10,7 +10,7 @@ export const ProfileMainContentNavigation = props => (
             <div className="prof-navbar">
                 <div onClick={props.switchActivePage.bind(this, SAVED_POST_PAGE)} className="block">
                     <i className={"hovicon effect-1 sub-a " + getActiveStyle(props.active, SAVED_POST_PAGE)}>
-                        <img src={"/static/img/icons/gallery.png"}/>
+                        <img src={"/static/img/icons/chat.png"}/>
                         <span>{SAVED_SETS_PICS}</span>
                     </i>
                 </div>

@@ -69,6 +69,10 @@
 
 .login-menu-container {
   cursor: pointer;
+  & ul {
+    margin: 0;
+    padding: 0;
+  }
   & img {
     border-radius: 50%;
     border-style: solid;
@@ -188,5 +192,11 @@
       color: #333;
       border: 1px solid rgba(255, 255, 255, .15);
     }
+  }
+}
+
+.search-icon {
+  & img {
+    height: 55px;
   }
 }

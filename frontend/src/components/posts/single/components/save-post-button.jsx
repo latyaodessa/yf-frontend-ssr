@@ -79,6 +79,8 @@ class SavePostButton extends React.Component {
             return;
         }
 
+        console.log(this.props);
+
         this.props.dispatch(savePostToDashboard(this.props.post.id, this.state.userId)).then(() => {
             this.setState({saved: true});
         });

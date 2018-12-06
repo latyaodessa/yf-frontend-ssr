@@ -3,14 +3,12 @@ import {connect} from 'react-redux';
 import {Link} from '../../../../../routes'
 import Swiper from 'react-id-swiper';
 import {getRelatedPosts} from '../../../../actions/post/single-post-actions';
-import TopNativeSlider from "../../lists/top-native-slider";
-import NativeGrid from "../../../home/components/native-grid-component";
-import SetsGrid from "../../../home/components/sets-grid-component";
 import styles from "../../../../../res/styles/main.scss"
 import slider from "../../../../../res/styles/slider.scss"
 import singlePostStyle from "../../../../../res/styles/single-post.scss"
 import selementsStyle from "../../../../../res/styles/common/elements.scss"
 import LoaderForm from '../../../../components/core/form/LoaderForm'
+import ThumbnailPicture from '../../../posts/core/ThumbnailPicture'
 
 class RelatedPostsSliderComponent extends React.Component {
 
@@ -26,38 +24,58 @@ class RelatedPostsSliderComponent extends React.Component {
 
     componentDidMount() {
         this.setState({loaded: false});
-        this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+        this.props.dispatch(getRelatedPosts(this.props.publication)).then(() => {
             this.setState({loaded: true});
         });
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.excludeId !== this.props.excludeId) {
+        if (prevProps.publication !== this.props.publication) {
             this.setState({loaded: false});
-            this.props.dispatch(getRelatedPosts(this.props.query, this.props.excludeId)).then(() => {
+            this.props.dispatch(getRelatedPosts(this.props.publication)).then(() => {
                 this.setState({loaded: true});
             });
         }
     }
 
     render() {
+
         const params = {
             slidesPerView: 3,
-            paginationClickable: true,
             freeMode: true,
-            loop: true
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3
+                },
+                640: {
+                    slidesPerView: 2
+                },
+                420: {
+                    slidesPerView: 1
+                }
+            }
         };
 
         return (
             <div className="related-post-slider">
                 <style jsx>{styles}</style>
                 <style jsx>{singlePostStyle}</style>
-                {this.props.fetched ? <Swiper {...params}>
+                {this.props.fetched && this.state && this.state.loaded ? <Swiper {...params}>
                     {this.getSlides(this.props.posts)}
                 </Swiper> : null}
             </div>
 
         );
+
     }
 
     getSlidesCount() {
@@ -70,24 +88,7 @@ class RelatedPostsSliderComponent extends React.Component {
                 <style jsx>{slider}</style>
                 <style jsx>{selementsStyle}</style>
                 {this.state && this.state.loaded ?
-                    <div
-                        className="hovereffect">
-                        <Link route='post' params={{postId: post.id}}>
-                            <div>
-                                <img className="slider-img" src={post.thumbnail}/>
-                                <div className="overlay">
-                                    <div className="ul-main-list">
-                                        {post.md ? <ul className="md-white">
-                                            <li>{post.md}</li>
-                                        </ul> : null}
-                                        {post.ph ? <ul className="ph-white">
-                                            <li>{post.ph}</li>
-                                        </ul> : null}
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                    </div> :
+                    <ThumbnailPicture post={post}/> :
                     <LoaderForm height={300}/>}
             </div>
         )

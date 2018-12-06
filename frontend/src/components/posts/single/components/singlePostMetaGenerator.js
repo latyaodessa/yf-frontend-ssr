@@ -1,11 +1,11 @@
 import {
-    CANONICIAL_HOST,
-    MODEL,
-    PHOTOGRAPHER,
     BRAND,
-    KEYWORDS_SINGLE,
+    CANONICIAL_HOST,
+    CHARSET,
     DESCRIPTION_SINGLE,
-    CHARSET
+    KEYWORDS_SINGLE,
+    MODEL,
+    PHOTOGRAPHER
 } from '../../../../messages/meta'
 
 export default (post) => {
@@ -21,18 +21,18 @@ export default (post) => {
 
 function getTitle(post) {
     if (post) {
-        return [MODEL, post.md, PHOTOGRAPHER, post.ph, "-", BRAND].join(" ");
+        return [MODEL, post.mdSimple, PHOTOGRAPHER, post.phSimple, "-", BRAND].join(" ");
     }
 }
 
 function getCanonical(post) {
     if (post) {
-        return CANONICIAL_HOST + post.id
+        return CANONICIAL_HOST + post.link
     }
 }
 
 function getKeywords(post) {
     if (post) {
-        return [post.md, post.ph].concat(KEYWORDS_SINGLE).join(", ")
+        return [post.mdSimple, post.phSimple].concat(KEYWORDS_SINGLE).join(", ")
     }
 }

@@ -13,15 +13,25 @@ export default class HeaderText extends React.Component {
             <div className="top-text">
                 <style jsx>{styles}</style>
                 <style jsx>{elementsStyle}</style>
-                {this.props.post.md ? <ul className="md">
-                    <li>{this.props.post.md}</li>
-                </ul> : null}
-                {this.props.post.ph ? <ul className="ph">
-                    <li>{this.props.post.ph}</li>
-                </ul> : null}
-                {!this.props.post.ph && !this.props.post.md ? <ul className="art">
-                    <li>{this.regexCleaner(this.props.post.text)}</li>
-                </ul> : null}
+                {this.props.post.mdSimple &&
+                <div className={"participant-container"}>
+                    <img src={"/static/img/icons/woman-black.png"}/>
+                    <span>{this.props.post.mdSimple}</span>
+                </div>}
+                {this.props.post.phSimple &&
+                <div className={"participant-container"}>
+                    <img src={"/static/img/icons/photo-camera-black.png"}/>
+                    <span>{this.props.post.phSimple}</span>
+
+                </div>}
+                {!this.props.post.phSimple && !this.props.post.mdSimple &&
+                <div className={"participant-container"}>
+                    <img src={"/static/img/icons/artist-black.png"}/>
+                    <span>{this.regexCleaner(this.props.post.text)}</span>
+
+                </div>
+
+                }
             </div>
         )
     }

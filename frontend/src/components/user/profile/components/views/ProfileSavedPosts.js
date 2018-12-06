@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {deletePostFromDashboard, getSavedPosts} from '../../../../../actions/user/dashboard-actions';
 import mainStyles from '../../../../../../res/styles/main.scss'
 import dashboardStyles from '../../../../../../res/styles/user/dashboard.scss'
-import elementsStyles from '../../../../../../res/styles/common/elements.scss'
 import {Link} from '../../../../../../routes'
 import {getCookieByKey} from "../../../../../services/CookieService";
+import {NO_PUBLICATION_SAVED} from "../../../../../messages/profile";
+import ThumbnailPicture from '../../../../posts/core/ThumbnailPicture'
 
 const incrementSize = 12;
 const initSizePhoto = 0;
@@ -70,43 +71,43 @@ class ProfileSavedPosts extends React.Component {
         return this.props.fetched && this.props.savedPosts.length !== 0;
     }
 
-    deltePostFromDashBoard(id, post_id, user_id) {
-        this.props.dispatch(deletePostFromDashboard(id, post_id, user_id));
+    deltePostFromDashBoard(id) {
+        this.props.dispatch(deletePostFromDashboard(id)).then(() => {
+            location.reload(); // TODO content reload
+        });
+    }
+
+    deleteComponent(post) {
+        return <div className="tools-wrapper">
+            <style jsx>{dashboardStyles}</style>
+            <div className="delete-container">
+                <img
+                    onClick={this.deltePostFromDashBoard.bind(this, post.id)}
+                    className="delete-button-img" src={"/static/img/icons/close-button.png"}/>
+            </div>
+        </div>
     }
 
     renderPics(posts) {
-        return posts.map(post => <div key={post.id}
-                                      className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
-            <style jsx>{mainStyles}</style>
-            <style jsx>{dashboardStyles}</style>
-            <style jsx>{elementsStyles}</style>
-            <div className="grig-img-container hovereffect">
-                <img className="grig-img" src={post.thumbnail}/>
-                <div className="overlay">
-                    <div className="tools-wrapper">
-                        <div className="delete-container">
-                            <img onClick={this.deltePostFromDashBoard.bind(this, post.id, post.post_id, post.user_id)}
-                                 className="delete-button-img" src="/static/img/icons/close-button.png"/>
-                        </div>
-                    </div>
-                    <Link to={'post/' + post.post_id}>
-                        <div className="ul-main-list">
-                            {post.md ? <ul className="md-white">
-                                <li>{post.md}</li>
-                            </ul> : null}
-                            {post.ph ? <ul className="ph-white">
-                                <li>{post.ph}</li>
-                            </ul> : null}
-                        </div>
-                    </Link>
-                </div>
-            </div>
+        return posts.filter(post => post).map(post => <div key={post.id}
+                                                           className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
+            <ThumbnailPicture post={post.dto}>
+                {this.deleteComponent(post)}
+            </ThumbnailPicture>
         </div>)
     }
 
     getNotExistSavedPostsNotification() {
-        return <h1 className="no-underscore">Вы еще не сохранили ни одного фотосета</h1>
+        return <h1 className="no-underscore">{NO_PUBLICATION_SAVED}</h1>
     }
+
+    renderContent = () => {
+        console.log(this.props.savedPosts);
+        if (this.props.savedPosts && this.props.savedPosts.length > 0) {
+            return <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div>;
+        }
+        return this.getNotExistSavedPostsNotification();
+    };
 
     render() {
         return (
@@ -114,9 +115,7 @@ class ProfileSavedPosts extends React.Component {
                 <style jsx>{mainStyles}</style>
                 <style jsx>{dashboardStyles}</style>
                 <div className="dashboard-container">
-                    {this.props.fetched &&
-                    <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div>
-                    }
+                    {this.props.fetched && this.renderContent()}
 
                     {/*{this.isLoadMore.bind(this)}*/}
 

@@ -8,6 +8,7 @@ routes
     .add('dashboard')
     .add('profile')
     .add('post', '/post/:postId')
+    .add('pub', '/pub/:link')
     .add({name: 'auth', pattern: '/auth', page: 'auth'})
     .add({name: 'reset', pattern: '/reset/:uuid', page: 'auth'})
     .add({name: 'verify', pattern: '/verify/:uuid', page: 'verify'});

@@ -42,8 +42,6 @@ class ResetPasswordForm extends React.Component {
     };
 
     handleSubmit = (evt) => {
-        console.log(this.state);
-
         evt.preventDefault();
         if (this.state.password.value && this.state.repeat_password.value) {
 
@@ -84,7 +82,6 @@ class ResetPasswordForm extends React.Component {
     }
 
     handleErrors = (errorMessage) => {
-        console.log(errorMessage);
         switch (errorMessage) {
             case ERRORS.PASSWORDS_NOT_MATCING.name:
                 this.setState({

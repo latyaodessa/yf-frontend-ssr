@@ -183,14 +183,14 @@ class MainLayoutWithNavigation extends React.Component {
           transform: scale(1);
         }
 
-        .hovereffect img {
+        .hovereffect .grig-img {
           display: block;
           position: relative;
           -webkit-transition: all 0.35s;
           transition: all 0.35s;
         }
 
-        .hovereffect:hover img {
+        .hovereffect:hover .grig-img {
           filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.6" /><feFuncG type="linear" slope="0.6" /><feFuncB type="linear" slope="0.6" /></feComponentTransfer></filter></svg>#filter');
           filter: brightness(0.6);
           -webkit-filter: brightness(0.6);
@@ -259,7 +259,7 @@ class MainLayoutWithNavigation extends React.Component {
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
                     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
                     <link rel="stylesheet"
-                          href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css"/>
+                          href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"/>
                     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
 
                 </Head>

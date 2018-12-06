@@ -84,7 +84,6 @@ class VKLoginButton extends React.Component {
 
 
     clickVk() {
-        console.log(VK);
         VK.Auth.login(function (response) {
             if (response.session) {
                 this.getVkUserById(response.session.user);
@@ -111,7 +110,6 @@ class VKLoginButton extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     let {socialUser} = state;
     return socialUser;
 }

@@ -1,0 +1,52 @@
+.button-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  & .left-side {
+    flex: 1;
+    top: 10px;
+    position: relative;
+  }
+}
+.social-buttons-container {
+  padding: 0 0 0 20px;
+  display: flex;
+  justify-content: left;
+  flex: 1;
+
+  .mobile-expand {
+    img {
+      cursor: pointer;
+      height: 35px;
+      padding: 0 25px 0 0;
+    }
+
+  }
+}
+
+.Demo__some-network {
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 25px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Demo__some-network__share-button:hover:not(:active) {
+  opacity: 0.75;
+}
+
+.like-button-container {
+  display: block;
+  float: right;
+  padding: 0 25px 0 0;
+  img {
+    cursor: pointer;
+    height: 35px;
+  }
+  & .number {
+    text-align: center;
+  }
+
+}

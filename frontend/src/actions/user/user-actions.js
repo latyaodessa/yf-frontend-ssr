@@ -28,7 +28,6 @@ export const createVkUser = (socialId, email, password) => (dispatch, getState) 
         user: email,
         password: password
     };
-    console.log(requestObj);
     return axios.post(CREATE_VK_USER + socialId, requestObj)
         .then((res) => {
             dispatch({type: REGISTER_FULFILLED, payload: res.data});

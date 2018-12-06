@@ -10,6 +10,7 @@ import {
 } from "../../constants/user/user-constants"
 import {DELETE_POST_FROM_DASHBOARD, GET_SAVED_POSTS, SAVE_POST_TO_DASHBOARD} from '../../constants/user-rest-clinet'
 
+import {getCookieByKey, TOKEN, USER} from "../../services/CookieService";
 
 export const getSavedPosts = (userId, from, to) => (dispatch) => {
     return axios.get([GET_SAVED_POSTS, userId, from, to].join("/"))
@@ -23,12 +24,12 @@ export const getSavedPosts = (userId, from, to) => (dispatch) => {
 };
 
 
-export const savePostToDashboard = (postId, userId) => (dispatch, getState) => {
-    let req = {
-        post_id: postId,
-        user_id: userId
+export const savePostToDashboard = (publication_id, userId) => (dispatch, getState) => {
+    const req = {
+        userId: getCookieByKey(USER).id,
+        token: getCookieByKey(TOKEN)
     };
-    return axios.post(SAVE_POST_TO_DASHBOARD, req)
+    return axios.post([SAVE_POST_TO_DASHBOARD, publication_id].join("/"), req)
         .then((res) => {
             dispatch({type: SAVE_POST_TO_DASHBOARD_FULFILLED, payload: res});
 
@@ -39,22 +40,18 @@ export const savePostToDashboard = (postId, userId) => (dispatch, getState) => {
 
 };
 
-export function deletePostFromDashboard(id, post_id, user_id) {
-    var req = {
-        id: id,
-        post_id: post_id,
-        user_id: user_id
-    }
+export const deletePostFromDashboard = (idSavedPost) => (dispatch, getState) => {
 
-    return function (dispatch) {
-        axios.post(DELETE_POST_FROM_DASHBOARD, req)
-            .then((res) => {
-                dispatch({type: DELETE_POST_FROM_DASHBOARD_FULFILLED, payload: res});
-                location.reload();
+    const req = {
+        userId: getCookieByKey(USER).id,
+        token: getCookieByKey(TOKEN)
+    };
 
-            })
-            .catch((err) => {
-                dispatch({type: DELETE_POST_FROM_DASHBOARD_REJECTED, payload: err})
-            })
-    }
-}
+    return axios.post([DELETE_POST_FROM_DASHBOARD, idSavedPost].join("/"), req)
+        .then((res) => {
+            dispatch({type: DELETE_POST_FROM_DASHBOARD_FULFILLED, payload: res});
+        })
+        .catch((err) => {
+            dispatch({type: DELETE_POST_FROM_DASHBOARD_REJECTED, payload: err})
+        })
+};
