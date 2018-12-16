@@ -1,6 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux';
-import {logout} from '../../../actions/core/login-logout-actions';
 import styles from '../../../../res/styles/navigation.scss'
 import {Link} from '../../../../routes'
 import {cleanUserCookies, verifyLoggedInUser} from "../../../services/CookieService";

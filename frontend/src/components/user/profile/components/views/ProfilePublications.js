@@ -7,6 +7,9 @@ import {Link} from '../../../../../../routes'
 import {getCookieByKey} from "../../../../../services/CookieService";
 import {NO_PUBLICATION_PUBLISHED} from "../../../../../messages/profile";
 import ThumbnailPicture from '../../../../posts/core/ThumbnailPicture'
+import SubmittedPublicationsList from './../components/SubmittedPublicationsList';
+import {Button, Header, Icon} from "semantic-ui-react";
+import {PUBLICATION_SHARE} from "../../../../../messages/submission";
 
 const incrementSize = 12;
 const initSizePhoto = 0;
@@ -94,13 +97,14 @@ class ProfilePublications extends React.Component {
     };
 
     getNoPubsInfo() {
-        return <h1 className="no-underscore">{NO_PUBLICATION_PUBLISHED}</h1>
-    }
-
-    getDummyWarning() {
-        return <div style={{backgroundColor: "#ffffcc", borderRadius: "5px", padding: "15px"}}>
-            <div><span>На данный момент предложить публикации возможно только через <a href={"https://vk.com/youngfolks"} target="_blank">публичную страницу в VK.</a></span></div>
-            <div><span>В скором времени это возможно будет сделать тут</span></div>
+        return <div>
+            <Header as='h4'>{NO_PUBLICATION_PUBLISHED}</Header>
+            <Link route={"submission"}>
+                <Button style={style.button} icon labelPosition='right' primary>
+                    {PUBLICATION_SHARE}
+                    <Icon name='photo'/>
+                </Button>
+            </Link>
         </div>
     }
 
@@ -109,16 +113,22 @@ class ProfilePublications extends React.Component {
             <div>
                 <style jsx>{mainStyles}</style>
                 <style jsx>{dashboardStyles}</style>
-                {this.getDummyWarning()}
+                <SubmittedPublicationsList/>
                 <div className="dashboard-container">
                     {this.props.fetched && this.renderContent()}
-
-
                 </div>
             </div>
         )
     }
 }
+
+
+const style = {
+    button: {
+        background: "#3b9c9a"
+    }
+};
+
 
 function mapStateToProps(state) {
     const {native} = state;

@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Navbar from '../core/navbar'
 import {initGA, logPageView} from '../../utils/analytics'
+import 'semantic-ui-css/semantic.min.css'
 
 
 class MainLayoutWithNavigation extends React.Component {

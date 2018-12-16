@@ -1,8 +1,8 @@
+import React from 'react'
 import {Card, Form, Image} from 'semantic-ui-react'
 import {PH_EQ_EXAMPLE, PH_EQ_LABEL, PHOTOGRAPHER} from "../../../../messages/submission";
 
 const ParticipantsEquipmentForm = ({participants, handlePhEquipmentChange}) => {
-    console.log(participants);
     return <Card.Group>
         {participants.phs.map((ph, index) => {
             return <Card fluid key={ph.number}>

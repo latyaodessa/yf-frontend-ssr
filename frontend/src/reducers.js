@@ -16,10 +16,10 @@ import savePost from './reducers/user/dashboard/save-post-to-dashboard-reducer'
 import deletePost from './reducers/user/dashboard/delete-post-from-dashboard'
 import postExistenceByUser from './reducers/post/post-existence-by-user-reducer'
 import {firstLastNameUpdate, nickNameUpdate} from './reducers/user/profileRedicers'
-import {login, register, requestPassword, uuid, reset, verify, socialUser} from './reducers/user/auth/authReducers'
-import {upload, submissionPicsList} from './reducers/files/uploadReducers'
+import {login, register, requestPassword, reset, socialUser, uuid, verify} from './reducers/user/auth/authReducers'
+import {submissionPicsList, upload} from './reducers/files/uploadReducers'
 import {country} from './reducers/meta/metaReducers';
-import {submission} from "./reducers/submission/submissionReducers";
+import {submission, submissionsList} from "./reducers/submission/submissionReducers";
 import {routerReducer as routing} from 'react-router-redux';
 
 
@@ -44,6 +44,6 @@ export default combineReducers({
     firstLastNameUpdate, nickNameUpdate,
     upload, submissionPicsList,
     country,
-    submission,
+    submission, submissionsList,
     routing
 })

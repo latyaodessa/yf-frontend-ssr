@@ -4,8 +4,15 @@ import ParticipantsView, {PARTICIPATS_VIEW} from './views/ParticipantsView'
 import PhotoshootingView, {PHOTOSHOOTING_VIEW} from "./views/PhotoshootingView";
 import AuthModalWindow from './../core/modal/auth/AuthModalWindow';
 import {verifyLoggedInUser} from "../../services/CookieService";
-import {getSubmissionByUUid, initSubmission, updateSubmission} from "../../actions/submission/submissionActions";
+import {
+    getSubmissionByUUid,
+    initSubmission,
+    updateSubmission,
+    submit
+} from "../../actions/submission/submissionActions";
 import {Router} from './../../../routes';
+import {PUBLISHED_PAGE} from '../user/profile/components/ProfileMainContent'
+import {INIT_SUBMISSION_FULFILLED} from "../../constants/submission/supmissionConstants";
 
 export const VIEWS = {
     PARTICIPATS_VIEW: PARTICIPATS_VIEW,
@@ -36,6 +43,7 @@ class SubmissionViewsWrapper extends React.Component {
                             this.setState({
                                 submission: this.props.data
                             })
+                            console.log(this.state);
                         }
                     })
                 } else {
@@ -49,6 +57,18 @@ class SubmissionViewsWrapper extends React.Component {
         window.scrollTo(0, 0);
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        try {
+            const uuid = new URLSearchParams(location.search).get('uuid');
+            if (!uuid && nextProps.data) {
+                nextProps.dispatch({type: INIT_SUBMISSION_FULFILLED, payload: null});
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        return null;
+    }
+
     commitParticipants = (participants) => {
 
         this.setState({
@@ -59,8 +79,41 @@ class SubmissionViewsWrapper extends React.Component {
 
     };
 
-    commitPhotoshooting = (photoshooting) => {
+    commitPhotoshooting = (description) => {
 
+        console.log(description);
+        console.log(this.state.submission);
+
+        let sbms = this.state.submission;
+
+        sbms.city = description.city;
+        sbms.country = description.country;
+        sbms.eventDate = description.date;
+        sbms.text = description.description;
+        sbms.equipment = description.equipment;
+
+        this.setState({submission: sbms});
+        this.validateAndSubmit();
+    };
+
+
+    validateAndSubmit = () => {
+        verifyLoggedInUser().then(valid => {
+            if (valid) {
+                const submission = this.state.submission;
+                submission.allParticipants = this.state.participants;
+                this.setState({
+                    submission: submission
+                });
+                this.props.dispatch(submit(submission)).then(() => {
+                    Router.pushRoute('profile', {goTo: PUBLISHED_PAGE});
+                });
+            } else {
+                this.setState({
+                    showAuthPopUp: true
+                })
+            }
+        })
     };
 
     validateAndMakeFirstSubmit = () => {
@@ -78,8 +131,13 @@ class SubmissionViewsWrapper extends React.Component {
                         this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
                     });
                 } else {
+                    console.log(this.state);
                     this.props.dispatch(initSubmission(this.state.participants)).then(() => {
+                        this.setState({
+                            submission: this.props.data
+                        });
                         console.log(this.props);
+                        console.log(this.state);
                         Router.pushRoute('submission', {uuid: this.props.data.uuid});
                         this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
                     });
@@ -130,7 +188,7 @@ class SubmissionViewsWrapper extends React.Component {
 
 function mapStateToProps(state) {
     const {submission} = state;
-    console.log(state);
+    console.log(submission);
     return submission;
 }
 

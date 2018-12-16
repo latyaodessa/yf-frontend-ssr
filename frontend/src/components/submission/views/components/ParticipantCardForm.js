@@ -37,12 +37,6 @@ class ParticipantCardForm extends React.PureComponent {
         })
     }
 
-    handleCountryChange = (e, data) => {
-        const {value} = data;
-        const selectedValue = data.options.find(o => o.value === value);
-        this.props.updateMeta(data.name, selectedValue, "country");
-    };
-
 
     renderInputFieldWithValidation = (name, label, descr, defalutValue) => {
         return <Form.Field>
@@ -62,38 +56,6 @@ class ParticipantCardForm extends React.PureComponent {
         </Form.Field>
     };
 
-    loadingField = (name, placeholder) => {
-        return <Form.Field>
-            <Form.Input label={placeholder} name={name} loading placeholder={placeholder}/> </Form.Field>
-
-    };
-
-
-    renderCountriesDropdow = () => {
-        if (this.props.participant && this.props.participant.country) {
-            this.props.updateMeta(`${this.props.participantType.type}.${this.props.participant.number}.country`,
-                this.props.participant.country,
-                "country");
-        }
-
-
-        return <Form.Field>
-            <Form.Dropdown selection
-                           onChange={this.handleCountryChange}
-                           name={`${this.props.participantType.type}.${this.props.participant.number}.country`}
-                           label={COUNTRY}
-                           placeholder={COUNTRY} fluid search={true}
-                           options={this.state.countries}
-                           // value={this.props.participant.country.value}
-            />
-
-            {this.props.errors
-            && this.props.errors[`${this.props.participantType.type}.${this.props.participant.number}.country`]
-            && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
-                *{this.props.errors[`${this.props.participantType.type}.${this.props.participant.number}.country`]}
-            </Label>}
-        </Form.Field>
-    };
 
     render() {
         return (
@@ -135,7 +97,12 @@ class ParticipantCardForm extends React.PureComponent {
                         <Form.Group unstackable widths={2}>
 
 
-                            {this.props.country.data && this.state.countries ? this.renderCountriesDropdow() : this.loadingField(`${this.props.participantType.type}.${this.props.participant.number}.country`, COUNTRY)}
+                            {this.renderInputFieldWithValidation(
+                                `${this.props.participantType.type}.${this.props.participant.number}.country`,
+                                COUNTRY,
+                                COUNTRY,
+                                this.props.participant.country)
+                            }
 
 
                             {this.renderInputFieldWithValidation(
@@ -147,9 +114,7 @@ class ParticipantCardForm extends React.PureComponent {
 
 
                         </Form.Group>
-                        {/*<div className={"independent-label"}>*/}
-                        {/*<Label pointing='below'>{CHOOSE_SOCIAL}</Label>*/}
-                        {/*</div>*/}
+
                         <Form.Group widths='equal'>
 
                             <Form.Input label={""}
@@ -169,8 +134,7 @@ class ParticipantCardForm extends React.PureComponent {
                                 <Checkbox
                                     name={`${this.props.participantType.type}.${this.props.participant.number}.me`}
                                     label={IT_IS_ME}
-                                    // checked={this.props.participant.me}
-                                    />
+                                />
                                 <div className={"checkbox-error"}>
                                     {this.props.errors
                                     && this.props.errors.isMeChecked
@@ -180,18 +144,6 @@ class ParticipantCardForm extends React.PureComponent {
                                 </div>
                             </Form.Field>
                         </Form.Group>
-                        {/*<Form.Input*/}
-                        {/*fluid iconPosition='left' placeholder={VK_DESCR}*/}
-                        {/*name={`${this.props.participantType.type}.${this.props.participant.number}.vk`}>*/}
-                        {/*<Icon name='vk'/>*/}
-                        {/*<input/>*/}
-                        {/*</Form.Input>*/}
-                        {/*<Form.Input*/}
-                        {/*fluid iconPosition='left' placeholder={FACEBOOK_DESCR}*/}
-                        {/*name={`${this.props.participantType.type}.${this.props.participant.number}.facebook`}>*/}
-                        {/*<Icon name='facebook official'/>*/}
-                        {/*<input/>*/}
-                        {/*</Form.Input>*/}
                     </div>
                 </div>
             </Element>

@@ -59,6 +59,7 @@ class ImageUploadForm extends React.Component {
     }
 
     componentDidMount() {
+        this.props.onRef(this);
         this.props.dispatch(getPicsSubmission(this.state.uuid)).then(() => {
             this.setState({
                 imageFiles: this.props.submissionPicsList.data
@@ -222,6 +223,9 @@ class ImageUploadForm extends React.Component {
             this.setState({error: MAX_FILES_LABEL});
             throw MAX_FILES_LABEL;
         }
+
+        console.log(this.state);
+        return this.state.imageFiles;
     };
 
     renderImages = () => {
@@ -239,7 +243,7 @@ class ImageUploadForm extends React.Component {
                             <div>
                                 <div className="tools-wrapper">
                                     {/*<style jsx>{dashboardStyles}</style>*/}
-                                    <div className="delete-container">
+                                    <div style={{position: "absolute"}} className="delete-container">
                                         <img
                                             onClick={this.deleteImg.bind(this, file, index)}
                                             className="delete-button-img"

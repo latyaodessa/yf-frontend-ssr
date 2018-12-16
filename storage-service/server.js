@@ -7,6 +7,8 @@ const express = require('express'),
     fileUpload = require('express-fileupload'),
     fs = require('fs');
 
+const PORT = process.env.PORT || 8080;
+
 const Jimp = require("jimp");
 
 const errors = require('./FileUploadErrors');
@@ -153,8 +155,8 @@ async function convertProfilePic(img) {
 }
 
 
-app.listen(8081); //TODO
-console.log("running trigger on 8080");
+app.listen(PORT);
+console.log("running trigger on " + PORT);
 
 
 

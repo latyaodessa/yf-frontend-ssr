@@ -1,0 +1,70 @@
+version: "3"
+services:
+  backend:
+    container_name: backend
+    restart: always
+    build: ./../yf-services
+    entrypoint: "/opt/payara41/bin/startInForeground.sh --passwordfile=/opt/pwdfile -d --postbootcommandfile glassfish/domains/domain1"
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+      - "4848:4848"
+      - "9009:9009"
+      - "29009:29009"
+    networks:
+      - nginx-proxy
+  parser:
+    container_name: parser
+    restart: always
+    build: ./../parser
+    ports:
+      - "9091:8080"
+    networks:
+      - nginx-proxy
+  mailsender:
+    container_name: mailsender
+    restart: always
+    build: ./../mail-sender
+    ports:
+      - "9092:8080"
+    networks:
+      - nginx-proxy
+  storage:
+    container_name: storage
+    restart: always
+    build: ./../storage-service
+    ports:
+      - "9093:8080"
+    networks:
+      - nginx-proxy
+  database:
+    container_name: database
+    restart: always
+    build: ./database
+    ports:
+      - "53249:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - nginx-proxy
+  elasticsearch:
+    build: ./elasticsearch
+    container_name: elasticsearch
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
+    ports:
+      - "3200:9200"
+      - "3300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - nginx-proxy
+networks:
+  nginx-proxy:
+volumes:
+  postgres-data:
+  elasticsearch-data:

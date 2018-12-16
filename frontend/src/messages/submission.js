@@ -56,6 +56,26 @@ export const NEXT_BUTTON = "Далее";
 export const BACK_BUTTON = "Назад";
 export const SUBMIT_BUTTON = "Отправить заявку на публикацию";
 
+export const CHECKBOX_1 = "Я соглашаюсь с ";
+export const LINK_TERMS = " условиями публикации";
+export const CHECKBOXES_NOT_CHECKED = "Вам необходимо согласиться с условиями публикации";
+
+export const TABLE_TITLE = "Заявки на публикацию";
+
+export const TABLE_DATE = "Дата заявки";
+export const TABLE_STATUS = "Статус заявки";
+export const TABLE_COMMENT = "Комментарий";
+
+export const STATUS_SUBMITTED = "Отправлена";
+export const STATUS_INCOMPLETED = "Не завершена";
+export const STATUS_SEND_TO_REWORK = "Необходимы  изменения";
+export const STATUS_ACCEPTED = "Одобрена";
+export const STATUS_DECLINED = "Отказано";
+export const STATUS_BLOCKED = "Заблокировано";
+
+export const PUBLICATION_SHARE = "Опубликовать фотографии";
+
+
 export const PARTICIPANTS_TYPE = {
     mds: {
         type: "mds",

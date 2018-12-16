@@ -31,12 +31,8 @@ class ParticipantsView extends React.Component {
 
 
         this.state = {
-            mds: [
-                generateEmptyObject(0)
-            ],
-            phs: [
-                generateEmptyObject(0)
-            ],
+            mds: [generateEmptyObject(0)],
+            phs: [generateEmptyObject(0)],
             muas: [],
             hairStylists: [],
             setDesigner: [],
@@ -47,7 +43,7 @@ class ParticipantsView extends React.Component {
             countries: [],
             cities: [],
             showLoader: false,
-            test: {}
+            updated: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,18 +52,23 @@ class ParticipantsView extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.data) {
+        console.log(nextProps);
+        console.log(prevState);
+        if (nextProps.data && !prevState.updated) {
+            console.log("1");
+
             return {
                 mds: nextProps.data.allParticipants.mds,
                 phs: nextProps.data.allParticipants.phs,
                 muas: nextProps.data.allParticipants.muas,
                 hairStylists: nextProps.data.allParticipants.hairStylists,
                 setDesigner: nextProps.data.allParticipants.setDesigner,
-                wardrobeStylists: nextProps.data.allParticipants.wardrobeStylists
+                wardrobeStylists: nextProps.data.allParticipants.wardrobeStylists,
+                updated: true
             };
-        } else {
-            return null;
         }
+
+        return null;
     }
 
 
@@ -98,11 +99,13 @@ class ParticipantsView extends React.Component {
     };
 
     handleAddCardEvent = (selectedType) => {
-
         switch (selectedType) {
             case MODEL:
                 const modelNumber = getNewNumber(this.state.mds);
                 const newMd = generateEmptyObject(modelNumber);
+                console.log(modelNumber);
+                console.log(newMd);
+                console.log(this.state);
                 this.setState({
                     mds: [...this.state.mds, newMd],
                     scrollToElement: PARTICIPANTS_TYPE.mds.type + modelNumber
@@ -209,6 +212,7 @@ class ParticipantsView extends React.Component {
 
 
     execScrollToElement = (element) => {
+        console.log(element);
         scroller.scrollTo(element, {
             duration: 800,
             delay: 0,
@@ -272,19 +276,15 @@ class ParticipantsView extends React.Component {
     };
 
     commitForm = async (type, e) => {
-
         let participants = [];
         await this.state[type].map(p => {
             participants.push({
                 number: p.number,
                 firstName: e.target[`${type}.${p.number}.firstName`].value,
                 lastName: e.target[`${type}.${p.number}.lastName`].value,
-                // country: e.target[`${type}.${p.number}.country`].value,
-                country: this.state.countries[`${type}.${p.number}.country`],
+                country: e.target[`${type}.${p.number}.country`].value,
                 city: e.target[`${type}.${p.number}.city`].value,
                 instagram: e.target[`${type}.${p.number}.instagram`].value,
-                // vk: e.target[`${type}.${p.number}.vk`].value,
-                // facebook: e.target[`${type}.${p.number}.facebook`].value,
                 me: e.target[`${type}.${p.number}.me`].checked
             });
         });

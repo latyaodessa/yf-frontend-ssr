@@ -23,9 +23,9 @@ class PhotoshootingDescriptionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            countries: [],
+            // countries: [],
             description: '',
-            date: '',
+            date: null,
             country: '',
             city: '',
             phEquipment: [],
@@ -38,19 +38,18 @@ class PhotoshootingDescriptionForm extends React.Component {
     componentDidMount() {
         this.props.onRef(this);
 
-        this.props.dispatch(searchCountry()).then(() => {
-            this.setState({
-                countries: this.props.country.data.map(cntr => {
-                    return {key: cntr.id, value: cntr.titleRu, text: cntr.titleRu}
-                })
-            })
-        })
+        // this.props.dispatch(searchCountry()).then(() => {
+        //     this.setState({
+        //         countries: this.props.country.data.map(cntr => {
+        //             return {key: cntr.id, value: cntr.titleRu, text: cntr.titleRu}
+        //         })
+        //     })
+        // })
     }
 
     componentWillUnmount() {
         this.props.onRef(undefined)
     }
-
 
     isBlank = (str) => {
         return (!str || /^\s*$/.test(str));
@@ -58,6 +57,9 @@ class PhotoshootingDescriptionForm extends React.Component {
 
 
     commit = async () => {
+
+
+        console.log(this.state);
 
         let errors = {};
 
@@ -124,6 +126,7 @@ class PhotoshootingDescriptionForm extends React.Component {
         this.setState({
             [evt.target.name]: evt.target.value
         })
+        console.log(this.state);
     };
 
 
@@ -141,31 +144,6 @@ class PhotoshootingDescriptionForm extends React.Component {
     };
 
 
-    renderCountriesDropdow = () => {
-        return <Form.Field>
-            <Form.Dropdown selection
-                           onChange={this.handleCountryChange}
-                           name={'country'}
-                           label={COUNTRY}
-                           placeholder={COUNTRY} fluid search={true}
-                           options={this.state.countries}
-            />
-
-            {this.state.errors
-            && this.state.errors['country']
-            && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
-                *{this.state.errors[`country`]}
-            </Label>}
-        </Form.Field>
-    };
-
-
-    loadingField = (name, placeholder) => {
-        return <Form.Field>
-            <Form.Input label={placeholder} name={name} loading placeholder={placeholder}/> </Form.Field>
-
-    };
-
     getGeneralInfo = () => {
         return <Grid stackable columns={2}>
             <style jsx>{styles}</style>
@@ -174,23 +152,25 @@ class PhotoshootingDescriptionForm extends React.Component {
                     <Label attached='top'>{GENERAL_PHSHOOTING_INFO_LABEL}</Label>
                     <Grid stackable columns={1}>
                         <Grid.Column>
-                            <Form.Group widths={'equal'}>
-                                {this.props.country.data && this.state.countries ? this.renderCountriesDropdow() : this.loadingField(`country`, COUNTRY)}
-                                {this.renderInputFieldWithValidation("city", CITY, CITY)}
-                            </Form.Group>
+                            <Form>
+                                <Form.Group widths={'equal'}>
+                                    {this.renderInputFieldWithValidation("country", COUNTRY, COUNTRY)}
+                                    {this.renderInputFieldWithValidation("city", CITY, CITY)}
+                                </Form.Group>
+                            </Form>
                         </Grid.Column>
                         <Grid.Column>
                             <div className={"date-picker-container"}>
                                 <div className={"label"}>
                                     <Icon name='calendar alternate outline' size={"large"}/>
                                 </div>
-
-                                <DatePicker
-                                    locale={DATE_PICKER_LOCALE}
-                                    selected={this.state.date}
-                                    placeholderText={GENERAL_DATE_DESCR_LABEL}
-                                    onChange={(date) => this.setState({date})}/>
-
+                                <Form>
+                                    <DatePicker
+                                        locale={DATE_PICKER_LOCALE}
+                                        selected={this.state.date}
+                                        placeholderText={GENERAL_DATE_DESCR_LABEL}
+                                        onChange={(date) => this.setState({date})}/>
+                                </Form>
                                 {this.state.errors
                                 && this.state.errors["date"]
                                 && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing={'left'}>
@@ -232,12 +212,7 @@ class PhotoshootingDescriptionForm extends React.Component {
                     </Form>
                 </Grid.Column>
             </Grid>
-            <Form>
-                {/*<div className={"text-form"}>*/}
-
-                {/*</div>*/}
-                {this.getGeneralInfo()}
-            </Form>
+            {this.getGeneralInfo()}
         </div>
     }
 };

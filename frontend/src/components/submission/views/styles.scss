@@ -131,7 +131,7 @@
 }
 
 .delete-container {
-  position: absolute;
+  position: relative;
   right: 0;
   height: 32px;
   width: 32px;
@@ -148,4 +148,11 @@
     height: 32px;
     padding: 1px;
   }
+}
+
+.checkboxes-container {
+  padding: 20px;
+  text-align: left;
+  margin: 20px;
+  background: #fbfbfb;
 }

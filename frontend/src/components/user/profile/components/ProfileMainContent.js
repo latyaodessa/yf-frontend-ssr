@@ -21,10 +21,15 @@ class ProfileMainContent extends React.Component {
 
     componentDidMount() {
         const userId = localStorage.getItem("user_id");
-
         this.setState({
             userId: userId
         });
+
+        const goTo = new URLSearchParams(location.search).get('goTo');
+        console.log(goTo);
+        if (goTo) {
+            this.switchActivePage(goTo);
+        }
     }
 
     switchActivePage = (active) => {
