@@ -10,10 +10,6 @@ import ThumbnailPicture from '../../posts/core/ThumbnailPicture'
 
 class SetsGrid extends React.Component {
 
-    static initialAction() {
-        return fetchSetsPosts(0, 6);
-    }
-
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +18,10 @@ class SetsGrid extends React.Component {
             from: 0,
             to: 6
         };
+    }
+
+    static initialAction() {
+        return fetchSetsPosts(0, 6);
     }
 
     renderPics(posts) {

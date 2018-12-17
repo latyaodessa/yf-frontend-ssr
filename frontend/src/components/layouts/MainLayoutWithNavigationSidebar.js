@@ -240,10 +240,7 @@ class MainLayoutWithNavigationSidebar extends React.Component {
 
 
         `}</style>
-                    {/*{Slider}*/}
-                    {/*{console.log("AAAAA")}*/}
-                    {/*{console.log(props)}*/}
-                    {/*{{slider : Slider} = props}*/}
+
                     <div>
                         <Head>
                             <link rel="apple-touch-icon" sizes="57x57" href="/static/img/f/apple-icon-57x57.png"/>
@@ -255,7 +252,8 @@ class MainLayoutWithNavigationSidebar extends React.Component {
                             <link rel="apple-touch-icon" sizes="144x144" href="/static/img/f/apple-icon-144x144.png"/>
                             <link rel="apple-touch-icon" sizes="152x152" href="/static/img/f/apple-icon-152x152.png"/>
                             <link rel="apple-touch-icon" sizes="180x180" href="/static/img/f/apple-icon-180x180.png"/>
-                            <link rel="icon" type="image/png" sizes="192x192" href="/static/img/f/android-icon-192x192.png"/>
+                            <link rel="icon" type="image/png" sizes="192x192"
+                                  href="/static/img/f/android-icon-192x192.png"/>
                             <link rel="icon" type="image/png" sizes="32x32" href="/static/img/f/favicon-32x32.png"/>
                             <link rel="icon" type="image/png" sizes="96x96" href="/static/img/f/favicon-96x96.png"/>
                             <link rel="icon" type="image/png" sizes="16x16" href="/static/img/f/favicon-16x16.png"/>
@@ -270,7 +268,7 @@ class MainLayoutWithNavigationSidebar extends React.Component {
                                   href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"/>
                             <link rel="stylesheet"
                                   href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
-                            <link rel='stylesheet' href='/_next/static/style.css' />
+                            <link rel='stylesheet' href='/_next/static/style.css'/>
                         </Head>
                         <Navbar/>
                         {/*{{slider : Slider} = props && <Slider/>}*/}

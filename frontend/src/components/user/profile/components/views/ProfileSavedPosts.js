@@ -102,7 +102,6 @@ class ProfileSavedPosts extends React.Component {
     }
 
     renderContent = () => {
-        console.log(this.props.savedPosts);
         if (this.props.savedPosts && this.props.savedPosts.length > 0) {
             return <div className="pure-g">{this.renderPics(this.props.savedPosts)}</div>;
         }

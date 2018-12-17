@@ -1,7 +1,8 @@
-.dots{
+.dots {
   margin: 25px;
   cursor: pointer;
 }
+
 .dot, .dot:before, .dot:after {
   position: absolute;
   width: 10px;
@@ -41,6 +42,7 @@
   line-height: 25px;
   margin: 32px 0px 0 0;
   z-index: 1;
+
   & li {
     list-style-type: none;
     -webkit-animation: drop 0.9s;
@@ -49,6 +51,7 @@
     animation-fill-mode: forwards;
     opacity: 1;
     cursor: pointer;
+
     & a {
       -webkit-text-decoration: none;
       text-decoration: none;

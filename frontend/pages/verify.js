@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
-import Redirector from '../src/components/user/login/redirector';
 import styles from '../res/styles/user/login.scss'
 import meta from '../src/components/home/components/homeMetaGenerator'
 import {verifyVerification} from '../src/actions/user/AuthActions'
@@ -12,6 +11,10 @@ export const REDIRECT_PROFILE = '/profile';
 
 class Login extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     static async getInitialProps({store, query}) {
         if (query.uuid) {
             await store.dispatch(verifyVerification(query.uuid));
@@ -19,11 +22,6 @@ class Login extends React.Component {
 
         return {uuid: query.uuid}
     }
-
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
         return (

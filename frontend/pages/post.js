@@ -1,10 +1,7 @@
 import React from 'react'
 import {fetchPostPictures} from "../src/actions/post/single-post-actions";
-import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
 import {connect} from "react-redux";
-import meta from "../src/components/posts/single/components/singlePostMetaGenerator";
 import ErrorPage from 'next/error';
-import Router from 'next/router';
 
 class SinglePost extends React.Component {
 

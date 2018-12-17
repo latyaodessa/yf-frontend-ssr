@@ -52,11 +52,7 @@ class ParticipantsView extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps);
-        console.log(prevState);
         if (nextProps.data && !prevState.updated) {
-            console.log("1");
-
             return {
                 mds: nextProps.data.allParticipants.mds,
                 phs: nextProps.data.allParticipants.phs,
@@ -103,9 +99,6 @@ class ParticipantsView extends React.Component {
             case MODEL:
                 const modelNumber = getNewNumber(this.state.mds);
                 const newMd = generateEmptyObject(modelNumber);
-                console.log(modelNumber);
-                console.log(newMd);
-                console.log(this.state);
                 this.setState({
                     mds: [...this.state.mds, newMd],
                     scrollToElement: PARTICIPANTS_TYPE.mds.type + modelNumber
@@ -212,7 +205,6 @@ class ParticipantsView extends React.Component {
 
 
     execScrollToElement = (element) => {
-        console.log(element);
         scroller.scrollTo(element, {
             duration: 800,
             delay: 0,
@@ -325,6 +317,9 @@ class ParticipantsView extends React.Component {
                 <ModalLoader showLoader={this.state.showLoader}/>
                 <style jsx>{styles}</style>
                 <div className={"submitter-container"}>
+                    {/*<div className={"title-header"}>*/}
+                        {/*<h1>Заявка на публикацию эксклюзивных фотографий</h1>*/}
+                    {/*</div>*/}
                     <Form onSubmit={this.handleSubmit}>
                         <ParticipantsForm state={this.state}
                                           handleDeleteCardEvent={this.handleDeleteCardEvent}

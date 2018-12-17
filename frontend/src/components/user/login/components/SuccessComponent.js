@@ -49,4 +49,4 @@ export const SuccessComponent = (params) => {
         <h2 className="label-success">{params.label}</h2>
     </div>
 
-}
+};

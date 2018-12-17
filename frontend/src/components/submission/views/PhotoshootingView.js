@@ -33,14 +33,13 @@ class PhotoshootingView extends React.Component {
     commit = async () => {
 
         try {
-            this.setState({error: null})
+            this.setState({error: null});
             await this.imageUploadForm.commit();
             const description = await this.descriptionForm.commit();
             this.termsAndConditionsChecked();
             this.props.commitPhotoshooting(description);
         } catch (e) {
             this.setState({error: e})
-            console.log(e);
         }
 
     };

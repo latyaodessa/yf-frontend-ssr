@@ -43,8 +43,7 @@ class RequestNewPasswordForm extends React.Component {
                 this.setState({fetching: false});
                 if (this.props.error) {
                     this.handleErrors(this.props.error.data);
-                }
-                else {
+                } else {
                     this.setState({requested: true});
                 }
             });

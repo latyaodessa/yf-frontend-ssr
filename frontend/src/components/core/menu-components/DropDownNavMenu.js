@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from '../../../../routes'
 import {cleanUserCookies, verifyLoggedInUser} from "../../../services/CookieService";
 import Router from "next/router";
-import {LOGIN_DROPDOWN, EXIT_DROPDOWN, PROFILE_DROPDOWN} from '../../../messages/core'
+import {EXIT_DROPDOWN, LOGIN_DROPDOWN, PROFILE_DROPDOWN} from '../../../messages/core'
 import style from './styles.scss'
 
 class DropDownNavMenu extends React.Component {

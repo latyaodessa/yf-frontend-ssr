@@ -1,7 +1,7 @@
 import React from 'react'
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
-import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
-import PublicationTerms from "../src/components/terms/PublicationTerms"
+import PublicationTerms from "../src/components/terms/PublicationTerms";
+import {CANONICIAL_HOST_ROOT, CHARSET, DESCRIPTION_TERMS, KEYWORDS_TERMS, TITLE_TERMS} from "../src/messages/meta";
 
 class Terms extends React.Component {
 
@@ -16,13 +16,23 @@ class Terms extends React.Component {
 
     render() {
         return (
-            <MainLayoutWithNavigation meta={meta()}>
+            <MainLayoutWithNavigation meta={getMeta()}>
                 <PublicationTerms/>
             </MainLayoutWithNavigation>
 
         )
     }
 }
+
+const getMeta = () => {
+    return {
+        title: TITLE_TERMS,
+        description: DESCRIPTION_TERMS,
+        canonical: CANONICIAL_HOST_ROOT + "terms",
+        charset: CHARSET,
+        keywords: KEYWORDS_TERMS
+    };
+};
 
 export default Terms;
 

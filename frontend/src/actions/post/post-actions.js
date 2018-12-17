@@ -1,10 +1,10 @@
 import axios from "axios"
 import {
+    FIND_PUBLICATION_BY_TYPE,
+    FIND_PUBLICATION_BY_USER,
     FIND_TOP_NATIVE_FROM_TO,
     FIND_TOP_SETS_FROM_TO,
-    SEARCH_PUBLICATIONS,
-    FIND_PUBLICATION_BY_TYPE,
-    FIND_PUBLICATION_BY_USER
+    SEARCH_PUBLICATIONS
 } from '../../constants/post-rest-client'
 import {
     FETCH_ART_POSTS_FULFILLED,
@@ -59,7 +59,7 @@ export const fetchSetsPosts = (from, to) => (dispatch, getState) => {
             dispatch({type: FETCH_SETS_POSTS_REJECTED, payload: err})
         })
 
-}
+};
 
 export function fetchTopSets(from, to) {
     return function (dispatch) {

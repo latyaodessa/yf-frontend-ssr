@@ -3,7 +3,7 @@ import {Link} from '../../../../../../routes'
 import Router from 'next/router'
 import styles from '../../../../../../res/styles/sidebar.scss'
 import loginStyles from '../../../../../../res/styles/user/login.scss'
-import {verifyLoggedInUser, cleanUserCookies, getCookieByKey} from "../../../../../services/CookieService";
+import {cleanUserCookies, getCookieByKey, verifyLoggedInUser} from "../../../../../services/CookieService";
 
 
 class SidebarHeader extends React.Component {

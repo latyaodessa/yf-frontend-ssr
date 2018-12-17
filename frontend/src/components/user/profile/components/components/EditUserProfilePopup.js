@@ -1,20 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {
-    EDIT_USER_DATA_TITLE,
     EDIT_USER_DATA_FIRST_NAME,
     EDIT_USER_DATA_LAST_NAME,
-    EDIT_USER_DATA_NICK_NAME
+    EDIT_USER_DATA_TITLE
 } from "../../../../../messages/profile"
 import {SAVE} from "../../../../../messages/core"
 import {updateUserFirstLastName} from '../../../../../actions/user/profileActions'
 import FormModalWindow from '../../../../core/modal/FormModalWindow'
 import {SubmitButton} from '../../../../core/form/buttons/Button'
 import {RequiredTextField} from '../../../../core/form/fields/TextField'
-import {getCookieByKey, setAuthCookie, USER, TOKEN} from '../../../../../services/CookieService'
-import {ERRORS} from "../../../../../messages/errors";
-import Router from "next/router";
-import {REDIRECT_PROFILE} from "../../../../../../pages/auth";
+import {getCookieByKey, setAuthCookie, TOKEN, USER} from '../../../../../services/CookieService'
 
 class EditUserProfilePopup extends React.Component {
 
@@ -36,12 +32,10 @@ class EditUserProfilePopup extends React.Component {
         evt.preventDefault();
         const userId = getCookieByKey(USER).id;
         const token = getCookieByKey(TOKEN);
-        console.log(this.state);
         this.props.dispatch(updateUserFirstLastName(userId,
             token,
             this.state.firstName.value,
             this.state.lastName.value)).then(() => {
-            console.log(this.props);
             if (this.props.data) {
                 setAuthCookie(this.props.data.user, this.props.data.token);
                 this.props.changePopUpState(true);

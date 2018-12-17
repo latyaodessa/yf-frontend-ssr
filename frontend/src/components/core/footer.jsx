@@ -3,14 +3,14 @@ import React from 'react'
 
 
 const Footer = () => {
-	return (
-		<ul className="navigation">
-			<li>
-				{/*FOOTER*/}
-				{/*<Link to="/" className="active">Главная</Link>*/}
-			</li>
-		</ul>
-	);
+    return (
+        <ul className="navigation">
+            <li>
+                {/*FOOTER*/}
+                {/*<Link to="/" className="active">Главная</Link>*/}
+            </li>
+        </ul>
+    );
 };
 
 export default Footer;

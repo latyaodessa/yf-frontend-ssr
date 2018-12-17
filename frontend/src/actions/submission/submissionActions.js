@@ -6,7 +6,12 @@ import {
     SUBMIT_SUBMISSION,
     UPDATE_SUBMISSION
 } from "../../constants/submission/supmission-rest-clinet";
-import {INIT_SUBMISSION_FULFILLED, INIT_SUBMISSION_REJECTED, SUBMISSIONS_LIST_FULFILLED, SUBMISSIONS_LIST_REJECTED} from "../../constants/submission/supmissionConstants";
+import {
+    INIT_SUBMISSION_FULFILLED,
+    INIT_SUBMISSION_REJECTED,
+    SUBMISSIONS_LIST_FULFILLED,
+    SUBMISSIONS_LIST_REJECTED
+} from "../../constants/submission/supmissionConstants";
 import {getCookieByKey, TOKEN, USER} from "../../services/CookieService";
 
 export const initSubmission = (participants) => (dispatch, getState) => {

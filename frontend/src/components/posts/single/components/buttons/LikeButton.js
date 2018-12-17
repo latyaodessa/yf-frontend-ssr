@@ -90,7 +90,7 @@ class LikeButton extends React.Component {
 
 
         if (!this.state.userId) {
-            this.setState({showPopUp: true, error: MESSAGE_TYPES.WARNING, errorMessage: SAVE_SET_NOT_AUTHORIZED})
+            this.setState({showPopUp: true, error: MESSAGE_TYPES.WARNING, errorMessage: SAVE_SET_NOT_AUTHORIZED});
             return;
         }
         this.setState({loading: true});

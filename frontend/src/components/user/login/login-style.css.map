@@ -1,7 +1,9 @@
 {
-"version": 3,
-"mappings": "AAAA,YAAa;EACX,SAAS,EAAE,GAAG;EACd,OAAO,EAAE,WAAW;EACpB,UAAU,EAAE,MAAM;;AAGpB,cAAe;EACb,KAAK,EAAE,OAAO;EACd,eAAe,EAAE,IAAI;EACrB,UAAU,EAAE,iBAAiB;EAC7B,MAAM,EAAE,OAAO;;AAGjB,oBAAqB;EACnB,aAAa,EAAE,kBAAkB",
-"sources": ["login-style.scss"],
-"names": [],
-"file": "login-style.css"
+  "version": 3,
+  "mappings": "AAAA,YAAa;EACX,SAAS,EAAE,GAAG;EACd,OAAO,EAAE,WAAW;EACpB,UAAU,EAAE,MAAM;;AAGpB,cAAe;EACb,KAAK,EAAE,OAAO;EACd,eAAe,EAAE,IAAI;EACrB,UAAU,EAAE,iBAAiB;EAC7B,MAAM,EAAE,OAAO;;AAGjB,oBAAqB;EACnB,aAAa,EAAE,kBAAkB",
+  "sources": [
+    "login-style.scss"
+  ],
+  "names": [],
+  "file": "login-style.css"
 }

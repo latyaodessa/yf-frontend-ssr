@@ -8,6 +8,7 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
 h1 {
   position: relative;
   font-weight: 600;
@@ -15,7 +16,6 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.3em;
   overflow: hidden;
-
 
 
   &:before {
@@ -30,12 +30,13 @@ h1 {
     animation: slide-in 1s ease-in both 0.5s;
   }
 
-  &.no-underscore{
-    &:before{
+  &.no-underscore {
+    &:before {
       display: none;
     }
   }
 }
+
 .child-container {
   display: flex;
   min-height: 100vh;
@@ -61,12 +62,13 @@ h1 {
 .content {
   clear: both;
   overflow: auto;
+
   & h1 {
     margin-left: 5px;
   }
 }
 
-.grid-list-container{
+.grid-list-container {
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -74,7 +76,6 @@ h1 {
 .swiper-container {
   z-index: 0;
 }
-
 
 
 /**
@@ -190,18 +191,19 @@ h1 {
   transition: opacity 0.35s, transform 0.35s;
   -webkit-transform: translate3d(0, -100%, 0);
   transform: translate3d(0, -100%, 0);
-}.hovereffect .overlay
+}
 
- .hovereffect a, .hovereffect p {
-   color: #FFF;
-   /*padding: 1em 0;*/
-   /*opacity: 0;*/
-   filter: alpha(opacity=0);
-   -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-   transition: opacity 0.35s, transform 0.35s;
-   -webkit-transform: translate3d(0, 100%, 0);
-   transform: translate3d(0, 100%, 0);
- }
+.hovereffect .overlay
+.hovereffect a, .hovereffect p {
+  color: #FFF;
+  /*padding: 1em 0;*/
+  /*opacity: 0;*/
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
 
 .hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
   opacity: 1;
@@ -211,6 +213,6 @@ h1 {
 }
 
 //GRID
-.pure-g{
+.pure-g {
   text-align: center;
 }

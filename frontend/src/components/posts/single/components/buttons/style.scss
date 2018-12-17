@@ -3,12 +3,14 @@
   flex-direction: row;
   align-items: stretch;
   width: 100%;
+
   & .left-side {
     flex: 1;
     top: 10px;
     position: relative;
   }
 }
+
 .social-buttons-container {
   padding: 0 0 0 20px;
   display: flex;
@@ -41,10 +43,12 @@
   display: block;
   float: right;
   padding: 0 25px 0 0;
+
   img {
     cursor: pointer;
     height: 35px;
   }
+
   & .number {
     text-align: center;
   }

@@ -14,18 +14,17 @@ const incrementSize = 12;
 class NativeList extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+        this.updateScroll = this.updateScroll.bind(this);
+
+    }
+
     static async getInitialProps({store, isServer}) {
 
         await store.dispatch(fetchArtPosts(initSizePhoto, incrementSize));
 
         return {isServer}
-    }
-
-
-    constructor(props) {
-        super(props);
-        this.updateScroll = this.updateScroll.bind(this);
-
     }
 
     componentDidMount() {

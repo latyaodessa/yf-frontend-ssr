@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-import { Loader } from 'semantic-ui-react'
+import {Loader} from 'semantic-ui-react'
 
 class ModalLoader extends React.Component {
 
@@ -14,7 +14,7 @@ class ModalLoader extends React.Component {
                 isOpen={this.props.showLoader}
                 style={customStyles}
             >
-                <Loader size='large' active inline='centered' />
+                <Loader size='large' active inline='centered'/>
             </Modal>)
     }
 
@@ -39,5 +39,5 @@ const customStyles = {
         bottom: 'auto',
         background: 'transparent',
         transform: "translate(-50%, -50%)"
-}
+    }
 };

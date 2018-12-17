@@ -7,13 +7,12 @@ import ProfilePage from '../src/components/user/profile/ProfilePage'
 import Redirector from '../src/components/user/login/redirector'
 
 class UserDashboard extends React.Component {
-    static async getInitialProps({store, isServer}) {
-        return {isServer}
-    }
-
-
     constructor(props) {
         super(props);
+    }
+
+    static async getInitialProps({store, isServer}) {
+        return {isServer}
     }
 
     componentDidMount() {

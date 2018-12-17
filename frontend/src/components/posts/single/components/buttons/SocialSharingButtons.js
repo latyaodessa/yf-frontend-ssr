@@ -5,12 +5,12 @@ import {
     FacebookShareButton,
     TelegramIcon,
     TelegramShareButton,
-    WhatsappIcon,
-    WhatsappShareButton,
     TwitterIcon,
     TwitterShareButton,
     VKIcon,
     VKShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
 } from 'react-share';
 
 import style from './style.scss';
@@ -130,13 +130,12 @@ export default class SocialSharingButtons extends React.Component {
 
 
                     {/*{this.state.mobile ?*/}
-                        {/*this.renderExtendible() :*/}
-                        {/*this.renderButtons(shareUrl, title)*/}
+                    {/*this.renderExtendible() :*/}
+                    {/*this.renderButtons(shareUrl, title)*/}
                     {/*}*/}
 
                     {/*{this.state.mobile && this.state.expand &&*/}
-                    { this.renderButtons(shareUrl, title)}
-
+                    {this.renderButtons(shareUrl, title)}
 
 
                 </WindowSizeListener>

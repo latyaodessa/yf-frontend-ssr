@@ -29,6 +29,7 @@ $card-height: 400px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
   & .pic {
     -webkit-transition: all 0.35s;
     transition: all 0.35s;
@@ -36,6 +37,7 @@ $card-height: 400px;
     width: 100%;
     object-fit: cover;
   }
+
   &_visual {
     height: $visual-height;
     overflow: hidden;
@@ -107,10 +109,12 @@ $card-height: 400px;
 
     .field-with-edit {
       cursor: pointer;
+
       & img {
         height: 20px;
         padding: 0 0 0 5px;
       }
+
       & :hover {
         & img {
           display: inline;
@@ -134,6 +138,7 @@ $card-height: 400px;
       letter-spacing: 1px;
       background: #FFE3D8;
     }
+
     .infos_nick {
       top: 32px;
       font-size: 14px;
@@ -141,6 +146,7 @@ $card-height: 400px;
       color: #C98491;
     }
   }
+
   &_user-stats {
     background: #fff;
     float: left;
@@ -188,10 +194,12 @@ $card-height: 400px;
   right: 0;
   margin-left: auto;
   margin-right: auto;
+
   & img {
     height: 70px;
     margin: 20px 0 0 0;
   }
+
   & span {
     display: block;
     float: left;
@@ -246,6 +254,7 @@ $card-height: 400px;
     font-size: 14px;
     line-height: 30px;
     cursor: pointer;
+
     & a {
       color: $color-black;
       text-decoration: none;
@@ -263,6 +272,7 @@ $card-height: 400px;
   display: flex;
   justify-content: space-around;
   cursor: pointer;
+
   img {
     height: 20px;
     top: 10px;
@@ -272,6 +282,7 @@ $card-height: 400px;
 
 .li-with-img {
   overflow: visible;
+
   img {
     height: 20px;
     float: right;

@@ -75,11 +75,9 @@ class SavePostButton extends React.Component {
             return;
         }
         if (!this.state.userId) {
-            this.setState({showPopUp: true, error: MESSAGE_TYPES.WARNING, errorMessage: SAVE_SET_NOT_AUTHORIZED})
+            this.setState({showPopUp: true, error: MESSAGE_TYPES.WARNING, errorMessage: SAVE_SET_NOT_AUTHORIZED});
             return;
         }
-
-        console.log(this.props);
 
         this.props.dispatch(savePostToDashboard(this.props.post.id, this.state.userId)).then(() => {
             this.setState({saved: true});

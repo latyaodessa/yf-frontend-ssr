@@ -5,32 +5,32 @@ import {connect} from "react-redux";
 
 export class Home extends React.Component {
 
-  static initialAction() {
-    return [].concat(Grid.initialAction());
-  }
+    constructor(props) {
+        super(props);
 
-	constructor(props){
-		super(props);
+        // window.scrollTo(0, 0);
+        // document.title = "Young Folks - Модели и фотографы со всего мира";
+    }
 
-    // window.scrollTo(0, 0);
-		// document.title = "Young Folks - Модели и фотографы со всего мира";
-	}
+    static initialAction() {
+        return [].concat(Grid.initialAction());
+    }
 
-	render() {
-    return (
-			<div className="child-container">
-				<Grid init={this.props.init}/>
-			</div>
-		)
-	}
+    render() {
+        return (
+            <div className="child-container">
+                <Grid init={this.props.init}/>
+            </div>
+        )
+    }
 }
 
 Home.propTypes = {
-  name: PropTypes.string
+    name: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  init: state
+    init: state
 });
 
 export default connect(mapStateToProps)(Home);

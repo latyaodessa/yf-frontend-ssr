@@ -17,6 +17,7 @@
   text-transform: uppercase;
   transition: background 0.3s ease-in-out;
   width: 100%;
+
   & :hover {
     background-color: #a75779
   }
@@ -27,22 +28,23 @@
 }
 
 
-
 .loading-button {
-    animation: rotate 1.5s linear infinite;
-    animation-delay: .2s;
-    background-color: transparent;
-    border: .3em solid #e1e1e1;
-    border-radius: 1.5em;
-    border-top-color: #444;
-    box-sizing: border-box;
-    height: 3em;
-    color: transparent;
-    padding: 0;
-    pointer-events: none;
-    width: 3em;
-  }
+  animation: rotate 1.5s linear infinite;
+  animation-delay: .2s;
+  background-color: transparent;
+  border: .3em solid #e1e1e1;
+  border-radius: 1.5em;
+  border-top-color: #444;
+  box-sizing: border-box;
+  height: 3em;
+  color: transparent;
+  padding: 0;
+  pointer-events: none;
+  width: 3em;
+}
 
 @keyframes rotate {
-  100% { transform: rotate(360deg) }
+  100% {
+    transform: rotate(360deg)
+  }
 }

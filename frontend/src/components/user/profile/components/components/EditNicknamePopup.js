@@ -14,7 +14,6 @@ class EditNicknamePopup extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     componentDidMount() {
@@ -33,7 +32,6 @@ class EditNicknamePopup extends React.Component {
         this.props.dispatch(updateUserNickname(userId,
             token,
             this.state.nickname.value)).then(() => {
-                console.log(this.props);
             if (this.props.data) {
                 setAuthCookie(this.props.data.user, this.props.data.token);
                 this.props.changePopUpState(true);
@@ -49,12 +47,20 @@ class EditNicknamePopup extends React.Component {
         switch (errorMessage) {
             case ERRORS.NICKNAME_WRONG.name:
                 this.setState({
-                    nickname: {value: this.state.nickname.value, valid: false, errorMessage: ERRORS.NICKNAME_WRONG.transaction}
+                    nickname: {
+                        value: this.state.nickname.value,
+                        valid: false,
+                        errorMessage: ERRORS.NICKNAME_WRONG.transaction
+                    }
                 });
                 break;
             case ERRORS.NICKNAME_ALREADY_EXIST.name:
                 this.setState({
-                    nickname: {value: this.state.nickname.value, valid: false, errorMessage: ERRORS.NICKNAME_ALREADY_EXIST.transaction}
+                    nickname: {
+                        value: this.state.nickname.value,
+                        valid: false,
+                        errorMessage: ERRORS.NICKNAME_ALREADY_EXIST.transaction
+                    }
                 });
                 break;
             default:
@@ -84,7 +90,8 @@ class EditNicknamePopup extends React.Component {
                     close={this.props.changePopUpState}
                     popupTitle={EDIT_USER_NICKNAME_TITLE}
                     type={this.state.error}>
-                    <RequiredTextField name={'nickname'} placeholder={EDIT_USER_DATA_NICK_NAME} updateInputValue={this.updateInputValue} data={this.state.nickname}/>
+                    <RequiredTextField name={'nickname'} placeholder={EDIT_USER_DATA_NICK_NAME}
+                                       updateInputValue={this.updateInputValue} data={this.state.nickname}/>
                     <SubmitButton title={SAVE} fetching={this.state.fetching}/>
                 </FormModalWindow>}
 
@@ -96,11 +103,9 @@ class EditNicknamePopup extends React.Component {
 
 
 function mapStateToProps(state) {
-    console.log(this.state);
     const {nickNameUpdate} = state;
     return nickNameUpdate;
 }
-
 
 
 export default connect(mapStateToProps)(EditNicknamePopup)

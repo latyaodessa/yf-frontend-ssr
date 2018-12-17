@@ -10,9 +10,9 @@ const ThumbnailPicture = (props) => (
             <img className="grig-img" src={props.post.thumbnail}/>
             <div className="overlay">
 
-                    {props.children && props.children}
-                    <Link route='pub' params={{link: props.post.link}}>
-                        <a>
+                {props.children && props.children}
+                <Link route='pub' params={{link: props.post.link}}>
+                    <a>
                         <div className="ul-main-list">
                             {props.post.md &&
                             <div className={"participant-preview-container"}>
@@ -40,8 +40,8 @@ const ThumbnailPicture = (props) => (
                             </div>
 
                         </div>
-                        </a>
-                    </Link>
+                    </a>
+                </Link>
 
             </div>
         </div>

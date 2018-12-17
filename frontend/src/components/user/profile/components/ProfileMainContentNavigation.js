@@ -33,7 +33,6 @@ export const ProfileMainContentNavigation = props => (
 ;
 
 const getActiveStyle = (active, page) => {
-    console.log(active);
     return active === page ? "active-color" : "";
 };
 

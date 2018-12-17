@@ -6,19 +6,19 @@ import {login} from "../../../actions/core/login-logout-actions";
 
 class VKLoginButton extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.clickVk = this.clickVk.bind(this);
-        this.getVkUserById = this.getVkUserById.bind(this);
-
-    }
-
     state = {
         isSdkLoaded: false,
         isProcessing: false,
         vk_user_auth: "",
         user_type: ""
     };
+
+    constructor(props) {
+        super(props);
+        this.clickVk = this.clickVk.bind(this);
+        this.getVkUserById = this.getVkUserById.bind(this);
+
+    }
 
     componentDidMount() {
         if (document.getElementById('vk-jssdk')) {
@@ -97,12 +97,12 @@ class VKLoginButton extends React.Component {
             <div>
                 <style jsx>{styles}</style>
                 {/*<VK apiId={4601875}>*/}
-                    <a className="button vk" onClick={this.clickVk} role="button">
-                        <span>Войти через VK</span>
-                        <div className="icon">
-                            <img src="/static/img/social/white/vk.png"/>
-                        </div>
-                    </a>
+                <a className="button vk" onClick={this.clickVk} role="button">
+                    <span>Войти через VK</span>
+                    <div className="icon">
+                        <img src="/static/img/social/white/vk.png"/>
+                    </div>
+                </a>
                 {/*</VK>*/}
             </div>
         )

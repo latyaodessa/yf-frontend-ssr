@@ -1,9 +1,9 @@
 import axios from "axios"
 import {
+    FIND_PUBLICATION_BY_LINK,
     FIND_PUBLICATION_BY_VK_POST_ID,
     FIND_RELATED_PUBLICATIONS,
-    IS_POST_ALREADY_EXIST_BY_USER,
-    FIND_PUBLICATION_BY_LINK
+    IS_POST_ALREADY_EXIST_BY_USER
 } from '../../constants/post-rest-client'
 import {
     FETCH_RELATED_POSTS_FULFILLED,
@@ -15,12 +15,12 @@ import {GET_IS_POST_EXIST_FULFILLED, GET_IS_POST_EXIST_REJECTED} from "../../con
 
 
 export const fetchPostPictures = (postId) => {
-   return axios.get(FIND_PUBLICATION_BY_VK_POST_ID + postId)
+    return axios.get(FIND_PUBLICATION_BY_VK_POST_ID + postId)
         .then((res) => {
             return res.data;
         })
         .catch((err) => {
-            return;
+
         })
 };
 

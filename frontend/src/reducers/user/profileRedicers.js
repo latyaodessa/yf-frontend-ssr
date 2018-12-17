@@ -1,12 +1,12 @@
 import {UPDATE_USER_PROFILE_FULFILLED, UPDATE_USER_PROFILE_REJECTED} from "../../constants/user/user-constants";
 
 export function firstLastNameUpdate(state =
-                          {
-                              data: null,
-                              fetching: false,
-                              fetched: false,
-                              error: null
-                          }
+                                        {
+                                            data: null,
+                                            fetching: false,
+                                            fetched: false,
+                                            error: null
+                                        }
     , action) {
 
     switch (action.type) {
@@ -29,12 +29,12 @@ export function firstLastNameUpdate(state =
 }
 
 export function nickNameUpdate(state =
-                                        {
-                                            data: null,
-                                            fetching: false,
-                                            fetched: false,
-                                            error: null
-                                        }
+                                   {
+                                       data: null,
+                                       fetching: false,
+                                       fetched: false,
+                                       error: null
+                                   }
     , action) {
 
     switch (action.type) {

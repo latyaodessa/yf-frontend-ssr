@@ -4,10 +4,10 @@ import {
     HAIR_STYLIST,
     MODEL,
     MUA,
+    NEXT_BUTTON,
     PHOTOGRAPHER,
     SET_DESIGNER,
-    WARDROBE_STYLIST,
-    NEXT_BUTTON
+    WARDROBE_STYLIST
 } from "../../../../messages/submission";
 import {Button, Dropdown, Grid} from 'semantic-ui-react'
 import styles from './../styles.scss';

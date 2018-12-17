@@ -54,8 +54,7 @@ class ResetPasswordForm extends React.Component {
                 this.setState({fetching: false});
                 if (this.props.reset.error) {
                     this.handleErrors(this.props.reset.error.data);
-                }
-                else {
+                } else {
                     this.setState({success: true});
                 }
             });

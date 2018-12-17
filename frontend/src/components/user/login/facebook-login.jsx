@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getUserByFBID} from '../../../actions/user/user-actions';
-import {login} from '../../../actions/core/login-logout-actions';
 import styles from '../../../../res/styles/user/login.scss'
 import {setAuthCookie} from "../../../services/CookieService";
 import Router from "next/router";
@@ -10,17 +9,17 @@ import {REDIRECT_PROFILE} from "../../../../pages/auth";
 
 class FaceBookLoginButton extends React.Component {
 
+    state = {
+        user_auth: "",
+        user_type: ""
+    };
+
     constructor(props) {
         super(props);
         this.me = this.me.bind(this);
         this.login = this.login.bind(this);
         this.getUserByFBID = this.getUserByFBID.bind(this);
     }
-
-    state = {
-        user_auth: "",
-        user_type: ""
-    };
 
     componentDidMount() {
         window.fbAsyncInit = function () {

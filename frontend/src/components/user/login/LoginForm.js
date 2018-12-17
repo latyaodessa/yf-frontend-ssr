@@ -43,8 +43,7 @@ class LoginForm extends React.Component {
                 if (this.props.error) {
                     this.setState({fetching: false});
                     this.handleErrors(this.props.error.data);
-                }
-                else if (this.props.data) {
+                } else if (this.props.data) {
                     setAuthCookie(this.props.data.user, this.props.data.token);
                     if (this.props.stayOnPage) {
                         this.props.stayOnPage()

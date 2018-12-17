@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import style from './sidebar-style.scss'
 import {cleanUserCookies} from "../../../../services/CookieService";
 import Router from "next/router";
-import {EMAIL_VERIFICATION, EXIT, SAVE_CHANGES, VERIFICATION_TITLE} from "../../../../messages/profile";
+import {EMAIL_VERIFICATION, VERIFICATION_TITLE} from "../../../../messages/profile";
 
 const ARROW_UP = '/static/img/icons/up-arrow.png';
 const ARROW_DOWN = '/static/img/icons/down-arrow.png';

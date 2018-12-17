@@ -8,15 +8,9 @@ import RelatedPostsSliderComponent from "../src/components/posts/single/componen
 import Sidebar from '../src/components/core/sidebars/main-sidebar/sidebar'
 import styles from "../res/styles/main.scss"
 import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
+import ErrorPage from 'next/error'
 
 class SinglePost extends React.Component {
-
-    static async getInitialProps({store, query}) {
-
-        await store.dispatch(fetchPublicationDetails(query.link));
-
-        return {link: query.link}
-    }
 
     constructor(props) {
         super(props);
@@ -25,17 +19,14 @@ class SinglePost extends React.Component {
         };
     }
 
+    static async getInitialProps({store, query}) {
+        await store.dispatch(fetchPublicationDetails(query.link));
+        return {link: query.link}
+    }
+
     componentDidMount() {
         window.scrollTo(0, 0);
     }
-
-    // handleUpdatePostFromRelative() {
-    //     window.scrollTo(0, 0);
-    //     this.props.dispatch(fetchPostPictures(this.props.match.params.postId));
-    //     this.setState({
-    //         postId: this.props.match.params.postId
-    //     })
-    // }
 
     componentWillReceiveProps() {
         this.setState({
@@ -46,6 +37,11 @@ class SinglePost extends React.Component {
 
 
     render() {
+
+        if (!this.props.post) {
+            return <ErrorPage statusCode={404}/>
+        }
+
         return (
             <MainLayoutWithNavigation meta={meta(this.props.post)}>
                 <style jsx>{styles}</style>

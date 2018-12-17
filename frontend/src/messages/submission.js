@@ -34,6 +34,8 @@ export const WARDROBE_STYLIST = "Wardrobe stylist";
 export const SET_DESIGNER = "Photoset designer";
 export const IT_IS_ME = "Это я";
 
+export const SUBMISSION_TITLE_TEXT = "Заявка на публикацию эксклюзивных фотографий";
+export const SUBMISSION_TITLE_ERROR = "Данную заявку на публикацию невозможно отредактировать.";
 
 export const ADDITIONAL_PARTICIPANTS = "Добавить участников фотосъемки";
 
@@ -54,6 +56,7 @@ export const MIN_DIMENTIONS_LABEL = "Минимальный размер 1280px 
 
 export const NEXT_BUTTON = "Далее";
 export const BACK_BUTTON = "Назад";
+export const BACK_TO_PROFILE_BUTTON = "Перейти в свой профиль";
 export const SUBMIT_BUTTON = "Отправить заявку на публикацию";
 
 export const CHECKBOX_1 = "Я соглашаюсь с ";

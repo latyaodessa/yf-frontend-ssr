@@ -9,13 +9,13 @@ import elementsStyles from '../res/styles/common/elements.scss'
 
 
 class PostSearch extends React.Component {
-    static async getInitialProps({store, isServer}) {
-        return {isServer}
-    }
-
     constructor(props) {
         super(props);
 
+    }
+
+    static async getInitialProps({store, isServer}) {
+        return {isServer}
     }
 
     componentDidMount() {

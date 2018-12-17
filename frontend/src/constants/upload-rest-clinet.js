@@ -4,7 +4,6 @@ export const CLOUDINARY_UPLOAD_PRESET = 'profilepics';
 export const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/youngfolks/image/upload';
 
 
-
 const BACKEND_REST = "yf-services/rest/";
 
 export const BUCKET_TYPES = {

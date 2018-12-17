@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAllUserSubmissions} from "../../../../../actions/submission/submissionActions";
-import {Header, Icon, Menu, Table, Button} from 'semantic-ui-react'
+import {Button, Header, Icon, Menu, Table} from 'semantic-ui-react'
 import {
+    PUBLICATION_SHARE,
     STATUS_ACCEPTED,
     STATUS_BLOCKED,
     STATUS_DECLINED,
@@ -12,10 +13,10 @@ import {
     TABLE_COMMENT,
     TABLE_DATE,
     TABLE_STATUS,
-    TABLE_TITLE,
-    PUBLICATION_SHARE
+    TABLE_TITLE
 } from "../../../../../messages/submission";
 import {Link} from '../../../../../../routes'
+import {INIT_SUBMISSION_FULFILLED} from "../../../../../constants/submission/supmissionConstants";
 
 const SUBMITTED = "SUBMITTED";
 const INCOMPLETED = "INCOMPLETED";
@@ -40,16 +41,15 @@ class SubmittedPublicationsList extends React.Component {
     }
 
     navigateTo = (isForward) => {
-        console.log(this.state);
         if (isForward) {
             const offset = this.state.offset + this.state.limit;
-            this.setState({offset})
+            this.setState({offset});
             this.requestSubmissionsList(offset);
         }
 
         if (!isForward && (this.state.offset - this.state.limit) >= 0) {
             const offset = this.state.offset - this.state.limit;
-            this.setState({offset})
+            this.setState({offset});
             this.requestSubmissionsList(offset);
         }
 
@@ -57,6 +57,10 @@ class SubmittedPublicationsList extends React.Component {
 
     requestSubmissionsList = (offset) => {
         this.props.dispatch(getAllUserSubmissions(offset, this.state.limit));
+    };
+
+    onNewSubmissionClick = () => {
+        this.props.dispatch({type: INIT_SUBMISSION_FULFILLED, payload: null});
     };
 
 
@@ -68,7 +72,8 @@ class SubmittedPublicationsList extends React.Component {
                     <div style={style.header}>
                         <Header as='h4'>{TABLE_TITLE}</Header>
                         <Link route={"submission"}>
-                            <Button style={style.button} icon labelPosition='right' primary>
+                            <Button onClick={this.onNewSubmissionClick.bind(this)} style={style.button} icon
+                                    labelPosition='right' primary>
                                 {PUBLICATION_SHARE}
                                 <Icon name='photo'/>
                             </Button>
@@ -118,7 +123,6 @@ const NavigatonBar = ({navigateTo}) => {
 
 const TableExamplePositiveNegative = ({data}) => (
     <Table celled>
-        {console.log(data)}
         <Table.Header>
             <Table.Row>
                 <Table.HeaderCell>{TABLE_DATE}</Table.HeaderCell>

@@ -15,6 +15,13 @@ const incrementSize = 12;
 class NativeList extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+        // this.props.dispatch(fetchNativePosts(this.state.initSizePhoto, this.state.incrementSize));
+        this.updateScroll = this.updateScroll.bind(this);
+
+    }
+
     static async getInitialProps({store, isServer}) {
 
 
@@ -22,14 +29,6 @@ class NativeList extends React.Component {
         // await store.dispatch(TopNativeSlider.initialAction());
 
         return {isServer}
-    }
-
-
-    constructor(props) {
-        super(props);
-        // this.props.dispatch(fetchNativePosts(this.state.initSizePhoto, this.state.incrementSize));
-        this.updateScroll = this.updateScroll.bind(this);
-
     }
 
     componentDidMount() {
@@ -53,7 +52,7 @@ class NativeList extends React.Component {
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
-        })
+        });
         if (this.isLoadMore()) {
             this.fetchMorePhotos();
         }
@@ -63,7 +62,7 @@ class NativeList extends React.Component {
         let currentPhotoSize = this.state.currentPhotosLoaded += this.state.incrementSize;
         this.setState({
             currentPhotosLoaded: currentPhotoSize
-        })
+        });
         this.props.dispatch(fetchNativePosts(this.state.initSizePhoto, currentPhotoSize));
     }
 

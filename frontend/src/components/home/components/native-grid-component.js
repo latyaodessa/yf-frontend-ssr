@@ -11,10 +11,6 @@ import Sidebar from '../../core/sidebars/main-sidebar/sidebar'
 
 class NativeGrid extends React.Component {
 
-    static initialAction() {
-        return fetchNativePosts(0, 6);
-    }
-
     constructor(props) {
         super(props);
 
@@ -26,6 +22,9 @@ class NativeGrid extends React.Component {
         };
     }
 
+    static initialAction() {
+        return fetchNativePosts(0, 6);
+    }
 
     renderPics(posts) {
         return posts.map(post => <div key={post.id}
@@ -38,7 +37,7 @@ class NativeGrid extends React.Component {
         let currentPhotoSize = this.state.to += this.state.increment_size;
         this.setState({
             to: currentPhotoSize
-        })
+        });
 
         this.props.dispatch(fetchNativePosts(this.state.from, this.state.to));
 

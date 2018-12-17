@@ -26,7 +26,6 @@ class ProfileMainContent extends React.Component {
         });
 
         const goTo = new URLSearchParams(location.search).get('goTo');
-        console.log(goTo);
         if (goTo) {
             this.switchActivePage(goTo);
         }

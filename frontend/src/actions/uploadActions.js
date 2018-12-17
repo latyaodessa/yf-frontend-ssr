@@ -10,9 +10,9 @@ import {
 import {
     GET_USER_SUBMISSION_PICS,
     SAVE_UPLOADED_PIC,
+    SUBMISSION_PIC,
     UPLOAD_PICS_FOR_SUBMISSION,
-    UPLOAD_PROFILE_PIC,
-    SUBMISSION_PIC
+    UPLOAD_PROFILE_PIC
 } from '../constants/rest/StorageRestClient'
 import {getCookieByKey, USER} from "../services/CookieService";
 

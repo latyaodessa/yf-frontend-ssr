@@ -50,14 +50,14 @@ class MobileLoginLogoutButton extends React.Component {
 
     getLogoutButtonMobile() {
         return <div className="login-menu-container">
-                <style jsx>{styles}</style>
-                <ul>
-                    <Link route='profile'>
-                        <li>Профиль</li>
-                    </Link>
-                    <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>
-                </ul>
-            </div>
+            <style jsx>{styles}</style>
+            <ul>
+                <Link route='profile'>
+                    <li>Профиль</li>
+                </Link>
+                <li><a onClick={this.logOut.bind(this)}>Выйти</a></li>
+            </ul>
+        </div>
 
     }
 

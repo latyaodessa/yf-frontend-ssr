@@ -13,15 +13,14 @@ const incrementSize = 12;
 const initSizePhoto = 0;
 
 class UserDashboard extends React.Component {
-    static async getInitialProps({store, isServer}) {
-        return {isServer}
-    }
-
-
     constructor(props) {
         super(props);
         this.updateScroll = this.updateScroll.bind(this);
         this.isPostsExists = this.isPostsExists.bind(this);
+    }
+
+    static async getInitialProps({store, isServer}) {
+        return {isServer}
     }
 
     componentDidMount() {

@@ -1,10 +1,11 @@
 export function login() {
-	return function (dispatch) {
-		dispatch({type: 'LOGIN'})
-	}
+    return function (dispatch) {
+        dispatch({type: 'LOGIN'})
+    }
 }
+
 export function logout() {
-	return function (dispatch) {
-		dispatch({type: 'LOGOUT'})
-	}
+    return function (dispatch) {
+        dispatch({type: 'LOGOUT'})
+    }
 }

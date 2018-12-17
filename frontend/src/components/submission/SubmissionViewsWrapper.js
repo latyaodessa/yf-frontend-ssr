@@ -7,12 +7,18 @@ import {verifyLoggedInUser} from "../../services/CookieService";
 import {
     getSubmissionByUUid,
     initSubmission,
-    updateSubmission,
-    submit
+    submit,
+    updateSubmission
 } from "../../actions/submission/submissionActions";
-import {Router} from './../../../routes';
+import {Router, Link} from './../../../routes';
 import {PUBLISHED_PAGE} from '../user/profile/components/ProfileMainContent'
-import {INIT_SUBMISSION_FULFILLED} from "../../constants/submission/supmissionConstants";
+import styles from './views/styles.scss'
+import {BACK_TO_PROFILE_BUTTON, SUBMISSION_TITLE_ERROR, SUBMISSION_TITLE_TEXT} from "../../messages/submission";
+import {Button} from "semantic-ui-react";
+import {Grid} from "semantic-ui-react/dist/commonjs/collections/Grid/Grid";
+
+const INCOMPLETED = "INCOMPLETED";
+const SEND_TO_REWORK = "SEND_TO_REWORK";
 
 export const VIEWS = {
     PARTICIPATS_VIEW: PARTICIPATS_VIEW,
@@ -43,7 +49,6 @@ class SubmissionViewsWrapper extends React.Component {
                             this.setState({
                                 submission: this.props.data
                             })
-                            console.log(this.state);
                         }
                     })
                 } else {
@@ -57,18 +62,6 @@ class SubmissionViewsWrapper extends React.Component {
         window.scrollTo(0, 0);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        try {
-            const uuid = new URLSearchParams(location.search).get('uuid');
-            if (!uuid && nextProps.data) {
-                nextProps.dispatch({type: INIT_SUBMISSION_FULFILLED, payload: null});
-            }
-        } catch (e) {
-            console.log(e);
-        }
-        return null;
-    }
-
     commitParticipants = (participants) => {
 
         this.setState({
@@ -80,9 +73,6 @@ class SubmissionViewsWrapper extends React.Component {
     };
 
     commitPhotoshooting = (description) => {
-
-        console.log(description);
-        console.log(this.state.submission);
 
         let sbms = this.state.submission;
 
@@ -131,13 +121,10 @@ class SubmissionViewsWrapper extends React.Component {
                         this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
                     });
                 } else {
-                    console.log(this.state);
                     this.props.dispatch(initSubmission(this.state.participants)).then(() => {
                         this.setState({
                             submission: this.props.data
                         });
-                        console.log(this.props);
-                        console.log(this.state);
                         Router.pushRoute('submission', {uuid: this.props.data.uuid});
                         this.goToPage(VIEWS.PHOTOSHOOTING_VIEW);
                     });
@@ -158,8 +145,27 @@ class SubmissionViewsWrapper extends React.Component {
     };
 
     render() {
+        if (this.state.submission && !(this.state.submission.status === INCOMPLETED || this.state.submission.status === SEND_TO_REWORK)) {
+            return <div>
+                <style jsx>{styles}</style>
+                <div className={"title-header"}>
+                    <h1>{SUBMISSION_TITLE_ERROR}</h1>
+                    <div>
+                        <Link route='profile'>
+                            <Button content={BACK_TO_PROFILE_BUTTON}
+                                    icon='right arrow' labelPosition='right'/>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        }
+        console.log(this.state.submission);
         return (
             <div>
+                <style jsx>{styles}</style>
+                <div className={"title-header"}>
+                    <h1>{SUBMISSION_TITLE_TEXT}</h1>
+                </div>
                 {this.state.currentView === VIEWS.PARTICIPATS_VIEW
                 &&
                 <ParticipantsView commitParticipants={this.commitParticipants}/>}
@@ -188,7 +194,6 @@ class SubmissionViewsWrapper extends React.Component {
 
 function mapStateToProps(state) {
     const {submission} = state;
-    console.log(submission);
     return submission;
 }
 

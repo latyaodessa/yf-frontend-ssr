@@ -1,4 +1,4 @@
-import {EMAIL_ADDRESS, PASSWORD} from "../../../../messages/auth/auth";
+import {EMAIL_ADDRESS} from "../../../../messages/auth/auth";
 import style from './style.scss'
 
 const errorInput = 'error-input';

@@ -14,7 +14,6 @@ import {
     PHOTOSHOOTING_DESCRIPTION
 } from "../../../../messages/submission";
 import ParticipantsEquipmentForm from './ParticipantsEquipmentForm';
-import {searchCountry} from "../../../../actions/metaActions";
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -57,9 +56,6 @@ class PhotoshootingDescriptionForm extends React.Component {
 
 
     commit = async () => {
-
-
-        console.log(this.state);
 
         let errors = {};
 
@@ -126,21 +122,16 @@ class PhotoshootingDescriptionForm extends React.Component {
         this.setState({
             [evt.target.name]: evt.target.value
         })
-        console.log(this.state);
     };
 
 
     handlePhEquipmentChange = (evt) => {
-        console.log(evt.target.name);
-        console.log(evt.target.value);
+
         let phEq = this.state.phEquipment;
         phEq[evt.target.name] = evt.target.value;
         this.setState({
             phEquipment: phEq
         });
-        // this.setState({
-        //     [evt.target.name]: evt.target.value
-        // })
     };
 
 
@@ -215,7 +206,7 @@ class PhotoshootingDescriptionForm extends React.Component {
             {this.getGeneralInfo()}
         </div>
     }
-};
+}
 
 function mapStateToProps(state) {
     const {country} = state;

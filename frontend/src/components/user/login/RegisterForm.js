@@ -49,8 +49,7 @@ class RegisterForm extends React.Component {
                 this.setState({fetching: false});
                 if (this.props.error) {
                     this.handleErrors(this.props.error.data);
-                }
-                else if (this.props.data) {
+                } else if (this.props.data) {
                     setAuthCookie(this.props.data.user, this.props.data.token);
                     Router.push(REDIRECT_PROFILE);
                 }

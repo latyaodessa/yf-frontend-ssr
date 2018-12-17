@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, Header} from 'semantic-ui-react'
+import {Header, List} from 'semantic-ui-react'
 import {TERMS_PUB_TITLE, TERMS_RULES} from "../../messages/terms";
 
 const PublicationTerms = () => (

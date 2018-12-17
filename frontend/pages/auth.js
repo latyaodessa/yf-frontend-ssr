@@ -23,14 +23,6 @@ export const REDIRECT_PROFILE = '/profile';
 
 class Login extends React.Component {
 
-    static async getInitialProps({store, query}) {
-        if (query.uuid) {
-            await store.dispatch(validateVerificationUUID(query.uuid));
-        }
-
-        return {uuid: query.uuid}
-    }
-
     constructor(props) {
         super(props);
         this.state = {
@@ -38,6 +30,14 @@ class Login extends React.Component {
             uuid: props.uuid,
             socialUserData: ''
         }
+    }
+
+    static async getInitialProps({store, query}) {
+        if (query.uuid) {
+            await store.dispatch(validateVerificationUUID(query.uuid));
+        }
+
+        return {uuid: query.uuid}
     }
 
     changeActive = (active) => {

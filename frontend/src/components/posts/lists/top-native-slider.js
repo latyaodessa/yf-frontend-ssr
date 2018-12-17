@@ -7,18 +7,16 @@ import styles from "../../../../res/styles/index.scss"
 
 class TopNativeSlider extends React.Component {
 
-    static initialAction() {
-        return fetchTopNative(0, 10);
-    }
-
     constructor(props) {
         super(props);
-        console.log("AAA");
-        console.log(this.props);
         this.state = {
             fetched: this.props.fetched,
             post: this.props.post
         }
+    }
+
+    static initialAction() {
+        return fetchTopNative(0, 10);
     }
 
     render() {

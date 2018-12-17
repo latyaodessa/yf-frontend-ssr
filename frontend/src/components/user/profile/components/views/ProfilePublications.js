@@ -10,6 +10,7 @@ import ThumbnailPicture from '../../../../posts/core/ThumbnailPicture'
 import SubmittedPublicationsList from './../components/SubmittedPublicationsList';
 import {Button, Header, Icon} from "semantic-ui-react";
 import {PUBLICATION_SHARE} from "../../../../../messages/submission";
+import {INIT_SUBMISSION_FULFILLED} from "../../../../../constants/submission/supmissionConstants";
 
 const incrementSize = 12;
 const initSizePhoto = 0;
@@ -55,7 +56,7 @@ class ProfilePublications extends React.Component {
             visibleHeight: document.documentElement.clientHeight,
             pageHeight: document.documentElement.scrollHeight,
             currentScroll: document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop
-        })
+        });
         if (this.isLoadMore()) {
             this.fetchMorePhotos();
         }
@@ -65,7 +66,7 @@ class ProfilePublications extends React.Component {
         let currentPhotoSize = this.state.currentPhotosLoaded += this.state.incrementSize;
         this.setState({
             currentPhotosLoaded: currentPhotoSize
-        })
+        });
         this.props.dispatch(getPublicationsByUser(this.state.userId, this.state.initSizePhoto, currentPhotoSize));
     }
 
@@ -96,11 +97,16 @@ class ProfilePublications extends React.Component {
 
     };
 
+    onNewSubmissionClick = () => {
+        this.props.dispatch({type: INIT_SUBMISSION_FULFILLED, payload: null});
+    };
+
     getNoPubsInfo() {
         return <div>
             <Header as='h4'>{NO_PUBLICATION_PUBLISHED}</Header>
             <Link route={"submission"}>
-                <Button style={style.button} icon labelPosition='right' primary>
+                <Button onClick={this.onNewSubmissionClick.bind(this)} style={style.button} icon labelPosition='right'
+                        primary>
                     {PUBLICATION_SHARE}
                     <Icon name='photo'/>
                 </Button>

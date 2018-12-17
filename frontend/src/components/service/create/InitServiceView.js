@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {Button, Dropdown, Grid, Card} from 'semantic-ui-react';
-import {SERVICE_OPTIONS, PH} from "../../../messages/service";
+import {Card, Grid} from 'semantic-ui-react';
+import {SERVICE_OPTIONS} from "../../../messages/service";
 import 'semantic-ui-css/semantic.min.css'
 
 
@@ -38,7 +38,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(InitServiceView);
 
 const ServiceCard = ({option}) => {
-    console.log(option);
     return <Grid.Column mobile={16} tablet={8} computer={8}>
         <Card
             href='#card-example-link-card'

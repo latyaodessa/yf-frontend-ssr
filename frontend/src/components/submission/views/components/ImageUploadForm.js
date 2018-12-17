@@ -8,7 +8,6 @@ import {PROFILE_IMGAGE_ERRORS} from "../../../../messages/profile-image-errors";
 
 import {Form, Grid, Label, Progress, Segment} from 'semantic-ui-react'
 import {
-    ERROR_REQUIRED_FIELD,
     MAX_FILES_LABEL,
     MAX_SIZE_LABEL,
     MIN_DIMENTIONS_LABEL,
@@ -21,8 +20,6 @@ import {
     getSubmissionImgPic,
     uploadPicsForSumbissionWithStorageService
 } from "../../../../actions/uploadActions";
-import moment from "moment/moment";
-import _ from "lodash";
 
 const ALLOWED_FILE_FROMATS = ["png", "jpg", "jpeg"];
 const MAX_BYTES = 10485760;
@@ -105,9 +102,7 @@ class ImageUploadForm extends React.Component {
         try {
             let fileName = img.name.split('.').pop().toLowerCase();
 
-            console.log(MAX_FILES);
-            console.log(this.state.imageFiles.length+newImgLength);
-            if ((this.state.imageFiles.length+newImgLength) > MAX_FILES) {
+            if ((this.state.imageFiles.length + newImgLength) > MAX_FILES) {
                 throw MAX_FILES_LABEL;
             }
             if (!ALLOWED_FILE_FROMATS.includes(fileName)) {
@@ -219,12 +214,11 @@ class ImageUploadForm extends React.Component {
 
     commit = async () => {
         this.setState({error: ''});
-        if(this.state.imageFiles.length < 5) {
+        if (this.state.imageFiles.length < 5) {
             this.setState({error: MAX_FILES_LABEL});
             throw MAX_FILES_LABEL;
         }
 
-        console.log(this.state);
         return this.state.imageFiles;
     };
 
@@ -275,7 +269,6 @@ class ImageUploadForm extends React.Component {
     };
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <style jsx>{styles}</style>

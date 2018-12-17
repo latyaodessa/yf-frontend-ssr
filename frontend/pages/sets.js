@@ -14,18 +14,17 @@ const incrementSize = 12;
 class SetsList extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+        this.updateScroll = this.updateScroll.bind(this);
+
+    }
+
     static async getInitialProps({store, isServer}) {
 
         await store.dispatch(fetchSetsPosts(initSizePhoto, incrementSize));
 
         return {isServer}
-    }
-
-
-    constructor(props) {
-        super(props);
-        this.updateScroll = this.updateScroll.bind(this);
-
     }
 
     componentDidMount() {
@@ -59,7 +58,7 @@ class SetsList extends React.Component {
         let currentPhotoSize = this.state.currentPhotosLoaded += this.state.incrementSize;
         this.setState({
             currentPhotosLoaded: currentPhotoSize
-        })
+        });
         this.props.dispatch(fetchSetsPosts(this.state.initSizePhoto, currentPhotoSize));
     }
 

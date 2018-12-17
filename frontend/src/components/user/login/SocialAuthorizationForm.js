@@ -44,21 +44,17 @@ class SocialAuthorizationForm extends React.Component {
                     this.setState({fetching: false});
                     if (this.props.error) {
                         this.handleErrors(this.props.error.data);
-                    }
-                    else if (this.props.data) {
+                    } else if (this.props.data) {
                         setAuthCookie(this.props.data.user, this.props.data.token);
                         Router.push(REDIRECT_PROFILE);
                     }
                 });
-            }
-
-            else if (this.props.socialUserData.type === 'FB') {
+            } else if (this.props.socialUserData.type === 'FB') {
                 this.props.dispatch(createFBUser(this.props.socialUserData.dto, this.state.email.value, this.state.password.value)).then(() => {
                     this.setState({fetching: false});
                     if (this.props.error) {
                         this.handleErrors(this.props.error.data);
-                    }
-                    else if (this.props.data) {
+                    } else if (this.props.data) {
                         setAuthCookie(this.props.data.user, this.props.data.token);
                         Router.push(REDIRECT_PROFILE);
                     }

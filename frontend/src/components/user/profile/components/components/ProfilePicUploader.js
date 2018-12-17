@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import styleSidebar from '../sidebar-style.scss'
 import Dropzone from 'react-dropzone';
-import {uploadWithStorageService, saveProfilePicToUser} from "../../../../../actions/uploadActions"
-import {getCookieByKey, uploadNewProfilePic, USER, TOKEN} from "../../../../../services/CookieService";
+import {saveProfilePicToUser, uploadWithStorageService} from "../../../../../actions/uploadActions"
+import {getCookieByKey, TOKEN, uploadNewProfilePic, USER} from "../../../../../services/CookieService";
 import {PROFILE_IMGAGE_ERRORS} from '../../../../../messages/profile-image-errors';
 import {UPDATE_PROFILE_PIC} from "../../../../../messages/profile";
 
@@ -60,14 +60,11 @@ class ProfilePicUploader extends React.Component {
             };
 
             temporaryFileReader.onload = () => {
-                console.log(temporaryFileReader);
 
 
                 let image = new Image();
                 image.src = temporaryFileReader.result;
                 image.onload = function () {
-
-                    console.log(image);
 
                     if (image.width < MIN_WIDTH || image.height < MIN_HEIGHT) {
                         reject(PROFILE_IMGAGE_ERRORS.WRONG_RESOLUTION)

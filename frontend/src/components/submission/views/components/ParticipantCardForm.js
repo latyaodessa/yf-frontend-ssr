@@ -10,7 +10,7 @@ import {
     LAST_NAME,
     PARTICIPANTS_TYPE
 } from "../../../../messages/submission";
-import {Checkbox, Form, Icon, Label, Dropdown, Input} from 'semantic-ui-react'
+import {Checkbox, Form, Icon, Label} from 'semantic-ui-react'
 import {connect} from "react-redux";
 import {searchCountry} from "../../../../actions/metaActions";
 
