@@ -5,7 +5,8 @@ const express = require('express'),
     mkdirp = require('mkdirp'),
     cors = require('cors'),
     fileUpload = require('express-fileupload'),
-    fs = require('fs');
+    fs = require('fs'),
+    rimraf = require('rimraf');
 
 const PORT = process.env.PORT || 8080;
 
@@ -144,6 +145,28 @@ router.delete('/submission/pic/:userId/:uuid', async (req, res, next) => {
 
 
 });
+
+
+router.post('/clean', async (req, res, next) => {
+
+    if (!req.body) {
+        return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
+    }
+
+    await Object.keys(req.body).forEach(async (uuid) => {
+        const userId = req.body[uuid];
+
+        await rimraf(`${__dirname}/uploads/${userId}/${uuid}`, function () {
+            console.log('done');
+        });
+
+    });
+
+    res.sendStatus(200)
+
+
+});
+
 
 async function convertProfilePic(img) {
     return await Jimp.read(img.data).then(function (image) {
