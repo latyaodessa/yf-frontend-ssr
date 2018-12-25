@@ -1,8 +1,12 @@
 import {combineReducers} from 'redux'
 import counter from './counter'
-import {submissionList} from "../reducers/SubmissionReducers";
+import {publication, submission, submissionList} from "../reducers/SubmissionReducers";
+import {login, uuid, verify} from "../reducers/AuthReducers";
+import {images} from "../reducers/StorageReducers";
 
 export default combineReducers({
     counter,
-    submissionList
+    submissionList, submission, publication,
+    login, uuid, verify,
+    images
 })

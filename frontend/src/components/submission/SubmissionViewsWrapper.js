@@ -171,7 +171,8 @@ class SubmissionViewsWrapper extends React.Component {
                 <ParticipantsView commitParticipants={this.commitParticipants}/>}
                 {this.state.currentView === VIEWS.PHOTOSHOOTING_VIEW
                 && <PhotoshootingView goToPage={this.goToPage} commitPhotoshooting={this.commitPhotoshooting}
-                                      participants={this.state.participants} initUuid={this.props.data.uuid}/>}
+                                      participants={this.state.participants} initUuid={this.props.data.uuid}
+                                      submission={this.state.submission}/>}
 
                 {this.state && <AuthModalWindow
                     handleSubmit={this.validateAndMakeFirstSubmit}

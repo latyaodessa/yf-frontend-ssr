@@ -21,14 +21,26 @@ class PhotoshootingDescriptionForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            // countries: [],
-            description: '',
-            date: null,
-            country: '',
-            city: '',
-            phEquipment: [],
-            errors: {}
+        if (props.submission && props.submission.data) {
+            this.state = {
+                // countries: [],
+                description: props.submission.data.text,
+                date: null,
+                country: props.submission.data.country,
+                city: props.submission.data.city,
+                phEquipment: [props.submission.data.equipment],
+                errors: {}
+            }
+        } else {
+            this.state = {
+                // countries: [],
+                description: '',
+                date: null,
+                country: '',
+                city: '',
+                phEquipment: [],
+                errors: {}
+            }
         }
 
     }
@@ -92,13 +104,14 @@ class PhotoshootingDescriptionForm extends React.Component {
         return errors;
     };
 
-    renderInputFieldWithValidation = (name, label, descr) => {
+    renderInputFieldWithValidation = (name, label, descr, defaultValue) => {
         return <Form.Field>
             <Form.Input
                 fluid
                 name={name}
                 label={label}
                 placeholder={descr}
+                defaultValue={defaultValue}
                 onChange={this.handleChange}
             />
 
@@ -145,8 +158,8 @@ class PhotoshootingDescriptionForm extends React.Component {
                         <Grid.Column>
                             <Form>
                                 <Form.Group widths={'equal'}>
-                                    {this.renderInputFieldWithValidation("country", COUNTRY, COUNTRY)}
-                                    {this.renderInputFieldWithValidation("city", CITY, CITY)}
+                                    {this.renderInputFieldWithValidation("country", COUNTRY, COUNTRY, this.state.country)}
+                                    {this.renderInputFieldWithValidation("city", CITY, CITY, this.state.city)}
                                 </Form.Group>
                             </Form>
                         </Grid.Column>
@@ -186,7 +199,9 @@ class PhotoshootingDescriptionForm extends React.Component {
             <Grid stackable columns={1}>
                 <Grid.Column>
                     <Form>
-                            <TextArea style={{
+                            <TextArea
+                                defaultValue={this.state.description}
+                                style={{
                                 color: "rgb(82, 85, 89)",
                                 fontWeight: 300,
                                 fontSize: "1.5em",

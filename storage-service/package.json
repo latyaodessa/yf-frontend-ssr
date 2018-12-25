@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^3.0.0",
     "axios": "^0.18.0",
     "backblaze-b2": "^1.0.4",
     "body-parser": "^1.18.3",

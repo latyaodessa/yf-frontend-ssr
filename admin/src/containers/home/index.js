@@ -1,13 +1,8 @@
 import React from 'react'
-import { push } from 'connected-react-router'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
+import {push} from 'connected-react-router'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {decrement, decrementAsync, increment, incrementAsync} from '../../modules/counter'
 
 const Home = props => (
   <div>

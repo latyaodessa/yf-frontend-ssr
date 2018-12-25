@@ -78,7 +78,9 @@ class PhotoshootingView extends React.Component {
                     <div>
                         <PhotoshootingDescriptionForm
                             onRef={ref => (this.descriptionForm = ref)}
-                            participants={this.props.participants}/>
+                            participants={this.props.participants}
+                            submission={this.props.submission}
+                        />
                         <ImageUploadForm onRef={ref => (this.imageUploadForm = ref)}
                                          initUuid={this.state.uuid}/>
                     </div>

@@ -4,7 +4,7 @@ import SubmissonListTable from './components/SubmissonListTable';
 import SubmissionDetailsForm from './details/SubmissionDetailsForm';
 
 const Submission = ({match}) => {
-    return match.params.userId && match.params.uuid ? <SubmissionDetails/> : <SubmissionList/>;
+    return match.params.userId && match.params.uuid ? <SubmissionDetails userId={match.params.userId} uuid={match.params.uuid}/> : <SubmissionList/>;
 };
 
 
@@ -15,9 +15,9 @@ const SubmissionList = () => (<PermissionProtectedLayout>
     </div>
 </PermissionProtectedLayout>);
 
-const SubmissionDetails = () => (<PermissionProtectedLayout>
+const SubmissionDetails = ({userId, uuid}) => (<PermissionProtectedLayout>
     <div>
-        <SubmissionDetailsForm/>
+        <SubmissionDetailsForm userId={userId} uuid={uuid}/>
     </div>
 </PermissionProtectedLayout>);
 

@@ -1,48 +1,59 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
-// import Navbar from '../core/navbar'
-// import Footer from '../core/footer'
-// import Sidebar from '../core/sidebars/main-sidebar/sidebar'
-// import Slider from "../home/components/slider";
+import AuthForm from './../core/auth/AuthForm'
 import './styles.scss';
+import {verifyLoggedInUser} from "../core/auth/CookieService";
 
 class PermissionProtectedLayout extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            valid: false
+        }
+
+
+    }
+
+
     componentDidMount() {
+        verifyLoggedInUser().then(valid => {
+            this.setState({valid})
+        })
+
     }
 
     render() {
-        return (
+        return this.state.valid ? <ChildRender props={this.props.children}/> : <AuthForm/>
+        // verifyLoggedInUser().then(valid => {
+        //     if (valid) {
+        //         return ( <ChildRender props={this.props.children}/>
+        //         )
+        //     } else {
+        //         return <AuthForm/>
+        //     }
+        // })
+
+
+    }
+}
+
+const ChildRender = ({props}) => {
+    return <div>
+        <div>
             <div>
-                <div>
-                    <div>
-                        {/*<Head>*/}
-                            {/*<meta charSet={"utf-8"}/>*/}
-                            {/*/!*<meta name="description" content={this.props.meta.description}/>*!/*/}
-                            {/*/!*<meta name="keywords" content={this.props.meta.keywords}/>*!/*/}
-                            {/*/!*<link rel="canonical" href={this.props.meta.canonical}/>*!/*/}
-                            {/*/!*<title>{this.props.meta.title}</title>*!/*/}
-                            {/*<meta name="viewport" content="width=device-width, initial-scale=1"/>*/}
-                            {/*<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>*/}
-                        {/*</Head>*/}
-                        {/*<Navbar/>*/}
-                        {/*{{slider : Slider} = props && <Slider/>}*/}
-                        <div className="child-container">
-                            <div className="wrapper">
-                                <div className="content-wrapper">
-                                    {this.props.children}
-                                </div>
-                                {/*<Sidebar/>*/}
-                            </div>
+                <div className="child-container">
+                    <div className="wrapper">
+                        <div className="content-wrapper">
+                            {props}
                         </div>
-                        {/*<Footer/>*/}
                     </div>
-
-
                 </div>
             </div>
-        )
-    }
+
+
+        </div>
+    </div>
 }
 
 export default PermissionProtectedLayout;
