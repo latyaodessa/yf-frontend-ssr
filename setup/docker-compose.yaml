@@ -30,6 +30,9 @@ services:
       - "4848:4848"
       - "9009:9009"
       - "29009:29009"
+    deploy:
+      mode: replicated
+      replicas: 3
     networks:
       - nginx-proxy
   parser:
