@@ -45,7 +45,7 @@ services:
       - "29009:29009"
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 2
     depends_on:
       - database
     networks:
