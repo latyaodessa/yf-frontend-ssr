@@ -8,6 +8,14 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - frontend
+      - parser
+      - backend
+      - mailsender
+      - database
+      - storage
+      - elasticsearch
     networks:
       - nginx-proxy
   frontend:
@@ -17,6 +25,8 @@ services:
     image: 127.0.0.1:5000/frontend
     ports:
       - "3000:80"
+    depends_on:
+      - backend
     volumes:
       - frontend-data:/app/static
     networks:
@@ -36,6 +46,8 @@ services:
     deploy:
       mode: replicated
       replicas: 3
+    depends_on:
+      - database
     networks:
       - nginx-proxy
   parser:
