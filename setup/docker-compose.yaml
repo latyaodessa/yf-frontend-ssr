@@ -4,17 +4,29 @@ services:
     container_name: nginx
     restart: always
     build: ./nginx
+    image: 127.0.0.1:5000/nginx
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - frontend
+      - parser
+      - backend
+      - mailsender
+      - database
+      - storage
+      - elasticsearch
     networks:
       - nginx-proxy
   frontend:
     container_name: frontend
     restart: always
     build: ./../frontend
+    image: 127.0.0.1:5000/frontend
     ports:
       - "3000:80"
+    depends_on:
+      - backend
     volumes:
       - frontend-data:/app/static
     networks:
@@ -23,19 +35,28 @@ services:
     container_name: backend
     restart: always
     build: ./../yf-services
+    image: 127.0.0.1:5000/yf-services
     entrypoint: "/opt/payara41/bin/startInForeground.sh --passwordfile=/opt/pwdfile -d --postbootcommandfile glassfish/domains/domain1"
+    environment:
+      - TASK_NAME={{.Task.Name}}
     ports:
       - "8080:8080"
       - "8181:8181"
       - "4848:4848"
       - "9009:9009"
       - "29009:29009"
+    deploy:
+      mode: replicated
+      replicas: 2
+    depends_on:
+      - database
     networks:
       - nginx-proxy
   parser:
     container_name: parser
     restart: always
     build: ./../parser
+    image: 127.0.0.1:5000/parser
     ports:
       - "9091:8080"
     networks:
@@ -44,6 +65,7 @@ services:
     container_name: mailsender
     restart: always
     build: ./../mail-sender
+    image: 127.0.0.1:5000/mail-sender
     ports:
       - "9092:8080"
     networks:
@@ -52,6 +74,7 @@ services:
     container_name: storage
     restart: always
     build: ./../storage-service
+    image: 127.0.0.1:5000/storage-service
     ports:
       - "9093:8080"
     networks:
@@ -60,6 +83,7 @@ services:
     container_name: database
     restart: always
     build: ./database
+    image: 127.0.0.1:5000/database
     ports:
       - "53249:5432"
     volumes:
@@ -68,6 +92,7 @@ services:
       - nginx-proxy
   elasticsearch:
     build: ./elasticsearch
+    image: 127.0.0.1:5000/elasticsearch
     container_name: elasticsearch
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
