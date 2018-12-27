@@ -101,7 +101,15 @@ module.exports = function (router) {
 
             return new Promise((resolve, reject) => {
                 return Jimp.read(data).then(image => {
-                    image.resize(1500, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+                    let width = 1500;
+                    let height = Jimp.AUTO;
+
+                    if(image.bitmap.height > image.bitmap.width) {
+                        width = Jimp.AUTO;
+                        height = 1500;
+                    }
+
+                    image.resize(width, height, Jimp.RESIZE_BEZIER)
                         .quality(80, (err, edited) => {
                             resolve(edited);
                         })
@@ -126,7 +134,6 @@ module.exports = function (router) {
                     return upload.data;
                 } catch (e) {
                     console.log('Error upload:', e);
-                    throw 'Error upload' + e;
                 }
 
             })
