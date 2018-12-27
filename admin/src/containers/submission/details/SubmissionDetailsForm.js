@@ -133,7 +133,7 @@ const style = {
     wrapper: {
         width: "100%"
     }
-}
+};
 
 
 const StaticContent = ({sbmt}) => {

@@ -20,8 +20,8 @@ import {login, register, requestPassword, reset, socialUser, uuid, verify} from 
 import {submissionPicsList, upload} from './reducers/files/uploadReducers'
 import {country} from './reducers/meta/metaReducers';
 import {submission, submissionsList} from "./reducers/submission/submissionReducers";
+import {userPublications} from "./reducers/user/dashboard/userPublicationRedicers";
 import {routerReducer as routing} from 'react-router-redux';
-
 
 export default combineReducers({
     native,
@@ -45,5 +45,6 @@ export default combineReducers({
     upload, submissionPicsList,
     country,
     submission, submissionsList,
+    userPublications,
     routing
 })

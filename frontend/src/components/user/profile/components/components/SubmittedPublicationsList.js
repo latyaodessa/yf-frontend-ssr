@@ -65,9 +65,10 @@ class SubmittedPublicationsList extends React.Component {
 
 
     render() {
+        console.log(this.props);
         return (
             <div>
-                {this.props.data &&
+                {this.props.data && this.props.data.length > 0 &&
                 <div style={style.container}>
                     <div style={style.header}>
                         <Header as='h4'>{TABLE_TITLE}</Header>

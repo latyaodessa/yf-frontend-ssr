@@ -23,8 +23,6 @@ module.exports = function (router) {
     });
 
 
-
-
     function zipDirectory(source, fileName) {
         const archive = archiver('zip', {zlib: {level: 9}});
         const stream = fs.createWriteStream(fileName);
@@ -88,62 +86,69 @@ module.exports = function (router) {
         //     return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
         // }
 
-        const rootPath = rootDir + `/uploads/32515220/8ead85a4-4fb4-4316-9fde-ab3c73b7cb53/`;
+        const rootPath = rootDir + `/uploads/196/test/`;
 
-        fs.readFile(rootPath + "2tij5t8e7aojq2c0tzc.jpg", async (err, data) => {
-            if (err) throw err;
 
-            let editedFile = await convertPic(data);
-            let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
-                return result;
-            });
-            console.log(bufferFile);
+        const uploads = [];
 
+        // fs.readdirSync(rootPath).forEach(async filename => {
+        //
+        //     const data = fs.readFileSync(rootPath + filename);
+
+        Promise.all(fs.readdirSync(rootPath).map(filename => {
+
+            const data = fs.readFileSync(rootPath + filename);
+
+            return new Promise((resolve, reject) => {
+                return Jimp.read(data).then(image => {
+                    image.resize(1500, Jimp.AUTO, Jimp.RESIZE_BEZIER)
+                        .quality(80, (err, edited) => {
+                            resolve(edited);
+                        })
+                })
+            }).then(edited => {
+                return edited.getBuffer(Jimp.MIME_JPEG, (err, result) => {
+                    return result;
+                })
+            }).then(async bufferFile => {
+                try {
+                    const uploadUrl = await getUploadUrl(config.UPLOAD_BUCKET_ID);
+
+                    const upload = await b2.uploadFile({
+                        uploadUrl: uploadUrl.data.uploadUrl,
+                        uploadAuthToken: uploadUrl.data.authorizationToken,
+                        filename: "test/" + filename,
+                        data: bufferFile,
+                        onUploadProgress: function (event) {
+                            // console.log(event);
+                        }
+                    });
+                    return upload.data;
+                } catch (e) {
+                    console.log('Error upload:', e);
+                    throw 'Error upload' + e;
+                }
+
+            })
+
+        })).then(uploads => {
+            res.json(uploads);
         });
-
-        //
-        // let imageFile = req.files.file;
-        // let extention = imageFile.name.split('.').pop();
-        // let editedFile = await convertPic(imageFile);
-        // let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
-        //     return result;
-        // });
-        // console.log(req);
-        //
-        //
-        // const bucketId = config.PROFILE_BUCKET_ID;
-        // const uploadUrl = await getUploadUrl(bucketId);
-        //
-        // try {
-        //     const upload = await b2.uploadFile({
-        //         uploadUrl: uploadUrl.data.uploadUrl,
-        //         uploadAuthToken: uploadUrl.data.authorizationToken,
-        //         filename: req.body.userId + ".jpeg",
-        //         data: bufferFile,
-        //         onUploadProgress: function (event) {
-        //             console.log(event);
-        //         }
-        //     });
-        //     console.log(upload.data);
-        //     res.json(upload.data);
-        // } catch (e) {
-        //     console.log('Error upload:', e);
-        //     return res.status(500).sendStatus(e);
-        // }
-
-        res.status(200);
-
     });
+
+    async function getExtension(filename) {
+        let i = filename.lastIndexOf('.');
+        return (i < 0) ? '' : filename.substr(i);
+    }
 
     async function convertPic(img) {
         return await Jimp.read(img).then(function (image) {
-            return image.resize(1500, Jimp.AUTO)
-            .quality(80);
+            return image.resize(1500, Jimp.AUTO);
+            // .quality(80);
         }).then().catch(function (err) {
             console.log(err);
         });
     }
-
 
 
     router.get('/uploads/:userId/:uuid/:file', (req, res) => {

@@ -86,9 +86,9 @@ class ProfilePublications extends React.Component {
     }
 
     renderContent = () => {
-        if (this.props.fetched && this.props.post && this.props.post.length > 0) {
+        if (this.props.fetched && this.props.data && this.props.data.length > 0) {
             return <div className="grid-list-container">
-                <div className="pure-g">{this.renderPics(this.props.post)}</div>
+                <div className="pure-g">{this.renderPics(this.props.data)}</div>
             </div>
         }
 
@@ -121,7 +121,7 @@ class ProfilePublications extends React.Component {
                 <style jsx>{dashboardStyles}</style>
                 <SubmittedPublicationsList/>
                 <div className="dashboard-container">
-                    {this.props.fetched && this.renderContent()}
+                    {this.renderContent()}
                 </div>
             </div>
         )
@@ -137,8 +137,8 @@ const style = {
 
 
 function mapStateToProps(state) {
-    const {native} = state;
-    return native;
+    const {userPublications} = state;
+    return userPublications;
 }
 
 export default connect(mapStateToProps)(ProfilePublications)

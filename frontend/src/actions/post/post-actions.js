@@ -18,7 +18,9 @@ import {
     FETCH_TOP_SETS_FULFILLED,
     FETCH_TOP_SETS_REJECTED,
     SEARCH_POST_FULFILLED,
-    SEARCH_POST_REJECTED
+    SEARCH_POST_REJECTED,
+    FETCH_USER_SAVED_PULICATIONS_FULFILLED,
+    FETCH_RELATED_POSTS_FULFILLED, FETCH_USER_SAVED_PULICATIONS_REJECTED
 } from '../../constants/post/posts-constants';
 
 const PUB_TYPE_NATIVE = "NATIVE";
@@ -100,10 +102,10 @@ export const searchPosts = (query) => (dispatch) => {
 export const getPublicationsByUser = (userId, from, to) => (dispatch, getState) => {
     return axios.get([FIND_PUBLICATION_BY_USER, userId, from, to].join("/"))
         .then((res) => {
-            dispatch({type: FETCH_NATIVE_POSTS_FULFILLED, payload: res.data})
+            dispatch({type: FETCH_USER_SAVED_PULICATIONS_FULFILLED, payload: res.data})
         })
         .catch((err) => {
-            dispatch({type: FETCH_NATIVE_POSTS_REJECTED, payload: err})
+            dispatch({type: FETCH_USER_SAVED_PULICATIONS_REJECTED, payload: err})
         })
 
 };
