@@ -23,14 +23,7 @@ module.exports = function (router) {
     });
 
 
-    async function getUploadUrl(bucketId) {
-        try {
-            await b2.authorize();
-            return await b2.getUploadUrl(bucketId);
-        } catch (e) {
-            console.log('Error:', e)
-        }
-    }
+
 
     function zipDirectory(source, fileName) {
         const archive = archiver('zip', {zlib: {level: 9}});
@@ -79,15 +72,39 @@ module.exports = function (router) {
     });
 
 
+    async function getUploadUrl(bucketId) {
+        try {
+            await b2.authorize();
+            return await b2.getUploadUrl(bucketId);
+        } catch (e) {
+            console.log('Error:', e)
+        }
+    }
+
+
     router.post('/publication/upload/images', async (req, res, next) => {
 
         // if (!req.files && !req.files.file) {
         //     return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
         // }
 
+        const rootPath = rootDir + `/uploads/32515220/8ead85a4-4fb4-4316-9fde-ab3c73b7cb53/`;
+
+        fs.readFile(rootPath + "2tij5t8e7aojq2c0tzc.jpg", async (err, data) => {
+            if (err) throw err;
+
+            let editedFile = await convertPic(data);
+            let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
+                return result;
+            });
+            console.log(bufferFile);
+
+        });
+
+        //
         // let imageFile = req.files.file;
         // let extention = imageFile.name.split('.').pop();
-        // let editedFile = await convertProfilePic(imageFile);
+        // let editedFile = await convertPic(imageFile);
         // let bufferFile = await editedFile.getBuffer(Jimp.MIME_JPEG, (err, result) => {
         //     return result;
         // });
@@ -114,15 +131,19 @@ module.exports = function (router) {
         //     return res.status(500).sendStatus(e);
         // }
 
-        const options = {
-            root: rootDir + `/uploads/${req.params.userId}/${req.params.uuid}/`,
-            headers: {
-                'Content-Type': 'text/plain;charset=UTF-8',
-            }
-        };
-        res.status(200).sendFile(req.params.file, options);
+        res.status(200);
 
     });
+
+    async function convertPic(img) {
+        return await Jimp.read(img).then(function (image) {
+            return image.resize(1500, Jimp.AUTO)
+            .quality(80);
+        }).then().catch(function (err) {
+            console.log(err);
+        });
+    }
+
 
 
     router.get('/uploads/:userId/:uuid/:file', (req, res) => {
