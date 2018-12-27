@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-STACK=youngfolks
+STACK=setup
 
 docker stack rm ${STACK} || true
 docker-compose build
