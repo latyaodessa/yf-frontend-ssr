@@ -82,31 +82,21 @@ module.exports = function (router) {
 
     router.post('/publication/upload/images', async (req, res, next) => {
 
-        // if (!req.files && !req.files.file) {
-        //     return res.status(500).sendStatus(errors.BASIC_ERROS.NO_FILE);
-        // }
 
-        const rootPath = rootDir + `/uploads/196/test/`;
+        const rootPath = rootDir + `/uploads/${req.body.userId}/${req.body.submissionUUID}/`;
 
-
-        const uploads = [];
-
-        // fs.readdirSync(rootPath).forEach(async filename => {
-        //
-        //     const data = fs.readFileSync(rootPath + filename);
-
-        Promise.all(fs.readdirSync(rootPath).map(filename => {
+        Promise.all(fs.readdirSync(rootPath).map((filename, order) => {
 
             const data = fs.readFileSync(rootPath + filename);
 
             return new Promise((resolve, reject) => {
                 return Jimp.read(data).then(image => {
-                    let width = 1500;
+                    let width = 1200;
                     let height = Jimp.AUTO;
 
                     if(image.bitmap.height > image.bitmap.width) {
                         width = Jimp.AUTO;
-                        height = 1500;
+                        height = 1200;
                     }
 
                     image.resize(width, height, Jimp.RESIZE_BEZIER)
@@ -125,7 +115,7 @@ module.exports = function (router) {
                     const upload = await b2.uploadFile({
                         uploadUrl: uploadUrl.data.uploadUrl,
                         uploadAuthToken: uploadUrl.data.authorizationToken,
-                        filename: "test/" + filename,
+                        filename: `${req.body.publicationId}/` + req.body.link + order + ".jpg",
                         data: bufferFile,
                         onUploadProgress: function (event) {
                             // console.log(event);

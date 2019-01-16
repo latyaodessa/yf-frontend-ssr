@@ -1,11 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSubmissionByUUid, updateSubmission, publishSubmission} from "../../../actions/SubmissionActions";
+import {
+    getSubmissionByUUid,
+    publishSubmission,
+    updatePublicationPictures,
+    updateSubmission
+} from "../../../actions/SubmissionActions";
+import {uploadImagesToCloud} from "../../../actions/StorageActions";
 import {bindActionCreators} from "redux";
-import {Button, Dropdown, Form, List, TextArea} from 'semantic-ui-react'
+import {Button, Dropdown, Form, List, Segment, TextArea} from 'semantic-ui-react'
 import SubmissionParticipantsForm from './SubmissionParticipantsForm'
 import SubmissionImagesForm from './SubmissionImagesForm';
 import {push} from "connected-react-router";
+import {Grid} from "semantic-ui-react/dist/commonjs/collections/Grid";
+
+const BACKPLAZE_HOST = "https://f002.backblazeb2.com/file/youngfolks/";
 
 const statusOptions = [
     {
@@ -31,7 +40,8 @@ class SubmissionDetailsForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            submission: null
+            submission: null,
+            publicationId: null
         };
         this.handleStatusChange = this.handleStatusChange.bind(this);
     }
@@ -61,11 +71,46 @@ class SubmissionDetailsForm extends React.Component {
     publish = () => {
         this.setState({submission: {...this.state.submission, status: "ACCEPTED"}});
         this.props.updateSubmission(this.state.submission).then(() => {
-            this.props.publishSubmission(this.state.submission.id).then(() => {
-                console.log(this.props);
-            })
+
+
+            if (this.state.publicationId) {
+                this.updateImages();
+            } else {
+                this.props.publishSubmission(this.state.submission.id).then(() => {
+                    console.log(this.props);
+                    this.setState({
+                        publicationId: this.props.publication.data.id
+                    });
+                    this.updateImages();
+                })
+            }
+
+
         })
     };
+
+    updateImages = () => {
+        this.props.uploadImagesToCloud(this.props.userId, this.props.uuid, this.props.publication.data.id, this.props.publication.data.link).then(async () => {
+            console.log(this.props);
+            if (this.props.uploadToCloud.data && !this.props.uploadToCloud.data.includes(null)) {
+                let images = [];
+                await this.props.uploadToCloud.data.map(upload => {
+                    images.push({
+                        fileId: upload.fileId,
+                        fileName: upload.fileName,
+                        contentSha1: upload.contentSha1,
+                        friendlyLink: BACKPLAZE_HOST + upload.fileName
+                    })
+                });
+
+                this.props.updatePublicationPictures(this.props.publication.data.id, images);
+                // this.props.goToSubmission();
+            } else {
+                console.error("PROBLEMS WITH UPLOAD");
+            }
+        });
+
+    }
 
 
     updateNonNestedField = (e) => {
@@ -80,31 +125,34 @@ class SubmissionDetailsForm extends React.Component {
     }
 
     renderForm = () => (
-        <Form>
-            <Form.Field>
-                <label>City</label>
-                <input onChange={e => this.updateNonNestedField(e)} placeholder='City' name={"city"}
-                       value={this.state.submission.city}/>
-            </Form.Field>
-            <Form.Field>
-                <label>Country</label>
-                <input onChange={e => this.updateNonNestedField(e)} placeholder='Country' name={"country"}
-                       value={this.state.submission.country}/>
-            </Form.Field>
-            <Form.Field>
-                <label>equipment</label>
-                <input onChange={e => this.updateNonNestedField(e)} placeholder='equipment' name={"equipment"}
-                       value={this.state.submission.equipment}/>
-            </Form.Field>
-            <Form.Field control={TextArea} onChange={e => this.updateNonNestedField(e)} label='text' name="text"
-                        value={this.state.submission.text}/>
-            <Form.Field>
-                <label>comment</label>
-                <input onChange={e => this.updateNonNestedField(e)} placeholder='comment' name={"comment"}
-                       value={this.state.submission.comment}/>
-            </Form.Field>
-            <Form.Field onChange={this.handleStatusChange} control={Dropdown} luid selection options={statusOptions}/>
-        </Form>
+        <Segment>
+            <Form>
+                <Form.Field>
+                    <label>City</label>
+                    <input onChange={e => this.updateNonNestedField(e)} placeholder='City' name={"city"}
+                           value={this.state.submission.city}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Country</label>
+                    <input onChange={e => this.updateNonNestedField(e)} placeholder='Country' name={"country"}
+                           value={this.state.submission.country}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>equipment</label>
+                    <input onChange={e => this.updateNonNestedField(e)} placeholder='equipment' name={"equipment"}
+                           value={this.state.submission.equipment}/>
+                </Form.Field>
+                <Form.Field control={TextArea} onChange={e => this.updateNonNestedField(e)} label='text' name="text"
+                            value={this.state.submission.text}/>
+                <Form.Field>
+                    <label>comment</label>
+                    <input onChange={e => this.updateNonNestedField(e)} placeholder='comment' name={"comment"}
+                           value={this.state.submission.comment}/>
+                </Form.Field>
+                <Form.Field onChange={this.handleStatusChange} control={Dropdown} luid selection
+                            options={statusOptions}/>
+            </Form>
+        </Segment>
     );
 
 
@@ -120,7 +168,7 @@ class SubmissionDetailsForm extends React.Component {
 
                 <div>
                     <Button onClick={this.decline.bind(this)} secondary>Decline</Button>
-                    <Button onClick={this.updateStatus.bind(this)} secondary>Update Status</Button>
+                    <Button onClick={this.updateStatus.bind(this)} secondary>Update State</Button>
                     <Button onClick={this.publish.bind(this)} primary>Publish</Button>
                 </div>
             </div>}
@@ -149,8 +197,8 @@ const StaticContent = ({sbmt}) => {
 }
 
 
-const mapStateToProps = ({submission, publication}) => (
-    {submission: submission, publication: publication}
+const mapStateToProps = ({submission, publication, uploadToCloud}) => (
+    {submission: submission, publication: publication, uploadToCloud: uploadToCloud}
 );
 
 
@@ -160,6 +208,8 @@ const mapDispatchToProps = dispatch =>
             getSubmissionByUUid,
             updateSubmission,
             publishSubmission,
+            uploadImagesToCloud,
+            updatePublicationPictures,
             goToSubmission: () => push(`/submission/`)
         },
         dispatch
