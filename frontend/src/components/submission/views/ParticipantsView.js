@@ -277,6 +277,10 @@ class ParticipantsView extends React.Component {
                 country: e.target[`${type}.${p.number}.country`].value,
                 city: e.target[`${type}.${p.number}.city`].value,
                 instagram: e.target[`${type}.${p.number}.instagram`].value,
+                facebook: e.target[`${type}.${p.number}.facebook`].value,
+                vk: e.target[`${type}.${p.number}.vk`].value,
+                website: e.target[`${type}.${p.number}.website`].value,
+                agency: e.target[`${type}.${p.number}.agency`].value,
                 me: e.target[`${type}.${p.number}.me`].checked
             });
         });

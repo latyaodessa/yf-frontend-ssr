@@ -1,5 +1,5 @@
 .pics-content {
-  margin: 20px;
+  margin: 13px;
 }
 
 .single-img {
@@ -23,6 +23,7 @@
 
 .top-text {
   margin: 20px;
+  width: 100%
 }
 
 .save-button-icon {
@@ -48,7 +49,7 @@
 .related-post-slider {
   padding: 13px;
   height: 300px;
-  width: 90%;
+  width: 100%;
   & div div .hovereffect {
     height: 300px;
   }

@@ -5,6 +5,7 @@ routes
     .add('native')
     .add('sets')
     .add('art')
+    .add('exclusive')
     .add('dashboard')
     .add('profile')
     .add('post', '/post/:postId')

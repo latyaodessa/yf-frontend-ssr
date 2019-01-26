@@ -79,8 +79,9 @@ class SubmissionViewsWrapper extends React.Component {
         sbms.city = description.city;
         sbms.country = description.country;
         sbms.eventDate = description.date;
-        sbms.text = description.description;
+        sbms.about = description.about;
         sbms.equipment = description.equipment;
+        sbms.title = description.title;
 
         this.setState({submission: sbms});
         this.validateAndSubmit();

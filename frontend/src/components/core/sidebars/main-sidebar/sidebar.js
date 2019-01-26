@@ -1,8 +1,9 @@
 import React from 'react'
 import SidebarHeader from './components/sidebarheader'
+import ExclustivePostsThumbnailSlider from './components/ExclustivePostsThumbnailSlider'
 import styles from '../../../../../res/styles/sidebar.scss'
 import loginStyles from '../../../../../res/styles/user/login.scss'
-
+import ExclustivePostsBigSlider from '../../../posts/lists/ExclustivePostsBiglSlider'
 const mobileViewSize = 850;
 
 export default class Sidebar extends React.Component {
@@ -41,6 +42,7 @@ export default class Sidebar extends React.Component {
                         <div className="sidebar">
                             <div className='profile'>
                                 <SidebarHeader/>
+                                <ExclustivePostsThumbnailSlider />
                             </div>
                         </div>
                     </div> : null}

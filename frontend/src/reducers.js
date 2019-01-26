@@ -21,12 +21,14 @@ import {submissionPicsList, upload} from './reducers/files/uploadReducers'
 import {country} from './reducers/meta/metaReducers';
 import {submission, submissionsList} from "./reducers/submission/submissionReducers";
 import {userPublications} from "./reducers/user/dashboard/userPublicationRedicers";
+import {exclusiveList} from "./reducers/post/publicationListReducer";
 import {routerReducer as routing} from 'react-router-redux';
 
 export default combineReducers({
     native,
     sets,
     art,
+    exclusiveList,
     single,
     related,
     topNative,

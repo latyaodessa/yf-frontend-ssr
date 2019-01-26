@@ -3,12 +3,14 @@ import {fetchPublicationDetails} from "../src/actions/post/single-post-actions";
 import MainLayoutWithNavigation from '../src/components/layouts/MainLayoutWithNavigation'
 import {connect} from "react-redux";
 import PicsRenderer from "../src/components/posts/single/components/pics-renderer-component";
+import StoragePicsRenderer from "../src/components/posts/single/components/storage-pics-renderer-component";
 import Header from "../src/components/posts/single/components/header-component";
 import RelatedPostsSliderComponent from "../src/components/posts/single/components/related-posts-component"
 import Sidebar from '../src/components/core/sidebars/main-sidebar/sidebar'
 import styles from "../res/styles/main.scss"
 import meta from "../src/components/posts/single/components/singlePostMetaGenerator"
 import ErrorPage from 'next/error'
+import {RELATED_PUBS} from "../src/messages/post";
 
 class SinglePost extends React.Component {
 
@@ -36,11 +38,25 @@ class SinglePost extends React.Component {
     }
 
 
+    renderPics = () => {
+        if (this.props.post.vkPost) {
+            return <PicsRenderer
+                largePics={this.props.post.vkPost.largePics}/>
+        }
+
+        return <StoragePicsRenderer
+            pics={this.props.post.publicationPictures}/>
+
+    };
+
+
     render() {
 
         if (!this.props.post) {
             return <ErrorPage statusCode={404}/>
         }
+
+        console.log(this.props);
 
         return (
             <MainLayoutWithNavigation meta={meta(this.props.post)}>
@@ -52,15 +68,14 @@ class SinglePost extends React.Component {
                                 {this.props.fetched ?
                                     <div>
                                         <Header post={this.props.post} user_id={this.state.user_id}/>
-                                        <PicsRenderer
-                                            largePics={this.props.post.publicationPictures ? this.props.post.publicationPictures : this.props.post.vkPost.largePics}/>
+                                        {this.renderPics()}
                                     </div>
                                     : null}
                             </div>
                         </div>
                         <Sidebar width={this.state.width} mobileViewSize={this.state.mobileViewSize}/>
                     </div>
-                    <h1>Похожие фотосеты</h1>
+                    <h1>{RELATED_PUBS}</h1>
                     {this.props.post ?
                         <RelatedPostsSliderComponent
                             publication={this.props.post}/>

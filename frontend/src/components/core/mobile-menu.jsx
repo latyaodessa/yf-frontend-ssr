@@ -1,8 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import {ART_PAGE, MAIN_PAGE, NATIVE_PAGE, SETS_PAGE} from '../../messages/core'
+import {ART_PAGE, MAIN_PAGE, NATIVE_PAGE, SETS_PAGE, EXCLUSIVE_PAGE} from '../../messages/core'
 import MobileLoginLogoutButton from '../core/menu-components/login-log-out-mobile'
 import styles from '../../../res/styles/navigation.scss'
+import {Icon} from "semantic-ui-react";
 
 export default class MobileMenu extends React.Component {
     constructor(props) {
@@ -43,6 +44,12 @@ export default class MobileMenu extends React.Component {
                         <li onClick={this.changeToggleState.bind(this)}>
                             <Link href='/'><a className="active">{MAIN_PAGE}</a></Link>
                         </li>
+                        <li onClick={this.changeToggleState.bind(this)}>
+                            <Link href='/exclusive'><a>
+                                <Icon name='star'/>
+                                {EXCLUSIVE_PAGE}
+                            </a></Link>
+                            </li>
                         <li onClick={this.changeToggleState.bind(this)}>
                             <Link href='/native'><a className="active">{NATIVE_PAGE}</a></Link>
                         </li>

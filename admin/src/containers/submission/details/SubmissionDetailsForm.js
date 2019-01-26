@@ -41,9 +41,11 @@ class SubmissionDetailsForm extends React.Component {
         super(props);
         this.state = {
             submission: null,
-            publicationId: null
+            publicationId: null,
+            thumbnailName: null
         };
         this.handleStatusChange = this.handleStatusChange.bind(this);
+        this.updateThumbnail = this.updateThumbnail.bind(this)
     }
 
 
@@ -52,6 +54,10 @@ class SubmissionDetailsForm extends React.Component {
             this.setState({submission: this.props.submission.data})
         });
     }
+
+    updateThumbnail = (thumbnailName) => {
+        this.setState({thumbnailName: thumbnailName});
+    };
 
     updateStatus = () => {
         const allParticipants = this.commitParticipnats.commit();
@@ -94,17 +100,22 @@ class SubmissionDetailsForm extends React.Component {
             console.log(this.props);
             if (this.props.uploadToCloud.data && !this.props.uploadToCloud.data.includes(null)) {
                 let images = [];
+                let thumbnailId = "";
                 await this.props.uploadToCloud.data.map(upload => {
                     images.push({
                         fileId: upload.fileId,
                         fileName: upload.fileName,
                         contentSha1: upload.contentSha1,
                         friendlyLink: BACKPLAZE_HOST + upload.fileName
-                    })
+                    });
+                    if(this.state.thumbnailName && upload.originalName.includes(this.state.thumbnailName)) {
+                        thumbnailId =  upload.fileId;
+                    }
                 });
+                console.log(thumbnailId);
 
-                this.props.updatePublicationPictures(this.props.publication.data.id, images);
-                // this.props.goToSubmission();
+                this.props.updatePublicationPictures(this.props.publication.data.id, images, thumbnailId);
+                this.props.goToSubmission();
             } else {
                 console.error("PROBLEMS WITH UPLOAD");
             }
@@ -142,8 +153,13 @@ class SubmissionDetailsForm extends React.Component {
                     <input onChange={e => this.updateNonNestedField(e)} placeholder='equipment' name={"equipment"}
                            value={this.state.submission.equipment}/>
                 </Form.Field>
-                <Form.Field control={TextArea} onChange={e => this.updateNonNestedField(e)} label='text' name="text"
-                            value={this.state.submission.text}/>
+                <Form.Field>
+                    <label>title</label>
+                    <input onChange={e => this.updateNonNestedField(e)} placeholder='title' name={"title"}
+                           value={this.state.submission.title}/>
+                </Form.Field>
+                <Form.Field control={TextArea} onChange={e => this.updateNonNestedField(e)} label='about' name="about"
+                            value={this.state.submission.about}/>
                 <Form.Field>
                     <label>comment</label>
                     <input onChange={e => this.updateNonNestedField(e)} placeholder='comment' name={"comment"}
@@ -164,7 +180,7 @@ class SubmissionDetailsForm extends React.Component {
                                             onRef={ref => (this.commitParticipnats = ref)}/>
                 {this.renderForm()}
 
-                <SubmissionImagesForm userId={this.props.userId} uuid={this.props.uuid}/>
+                <SubmissionImagesForm userId={this.props.userId} uuid={this.props.uuid} updateThumbnail={this.updateThumbnail}/>
 
                 <div>
                     <Button onClick={this.decline.bind(this)} secondary>Decline</Button>
@@ -186,13 +202,14 @@ const style = {
 
 const StaticContent = ({sbmt}) => {
     const date = new Date(sbmt.createdOn);
+    const eventDate = new Date(sbmt.eventDate * 1000);
     const readableDate = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2);
     return <List>
         <List.Item>ID: {sbmt.id}</List.Item>
         <List.Item>UUID: {sbmt.uuid}</List.Item>
         <List.Item>STATUS: {sbmt.status}</List.Item>
         <List.Item>Created On: {readableDate} ({sbmt.createdOn})</List.Item>
-        <List.Item>Event Date: {sbmt.eventDate}</List.Item>
+        <List.Item>Event Date: {`${('0' + eventDate.getDate()).slice(-2)}-${("0" + (eventDate.getMonth() + 1)).slice(-2)}-${eventDate.getFullYear()}`}</List.Item>
     </List>
 }
 

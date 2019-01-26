@@ -19,11 +19,14 @@ import {
     FETCH_TOP_SETS_REJECTED,
     SEARCH_POST_FULFILLED,
     SEARCH_POST_REJECTED,
+    FETCH_EXCLUSIVE_POSTS_FULFILLED,
+    FETCH_EXCLUSIVE_POSTS_REJECTED,
     FETCH_USER_SAVED_PULICATIONS_FULFILLED,
     FETCH_RELATED_POSTS_FULFILLED, FETCH_USER_SAVED_PULICATIONS_REJECTED
 } from '../../constants/post/posts-constants';
 
 const PUB_TYPE_NATIVE = "NATIVE";
+const PUB_TYPE_EXCLUSIVE = "EXCLUSIVE";
 const PUB_TYPE_SETS = "SETS";
 const PUB_TYPE_ART = "ART";
 
@@ -35,6 +38,17 @@ export const fetchNativePosts = (from, to) => (dispatch, getState) => {
         })
         .catch((err) => {
             dispatch({type: FETCH_NATIVE_POSTS_REJECTED, payload: err})
+        })
+
+};
+
+export const fetchExclusivePosts = (from, to) => (dispatch, getState) => {
+    return axios.get([FIND_PUBLICATION_BY_TYPE, PUB_TYPE_EXCLUSIVE, from, to].join("/"))
+        .then((res) => {
+            dispatch({type: FETCH_EXCLUSIVE_POSTS_FULFILLED, payload: res.data})
+        })
+        .catch((err) => {
+            dispatch({type: FETCH_EXCLUSIVE_POSTS_REJECTED, payload: err})
         })
 
 };

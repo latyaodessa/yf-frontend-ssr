@@ -35,8 +35,8 @@ export const publishSubmission = (submissionId) => (dispatch, getState) => {
     })
 };
 
-export const updatePublicationPictures = (publicationId, pictures) => (dispatch, getState) => {
-    return axios.put(PUBLICATION_IMAGES  + publicationId, pictures).then((res) => {
+export const updatePublicationPictures = (publicationId, pictures, thumbnailId) => (dispatch, getState) => {
+    return axios.put(PUBLICATION_IMAGES  + publicationId + "/" + thumbnailId, pictures).then((res) => {
         dispatch({type: "OK", payload: res.data});
     }).catch((err) => {
         dispatch({type: "NOT_OK", payload: err})

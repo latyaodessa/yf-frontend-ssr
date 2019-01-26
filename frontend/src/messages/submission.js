@@ -18,6 +18,8 @@ export const CHOOSE_SOCIAL = "Укажите хотя бы одну учетну
 export const INSTAGRAM_DESCR = "Instagram профиль";
 export const FACEBOOK_DESCR = "Facebook профиль";
 export const VK_DESCR = "VK профиль";
+export const WEBSITE_DESCR = "Сайт";
+export const AGENCY_DESCR = "Агентство";
 
 export const ADD_MD_BUTTON = "Добавить модель";
 export const ADD_PH_BUTTON = "Добавить фотографа";
@@ -42,7 +44,8 @@ export const ADDITIONAL_PARTICIPANTS = "Добавить участников ф
 export const ERROR_REQUIRED_FIELD = "Обязательное поле";
 export const ERROR_ME_NOT_CHECKED = "Отметьте, кем вы являетесь в фотосъемке";
 
-export const PHOTOSHOOTING_DESCRIPTION = "Расскажите что-то интересное о фотосъемке";
+export const PHOTOSHOOTING_TITLE = "Краткое заглавие";
+export const PHOTOSHOOTING_DESCRIPTION = "Расскажи что-то интересное о фотосъемке и её участниках";
 export const GENERAL_PHSHOOTING_INFO_LABEL = "Информация о фотосъемке";
 export const GENERAL_DATE_DESCR_LABEL = "Дата фотосъемки";
 export const PH_EQ_EXAMPLE = "Canon EOS 7D Mark II,  Sigma 12-24mm f/4.5-5.6 EX DG";
@@ -51,7 +54,7 @@ export const PH_EQ_LABEL = "Использованное оборудовани�
 export const UPLOAD_PICS_LABEL = "Загрузить фотографии";
 export const UPLOAD_FORMATS_LABEL = "Формат фотографий: jpg, jpeg, png";
 export const MAX_FILES_LABEL = "Минимум 5 и максимум 15 фотографий";
-export const MAX_SIZE_LABEL = "Максимум 10 мб";
+export const MAX_SIZE_LABEL = "Максимум 15 мб";
 export const MIN_DIMENTIONS_LABEL = "Минимальный размер 1280px по меньшей стороне";
 
 export const NEXT_BUTTON = "Далее";

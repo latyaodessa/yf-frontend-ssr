@@ -67,7 +67,7 @@ class MainLayoutWithNavigation extends React.Component {
             }
 
         .wrapper {
-          max-width: 1160px;
+          width: 100%;
           //width:75%;
           margin: 0 auto;
           position: relative;
@@ -258,6 +258,7 @@ class MainLayoutWithNavigation extends React.Component {
                     <link rel="canonical" href={this.props.meta.canonical}/>
                     <title>{this.props.meta.title}</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <link href="https://fonts.googleapis.com/css?family=Philosopher:400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet"/>
                     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
                     <link rel="stylesheet"
                           href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"/>

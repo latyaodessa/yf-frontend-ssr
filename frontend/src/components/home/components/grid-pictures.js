@@ -2,7 +2,7 @@ import React from 'react';
 import NativeGrid from './native-grid-component'
 import SetsGrid from './sets-grid-component'
 import {connect} from "react-redux";
-
+import ExclustivePostsBigSlider from  "./../../posts/lists/ExclustivePostsBiglSlider";
 
 class Grid extends React.Component {
 
@@ -36,6 +36,7 @@ class Grid extends React.Component {
     render() {
         return (
             <div>
+                <ExclustivePostsBigSlider />
                 <NativeGrid/>
                 <SetsGrid/>
             </div>

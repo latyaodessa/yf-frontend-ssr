@@ -42,7 +42,7 @@ h1.no-underscore:before {
 }
 
 .wrapper {
-    max-width: 1160px;
+    /*max-width: 1160px;*/
     margin: 0 auto;
     position: relative;
     display: inline-flex;

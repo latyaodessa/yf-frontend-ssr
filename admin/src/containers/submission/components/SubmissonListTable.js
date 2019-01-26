@@ -33,13 +33,12 @@ class SubmissonListTable extends React.Component {
                     const date = new Date(sbmt.createdOn);
                     const readableDate = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2);
 
-                    const eventDate = new Date(sbmt.eventDate);
-                    const readableeventDate = eventDate.getDate() + "/" + eventDate.getMonth() + "/" + eventDate.getFullYear() + " " + eventDate.getHours() + ':' + ('0' + eventDate.getMinutes()).slice(-2);
+                    const eventDate = new Date(sbmt.eventDate * 1000);
 
                     return <Table.Row key={sbmt.id} onClick={this.props.goToDetails.bind(this, sbmt.user.id, sbmt.uuid)}>
                         <Table.Cell>{readableDate}</Table.Cell>
                         <Table.Cell>{`${sbmt.country}, ${sbmt.city}`}</Table.Cell>
-                        <Table.Cell>{readableeventDate}</Table.Cell>
+                        <Table.Cell>{`${('0' + eventDate.getDate()).slice(-2)}-${("0" + (eventDate.getMonth() + 1)).slice(-2)}-${eventDate.getFullYear()}`}</Table.Cell>
                     </Table.Row>
                 })}
             </Table.Body>

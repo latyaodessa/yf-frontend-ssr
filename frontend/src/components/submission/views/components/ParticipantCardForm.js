@@ -2,13 +2,17 @@ import React from 'react'
 import styles from './../styles.scss'
 import {Element} from 'react-scroll'
 import {
+    AGENCY_DESCR,
     CITY,
     COUNTRY,
+    FACEBOOK_DESCR,
     FIRST_NAME,
     INSTAGRAM_DESCR,
     IT_IS_ME,
     LAST_NAME,
-    PARTICIPANTS_TYPE
+    PARTICIPANTS_TYPE,
+    VK_DESCR,
+    WEBSITE_DESCR
 } from "../../../../messages/submission";
 import {Checkbox, Form, Icon, Label} from 'semantic-ui-react'
 import {connect} from "react-redux";
@@ -58,6 +62,7 @@ class ParticipantCardForm extends React.PureComponent {
 
 
     render() {
+        console.log(this.props.participant)
         return (
             <Element name={this.props.participantType.type + this.props.participant.number}>
                 <style jsx>{styles}</style>
@@ -123,6 +128,49 @@ class ParticipantCardForm extends React.PureComponent {
                                         defaultValue={this.props.participant.instagram}>
 
                                 <Icon name='instagram'/>
+                                <input/>
+                            </Form.Input>
+
+                            <Form.Input label={""}
+                                        fluid iconPosition='left' placeholder={FACEBOOK_DESCR}
+                                        name={`${this.props.participantType.type}.${this.props.participant.number}.facebook`}
+                                        defaultValue={this.props.participant.facebook}>
+
+                                <Icon name='facebook'/>
+                                <input/>
+                            </Form.Input>
+
+                        </Form.Group>
+
+                        <Form.Group widths='equal'>
+
+
+                            <Form.Input label={""}
+                                        fluid iconPosition='left' placeholder={VK_DESCR}
+                                        name={`${this.props.participantType.type}.${this.props.participant.number}.vk`}
+                                        defaultValue={this.props.participant.vk}>
+
+                                <Icon name='vk'/>
+                                <input/>
+                            </Form.Input>
+
+                            <Form.Input label={""}
+                                        fluid iconPosition='left' placeholder={WEBSITE_DESCR}
+                                        name={`${this.props.participantType.type}.${this.props.participant.number}.website`}
+                                        defaultValue={this.props.participant.website}>
+
+                                <Icon name='world'/>
+                                <input/>
+                            </Form.Input>
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+
+                            <Form.Input label={""}
+                                        fluid iconPosition='left' placeholder={AGENCY_DESCR}
+                                        name={`${this.props.participantType.type}.${this.props.participant.number}.agency`}
+                                        defaultValue={this.props.participant.agency}>
+
+                                <Icon name='address card'/>
                                 <input/>
                             </Form.Input>
 

@@ -13,6 +13,26 @@ body {
   height: 100%;
 }
 
+h2 {
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: unset;
+  letter-spacing: 0.1em;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 4em;
+
+    animation: slide-in 1s ease-in both 0.5s;
+  }
+}
+
 h1 {
   position: relative;
   font-weight: 600;
@@ -50,7 +70,7 @@ h1 {
 }
 
 .wrapper {
-  max-width: 1160px;
+  //max-width: 1160px;
   //width:75%;
   margin: 0 auto;
   position: relative;
@@ -65,6 +85,7 @@ h1 {
 .content {
   clear: both;
   overflow: auto;
+
   & h1 {
     margin-left: 5px;
   }
@@ -155,6 +176,7 @@ h1 {
   -webkit-transform: scale(0, 1);
   -ms-transform: scale(0, 1);
   transform: scale(0, 1);
+
   & a {
     text-decoration: none;
   }
@@ -230,10 +252,20 @@ h1 {
     height: 50px;
     width: 50px;
   }
+
   & span {
     position: absolute;
     top: 40%;
     left: 51%;
     transform: translate(-50%, -50%);
   }
+}
+
+.height-ellipsis {
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

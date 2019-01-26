@@ -12,7 +12,7 @@ import ThumbnailPicture from '../src/components/posts/core/ThumbnailPicture'
 const initSizePhoto = 0;
 const incrementSize = 12;
 
-class NativeList extends React.Component {
+class ExclusiveList extends React.Component {
 
 
     constructor(props) {
@@ -101,5 +101,5 @@ function mapStateToProps(state) {
     return native;
 }
 
-export default connect(mapStateToProps)(NativeList)
+export default connect(mapStateToProps)(ExclusiveList)
 

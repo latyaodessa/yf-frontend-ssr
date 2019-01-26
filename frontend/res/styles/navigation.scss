@@ -117,7 +117,7 @@
   top: 15px;
   right: 15px;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 10000;
   .burger {
     transition: all 0.3s;
     border-radius: 5px;
@@ -147,6 +147,8 @@
       transform: translate3d(0px, 0px, 0px) rotateZ(-45deg);
       width: 40px;
       transform-origin: left bottom;
+      position: relative;
+      bottom: 9px;
     }
   }
 }
@@ -167,7 +169,7 @@
   border-radius: 0;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 9999;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.85);
   ul {

@@ -6,7 +6,7 @@ import {cloneDeep} from 'lodash';
 
 import {PROFILE_IMGAGE_ERRORS} from "../../../../messages/profile-image-errors";
 
-import {Form, Grid, Label, Progress, Segment} from 'semantic-ui-react'
+import {Form, Grid, Label, Loader, Segment, Dimmer} from 'semantic-ui-react'
 import {
     MAX_FILES_LABEL,
     MAX_SIZE_LABEL,
@@ -22,7 +22,7 @@ import {
 } from "../../../../actions/uploadActions";
 
 const ALLOWED_FILE_FROMATS = ["png", "jpg", "jpeg"];
-const MAX_BYTES = 10485760;
+const MAX_BYTES = 15485760;
 const MIN_HEIGHT = 1280;
 const MIN_WIDTH = 1280;
 const MAX_FILES = 15;
@@ -51,7 +51,8 @@ class ImageUploadForm extends React.Component {
             imageFiles: [],
             dragStyle: style.dropzone,
             error: '',
-            uuid: props.initUuid
+            uuid: props.initUuid,
+            uploading: false
         }
     }
 
@@ -128,36 +129,20 @@ class ImageUploadForm extends React.Component {
             onUploadProgress: progressEvent => {
                 const imageFiles = cloneDeep(this.state.imageFiles);
                 const counter = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                imageFiles[index].loadCounter = counter;
-                this.setState({imageFiles});
+                // imageFiles[index].loadCounter = counter;
+                this.setState({imageFiles: imageFiles, uploading: counter !== 100});
             },
             timeout: 500000
         };
 
 
-        // this.setState({fetching: true});
         const fd = new FormData();
         fd.append('file', file);
-        // let user = getCookieByKey(USER);
-        // fd.append('userId', user.id);
+
         fd.append('orientation', window.orientation);
         await this.props.dispatch(uploadPicsForSumbissionWithStorageService(this.state.uuid, fd, config)).then(() => {
 
-            // this.props.changeProfilePic(this.props.data.fileName);
-            //
-            // let profilePicDto = {
-            //     fileId: this.props.data.fileId,
-            //     fileName: this.props.data.fileName,
-            //     friendlyLink: FRIENDLY_HOST + this.props.data.fileName,
-            //     nativeLink: NATIVE_HOST + this.props.data.fileId
-            // };
-
-
-            // this.props.dispatch(saveProfilePicToUser(user.id, getCookieByKey(TOKEN), profilePicDto));
-            // this.setState({fetching: false});
-            // return profilePicDto;
         })
-        // .then(dto => uploadNewProfilePic(dto))
     };
 
     isDimentionsValid = inputFile => {
@@ -231,12 +216,8 @@ class ImageUploadForm extends React.Component {
                     key={file.name + file.lastModified}>
                     <div className={"img-container"}>
                         <Segment style={{padding: 0}} basic>
-                            {file.loadCounter &&
-                            <Progress percent={file.loadCounter} attached='top'
-                                      color={file.loadCounter !== 100 ? 'purple' : 'green'}/>}
                             <div>
                                 <div className="tools-wrapper">
-                                    {/*<style jsx>{dashboardStyles}</style>*/}
                                     <div style={{position: "absolute"}} className="delete-container">
                                         <img
                                             onClick={this.deleteImg.bind(this, file, index)}
@@ -279,11 +260,8 @@ class ImageUploadForm extends React.Component {
                     {this.state.error && this.getErrorText()}
                     <Grid.Column>
                         <Segment textAlign='left' basic>
-                            {/*<Label attached='top'>{GENERAL_PHSHOOTING_INFO_LABEL}</Label>*/}
                             <div className="dropzone">
                                 <Dropzone
-                                    // onDragEnter={this.changeDropZoneStyle.bind(this, true)}
-                                    // onDragLeave={this.changeDropZoneStyle.bind(this, false)}
                                     style={style.dropzone}
                                     onDrop={this.onDrop.bind(this)}>
 
@@ -291,19 +269,13 @@ class ImageUploadForm extends React.Component {
                                 </Dropzone>
                             </div>
                             <aside>
-                                {/*<h2>Dropped files</h2>*/}
-                                {/*<ul>*/}
-                                {/*{*/}
-                                {/*this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)*/}
-                                {/*}*/}
-                                {/*</ul>*/}
-
-
                             </aside>
                         </Segment>
                     </Grid.Column>
                 </Grid>
-
+                {this.state.uploading && <Dimmer active inverted>
+                    <Loader size='large'/>
+                </Dimmer>}
             </div>
         )
     }

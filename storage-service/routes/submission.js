@@ -121,6 +121,7 @@ module.exports = function (router) {
                             // console.log(event);
                         }
                     });
+                    upload.data.originalName = filename;
                     return upload.data;
                 } catch (e) {
                     console.log('Error upload:', e);

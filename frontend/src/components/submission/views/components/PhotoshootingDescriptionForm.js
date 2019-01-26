@@ -11,7 +11,8 @@ import {
     ERROR_REQUIRED_FIELD,
     GENERAL_DATE_DESCR_LABEL,
     GENERAL_PHSHOOTING_INFO_LABEL,
-    PHOTOSHOOTING_DESCRIPTION
+    PHOTOSHOOTING_DESCRIPTION,
+    PHOTOSHOOTING_TITLE
 } from "../../../../messages/submission";
 import ParticipantsEquipmentForm from './ParticipantsEquipmentForm';
 import _ from 'lodash';
@@ -24,8 +25,9 @@ class PhotoshootingDescriptionForm extends React.Component {
         if (props.submission && props.submission.data) {
             this.state = {
                 // countries: [],
-                description: props.submission.data.text,
+                about: props.submission.data.about,
                 date: null,
+                title: props.submission.data.title,
                 country: props.submission.data.country,
                 city: props.submission.data.city,
                 phEquipment: [props.submission.data.equipment],
@@ -34,7 +36,8 @@ class PhotoshootingDescriptionForm extends React.Component {
         } else {
             this.state = {
                 // countries: [],
-                description: '',
+                about: '',
+                title: title,
                 date: null,
                 country: '',
                 city: '',
@@ -72,8 +75,8 @@ class PhotoshootingDescriptionForm extends React.Component {
         let errors = {};
 
 
-        if (this.isBlank(this.state.description)) {
-            errors[`description`] = ERROR_REQUIRED_FIELD;
+        if (this.isBlank(this.state.about)) {
+            errors[`about`] = ERROR_REQUIRED_FIELD;
         }
         if (this.isBlank(this.state.date)) {
             errors[`date`] = ERROR_REQUIRED_FIELD;
@@ -84,6 +87,9 @@ class PhotoshootingDescriptionForm extends React.Component {
         if (this.isBlank(this.state.city)) {
             errors[`city`] = ERROR_REQUIRED_FIELD;
         }
+        if (this.isBlank(this.state.title)) {
+            errors[`title`] = ERROR_REQUIRED_FIELD;
+        }
 
         this.setState({
             errors
@@ -91,10 +97,11 @@ class PhotoshootingDescriptionForm extends React.Component {
 
         if (_.isEmpty(errors)) {
             return {
-                description: this.state.description,
+                about: this.state.about,
                 date: moment(this.state.date).unix(),
                 country: this.state.country,
                 city: this.state.city,
+                title: this.state.title,
                 equipment: this.state.phEquipment.toString()
             }
         } else {
@@ -198,22 +205,41 @@ class PhotoshootingDescriptionForm extends React.Component {
             <style jsx>{styles}</style>
             <Grid stackable columns={1}>
                 <Grid.Column>
+                    <Form.Group widths='equal'>
+
+                        <Form.Input label={""}
+                                    fluid iconPosition='left' placeholder={PHOTOSHOOTING_TITLE}
+                                    name={"title"}
+                                    defaultValue={this.state.title}
+                                    onChange={this.handleChange}>
+
+                            <Icon name='pencil alternate'/>
+                            <input/>
+
+                        </Form.Input>
+                        {this.state.errors
+                        && this.state.errors['title']
+                        && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
+                            *{this.state.errors[`title`]}
+                        </Label>}
+                    </Form.Group>
+
                     <Form>
                             <TextArea
-                                defaultValue={this.state.description}
+                                defaultValue={this.state.about}
                                 style={{
                                 color: "rgb(82, 85, 89)",
                                 fontWeight: 300,
                                 fontSize: "1.5em",
                                 lineHeight: "1.09524",
                                 margin: "0.67em 0px"
-                            }} name="description" autoHeight
+                            }} name="about" autoHeight
                                       placeholder={PHOTOSHOOTING_DESCRIPTION}
                                       onChange={this.handleChange}/>
                         {this.state.errors
-                        && this.state.errors['description']
+                        && this.state.errors['about']
                         && <Label style={{background: "#de6262", color: "#FFF"}} basic pointing>
-                            *{this.state.errors[`description`]}
+                            *{this.state.errors[`about`]}
                         </Label>}
                     </Form>
                 </Grid.Column>

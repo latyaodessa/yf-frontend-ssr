@@ -9,7 +9,6 @@ import {ERRORS} from "../../../messages/errors";
 import {setAuthCookie} from "../../../services/CookieService";
 import Router from "next/router";
 import {createFBUser, createVkUser} from "../../../actions/user/user-actions";
-
 class SocialAuthorizationForm extends React.Component {
 
 

@@ -66,7 +66,7 @@ class MainLayoutEmpty extends React.Component {
             }
 
         .wrapper {
-          max-width: 1160px;
+          width: 100%;
           //width:75%;
           margin: 0 auto;
           position: relative;
@@ -255,6 +255,7 @@ class MainLayoutEmpty extends React.Component {
                     <title>Login</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
                     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Philosopher:400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet"/>
                     <link rel="stylesheet"
                           href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"/>
                     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css"/>
