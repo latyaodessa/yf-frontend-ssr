@@ -9,7 +9,9 @@ import styles from '../res/styles/main.scss'
 import {getMetaData, POST_TYPE} from "../src/components/posts/lists/postsListMetaGenerator"
 import ThumbnailPicture from '../src/components/posts/core/ThumbnailPicture'
 import ThumbnailPictureWithoutText from '../src/components/posts/core/ThumbnailPictureWithoutText'
-
+import {Button, Header, Icon} from 'semantic-ui-react'
+import {SUBMIT_BUTTON} from "../src/messages/submission";
+import {Grid} from "semantic-ui-react/dist/commonjs/collections/Grid";
 const initSizePhoto = 0;
 const incrementSize = 12;
 
@@ -85,17 +87,38 @@ class NativeList extends React.Component {
         )
     }
 
+    renderEmpty = () => {
+        return <div>
+            <Header as='h2' icon  textAlign='center' style={{padding:'50px'}}>
+                <Icon name='hand peace outline' />
+                Привет, рубрика "эксклюзив" находится на стадии подготовки.
+                <Header.Subheader>Хочешь попасть в эсклюзив? Приисылай нам твои работы, если они не были ранее нигде опубликованы.</Header.Subheader>
+                <Link route='submission'>
+                    <a><Button style={{margin: '20px', background: '#3b9c9a'}}
+                        content={SUBMIT_BUTTON}
+                        primary/>
+                    </a>
+                </Link>
+            </Header>
+        </div>
+    }
+
 
     render() {
         return (
-            <MainLayoutWithNavigationSidebar meta={getMetaData(POST_TYPE.NATIVE)} slider={TopNativeSlider}>
+            <MainLayoutWithNavigationSidebar meta={getMetaData(POST_TYPE.EXCLUSIVE)} slider={TopNativeSlider}>
                 <style jsx>{styles}</style>
-                <div>
-                    <ThumbnailPictureWithoutText post={this.props.post[0]}/>
-                    <div className="grid-list-container">
-                        {this.renderPics(this.props.post)}
-                    </div>
-                </div>
+
+                {this.props.post && this.props.post.length > 0 ? <div>
+                        <ThumbnailPictureWithoutText post={this.props.post[0]}/>
+                        <div className="grid-list-container">
+                            {this.renderPics(this.props.post)}
+                        </div>
+                    </div> :
+                    this.renderEmpty()
+                }
+
+
                 {this.props.fetching ? <Loader/> : null}
             </MainLayoutWithNavigationSidebar>
         )

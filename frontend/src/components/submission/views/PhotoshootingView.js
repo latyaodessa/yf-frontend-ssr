@@ -95,12 +95,12 @@ class PhotoshootingView extends React.Component {
 
                     <div>
                         <Grid>
-                            <Grid.Column floated='left' width={5}>
+                            <Grid.Column mobile={8} tablet={8} computer={8}>
                                 <Button onClick={() => this.props.goToPage(VIEWS.PARTICIPATS_VIEW)}
                                         content={BACK_BUTTON}
                                         icon='left arrow' labelPosition='left'/>
                             </Grid.Column>
-                            <Grid.Column floated='right' width={5}>
+                            <Grid.Column style={{textAlign: 'right'}} mobile={8} tablet={8} computer={8}>
                                 <Button onClick={this.commit} style={{background: '#3b9c9a'}}
                                         content={SUBMIT_BUTTON}
                                         primary/>

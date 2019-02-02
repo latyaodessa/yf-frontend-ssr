@@ -28,6 +28,13 @@ export const TITLE_NATIVE_LIST = "Модели из стран СНГ - Young Fo
 export const KEYWORDS_NATIVE_LIST = ["Русские модели", "Украинские модели", "Модели из СНГ", "Поиск моделей", "Модели", "Фотографы", "Россия", "Украина", "Модельное Агентство"];
 export const DESCRIPTION_NATIVE_LIST = "Модельное агентство. Модели и фотографы из Украины, России, Европы, США";
 
+
+// EXCLUSIVE LIST
+export const TITLE_EXCLUSIVE_LIST = "Эксклюзивные фотографии - Young Folks";
+export const KEYWORDS_EXCLUSIVE_LIST = ["Эксклюзив", "Эксклюзивные фотографии", "Русские модели", "Украинские модели", "Модели из СНГ", "Поиск моделей", "Модели", "Фотографы", "Россия", "Украина", "Модельное Агентство"];
+export const DESCRIPTION_EXCLUSIVE_LIST = "Модельное агентство. Модели и фотографы из Украины, России, Европы, США";
+
+
 // SETS LIST
 export const TITLE_SETS_LIST = "Зарубежные модели - Young Folks";
 export const KEYWORDS_SETS_LIST = ["Модели из США", "Модели из Европы", "Поиск моделей", "Модели", "Фотографы", "Россия", "Украина", "Модельное Агентство"];

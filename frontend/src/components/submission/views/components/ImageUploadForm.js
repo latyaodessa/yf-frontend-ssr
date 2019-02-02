@@ -6,7 +6,7 @@ import {cloneDeep} from 'lodash';
 
 import {PROFILE_IMGAGE_ERRORS} from "../../../../messages/profile-image-errors";
 
-import {Form, Grid, Label, Loader, Segment, Dimmer} from 'semantic-ui-react'
+import {Dimmer, Form, Grid, Label, Loader, Segment} from 'semantic-ui-react'
 import {
     MAX_FILES_LABEL,
     MAX_SIZE_LABEL,
@@ -52,7 +52,8 @@ class ImageUploadForm extends React.Component {
             dragStyle: style.dropzone,
             error: '',
             uuid: props.initUuid,
-            uploading: false
+            uploading: false,
+            uploadingCounter: []
         }
     }
 
@@ -130,7 +131,9 @@ class ImageUploadForm extends React.Component {
                 const imageFiles = cloneDeep(this.state.imageFiles);
                 const counter = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 // imageFiles[index].loadCounter = counter;
-                this.setState({imageFiles: imageFiles, uploading: counter !== 100});
+                let uploadingCounter = this.state.uploadingCounter;
+                uploadingCounter[index] = counter;
+                this.setState({imageFiles: imageFiles, uploading: counter !== 100, uploadingCounter: uploadingCounter});
             },
             timeout: 500000
         };
@@ -273,13 +276,19 @@ class ImageUploadForm extends React.Component {
                         </Segment>
                     </Grid.Column>
                 </Grid>
-                {this.state.uploading && <Dimmer active inverted>
-                    <Loader size='large'/>
-                </Dimmer>}
+                {this.state.uploading &&
+                <Dimmer style={style.dimmerStyle} active inverted>
+                    <Loader size='large'>
+                        {average(this.uploadingCounter)}%
+                    </Loader>
+                </Dimmer>
+                }
             </div>
         )
     }
 }
+
+const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
 
 const style = {
     dropzone: {
@@ -299,6 +308,11 @@ const style = {
         height: '300px',
         margin: '10px',
         background: '#797979'
+    },
+    dimmerStyle: {
+        position: 'fixed',
+        height: "100%",
+        width: "100%"
     }
 };
 

@@ -7,7 +7,7 @@ import SocialSharingButtons from './buttons/SocialSharingButtons';
 import LikeButton from './buttons/LikeButton';
 import componentsStyle from './buttons/style.scss'
 import {Container, Header} from 'semantic-ui-react'
-import {PH_EVENT_DATE} from "../../../../messages/post";
+import {PH_EQUIPMENT, PH_EVENT_DATE} from "../../../../messages/post";
 
 class HeaderSingle extends React.Component {
     constructor(props) {
@@ -32,6 +32,13 @@ class HeaderSingle extends React.Component {
         </div>
     };
 
+    renderEquipment = (equipment) => {
+        return <div style={inlineStyles.eq}>
+            <span>
+            {`${PH_EQUIPMENT}: ${equipment}`}
+            </span>
+        </div>
+    };
 
     render() {
         console.log(this.props.post);
@@ -46,7 +53,10 @@ class HeaderSingle extends React.Component {
                     <Header style={inlineStyles.headerTitle} as='h3'>{this.props.post.title}</Header>}
                     {this.props.post.about &&
                     <ContainerText about={this.props.post.about}/>}
-                    {this.props.post.eventDate && this.renderEventDate(this.props.post.eventDate)}
+                    <div style={inlineStyles.dateEq}>
+                        {this.props.post.equipment && this.renderEquipment(this.props.post.equipment)}
+                        {this.props.post.eventDate && this.renderEventDate(this.props.post.eventDate)}
+                    </div>
                 </div>
                 <div className="single-post-header">
                     {this.renderHeaderText()}
@@ -93,6 +103,15 @@ const inlineStyles = {
         textAlign: "right",
         padding: "10px",
         color: "#616161"
+    },
+    eq: {
+        textAlign: "left",
+        padding: "10px",
+        color: "#616161"
+    },
+    dateEq: {
+        display: "flex",
+        justifyContent: "space-between"
     }
 };
 export default connect(mapStateToProps)(HeaderSingle);

@@ -19,6 +19,7 @@ export const UPDATE_PROFILE_PIC = "Обновите фотографию";
 //MENU
 
 export const EXIT = "Выйти";
+export const SUBMISSION = "Заявка на публикацию";
 export const EDIT_PROFILE = "Редактировать";
 export const SAVE_CHANGES = "Сохранить изминения";
 

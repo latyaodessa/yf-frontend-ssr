@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import style from './sidebar-style.scss'
 import {cleanUserCookies} from "../../../../services/CookieService";
 import Router from "next/router";
-import {EDIT_PROFILE, EXIT, SAVE_CHANGES} from "../../../../messages/profile";
+import {EDIT_PROFILE, EXIT, SAVE_CHANGES, SUBMISSION} from "../../../../messages/profile";
+import {Link} from './../../../../../routes';
 
 class SidebarMenu extends React.Component {
 
@@ -37,6 +38,9 @@ class SidebarMenu extends React.Component {
                                 <a onClick={this.editProfile.bind(this)}>{EDIT_PROFILE}</a>
                             }
 
+                        </li>
+                        <li>
+                            <Link route={'submission'}><a>{SUBMISSION}</a></Link>
                         </li>
                         <li>
                             <a onClick={this.logOut.bind(this)}>{EXIT}</a>

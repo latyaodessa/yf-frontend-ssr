@@ -8,6 +8,7 @@ routes
     .add('exclusive')
     .add('dashboard')
     .add('profile')
+    .add('about')
     .add('post', '/post/:postId')
     .add('pub', '/pub/:link')
     .add({name: 'submission', pattern: '/submission', page: 'submission'})

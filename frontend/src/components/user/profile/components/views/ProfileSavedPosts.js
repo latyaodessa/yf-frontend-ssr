@@ -89,6 +89,7 @@ class ProfileSavedPosts extends React.Component {
     }
 
     renderPics(posts) {
+            console.log(posts);
         return posts.filter(post => post).map(post => <div key={post.id}
                                                            className="pure-u-1-2 pure-u-sm-1-2 pure-u-md-1-3">
             <ThumbnailPicture post={post.dto}>

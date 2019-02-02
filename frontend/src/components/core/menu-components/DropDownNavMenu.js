@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from '../../../../routes'
 import {cleanUserCookies, verifyLoggedInUser} from "../../../services/CookieService";
 import Router from "next/router";
-import {EXIT_DROPDOWN, LOGIN_DROPDOWN, PROFILE_DROPDOWN} from '../../../messages/core'
+import {EXIT_DROPDOWN, LOGIN_DROPDOWN, PROFILE_DROPDOWN, SUBMISSION} from '../../../messages/core'
 import style from './styles.scss'
 
 class DropDownNavMenu extends React.Component {
@@ -39,6 +39,7 @@ class DropDownNavMenu extends React.Component {
         return <ul className="dropdown-list">
             <style jsx>{style}</style>
             <li className="menu__list__item"><Link route='profile'><a>{PROFILE_DROPDOWN}</a></Link></li>
+            <li className="menu__list__item"><Link route='submission'><a>{SUBMISSION}</a></Link></li>
             <li className="menu__list__item" onClick={this.logOut.bind(this)}><a>{EXIT_DROPDOWN}</a></li>
         </ul>;
     };

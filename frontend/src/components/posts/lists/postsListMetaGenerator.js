@@ -8,10 +8,13 @@ import {
     KEYWORDS_SETS_LIST,
     TITLE_ART_LIST,
     TITLE_NATIVE_LIST,
-    TITLE_SETS_LIST
+    TITLE_SETS_LIST,
+    TITLE_EXCLUSIVE_LIST,
+    DESCRIPTION_EXCLUSIVE_LIST,
+    KEYWORDS_EXCLUSIVE_LIST
 } from '../../../messages/meta'
 
-export const POST_TYPE = {NATIVE: "native", SETS: "sets", ART: "art"};
+export const POST_TYPE = {NATIVE: "native", SETS: "sets", ART: "art", EXCLUSIVE: "exclusive"};
 
 export const getMetaData = (type) => {
     switch (type) {
@@ -21,6 +24,8 @@ export const getMetaData = (type) => {
             return art();
         case POST_TYPE.SETS:
             return sets();
+        case POST_TYPE.EXCLUSIVE:
+            return exclusive();
         default:
             return native;
     }
@@ -32,6 +37,15 @@ const native = () => {
         description: DESCRIPTION_NATIVE_LIST,
         charset: CHARSET,
         keywords: KEYWORDS_NATIVE_LIST
+    }
+};
+
+const exclusive = () => {
+    return {
+        title: TITLE_EXCLUSIVE_LIST,
+        description: DESCRIPTION_EXCLUSIVE_LIST,
+        charset: CHARSET,
+        keywords: KEYWORDS_EXCLUSIVE_LIST
     }
 };
 

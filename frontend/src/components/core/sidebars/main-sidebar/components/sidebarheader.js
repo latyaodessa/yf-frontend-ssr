@@ -4,7 +4,8 @@ import Router from 'next/router'
 import styles from '../../../../../../res/styles/sidebar.scss'
 import loginStyles from '../../../../../../res/styles/user/login.scss'
 import {cleanUserCookies, getCookieByKey, verifyLoggedInUser} from "../../../../../services/CookieService";
-
+import {PROFILE, EXIT_DROPDOWN} from "../../../../../messages/core";
+import {SUBMISSION} from "../../../../../messages/profile";
 
 class SidebarHeader extends React.Component {
 
@@ -45,10 +46,13 @@ class SidebarHeader extends React.Component {
             <div className='info'>
                 <ul>
                     <li>
-                        <Link route='profile'><a>Профиль</a></Link>
+                        <Link route='profile'><a>{PROFILE}</a></Link>
                     </li>
                     <li>
-                        <a onClick={this.logOut.bind(this)}>Выйти</a>
+                        <Link route={'submission'}><a>{SUBMISSION}</a></Link>
+                    </li>
+                    <li>
+                        <a onClick={this.logOut.bind(this)}>{EXIT_DROPDOWN}</a>
                     </li>
                 </ul>
             </div>
