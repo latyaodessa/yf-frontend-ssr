@@ -83,7 +83,7 @@ services:
     networks:
       - nginx-proxy
     volumes:
-      - /mnt/storage:/app/uploads
+      - /mnt/storage/storage:/app/uploads
   database:
     container_name: database
     restart: always
