@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 STACK=setup
 
-docker system prune --volumes
+docker system prune --volumes -f
 docker stack rm ${STACK} || true
 docker-compose build
 docker-compose push
