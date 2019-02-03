@@ -22,7 +22,6 @@ class ExclustivePostsBigSlider extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const params = {
             navigation: {
                 nextEl: '.swiper-button-next',

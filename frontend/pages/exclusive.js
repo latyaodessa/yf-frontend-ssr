@@ -92,7 +92,7 @@ class NativeList extends React.Component {
             <Header as='h2' icon  textAlign='center' style={{padding:'50px'}}>
                 <Icon name='hand peace outline' />
                 Привет, рубрика "эксклюзив" находится на стадии подготовки.
-                <Header.Subheader>Хочешь попасть в эсклюзив? Приисылай нам твои работы, если они не были ранее нигде опубликованы.</Header.Subheader>
+                <Header.Subheader>Хочешь попасть в эсклюзив?</Header.Subheader>
                 <Link route='submission'>
                     <a><Button style={{margin: '20px', background: '#3b9c9a'}}
                         content={SUBMIT_BUTTON}

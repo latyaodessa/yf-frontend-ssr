@@ -62,7 +62,6 @@ class ParticipantCardForm extends React.PureComponent {
 
 
     render() {
-        console.log(this.props.participant)
         return (
             <Element name={this.props.participantType.type + this.props.participant.number}>
                 <style jsx>{styles}</style>

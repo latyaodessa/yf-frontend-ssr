@@ -3,7 +3,6 @@ import styles from "../../../../../res/styles/single-post.scss"
 
 export default class StoragePicsRenderer extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <div>
                 <style jsx>{styles}</style>

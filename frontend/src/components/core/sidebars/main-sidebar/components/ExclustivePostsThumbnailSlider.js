@@ -26,7 +26,6 @@ class ExclustivePostsThumbnailSlider extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const params = {
             autoplay: {
                 delay: 5000,

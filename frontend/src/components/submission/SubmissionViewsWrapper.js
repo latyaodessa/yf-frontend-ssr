@@ -160,7 +160,6 @@ class SubmissionViewsWrapper extends React.Component {
                 </div>
             </div>
         }
-        console.log(this.state.submission);
         return (
             <div>
                 <style jsx>{styles}</style>

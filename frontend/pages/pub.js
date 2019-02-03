@@ -56,8 +56,6 @@ class SinglePost extends React.Component {
             return <ErrorPage statusCode={404}/>
         }
 
-        console.log(this.props);
-
         return (
             <MainLayoutWithNavigation meta={meta(this.props.post)}>
                 <style jsx>{styles}</style>

@@ -65,7 +65,6 @@ class SubmittedPublicationsList extends React.Component {
 
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 {this.props.data && this.props.data.length > 0 &&

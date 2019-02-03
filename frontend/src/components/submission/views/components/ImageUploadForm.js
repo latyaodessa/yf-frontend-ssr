@@ -276,10 +276,10 @@ class ImageUploadForm extends React.Component {
                         </Segment>
                     </Grid.Column>
                 </Grid>
-                {this.state.uploading &&
+                {this.state.uploading  &&
                 <Dimmer style={style.dimmerStyle} active inverted>
                     <Loader size='large'>
-                        {average(this.uploadingCounter)}%
+                        {parseInt(average(this.state.uploadingCounter))}%
                     </Loader>
                 </Dimmer>
                 }

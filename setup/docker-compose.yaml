@@ -75,10 +75,15 @@ services:
     restart: always
     build: ./../storage-service
     image: 127.0.0.1:5000/storage-service
+    deploy:
+      mode: replicated
+      replicas: 2
     ports:
       - "9093:8080"
     networks:
       - nginx-proxy
+    volumes:
+      - /mnt/storage/storage:/app/uploads
   database:
     container_name: database
     restart: always

@@ -41,7 +41,6 @@ class HeaderSingle extends React.Component {
     };
 
     render() {
-        console.log(this.props.post);
         return (
             <div>
                 <style jsx>{styles}</style>
