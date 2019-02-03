@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 STACK=setup
 mkdir -m 777 -p /mnt/storage/storage
-docker system prune --volumes -f
+docker system prune -f
 docker stack rm ${STACK} || true
 docker-compose build
 docker-compose push
