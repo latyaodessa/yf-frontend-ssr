@@ -83,7 +83,7 @@ services:
     networks:
       - nginx-proxy
     volumes:
-      - /mnt/storage/storage:/app/uploads
+      - storage-data:/app/uploads
   database:
     container_name: database
     restart: always
@@ -118,3 +118,4 @@ volumes:
   postgres-data:
   elasticsearch-data:
   frontend-data:
+  storage-data:
