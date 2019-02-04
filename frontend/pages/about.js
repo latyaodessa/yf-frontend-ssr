@@ -17,10 +17,21 @@ class About extends React.Component {
     render() {
         return (
             <MainLayoutWithNavigation meta={getMeta()}>
-                about
+                <p style={inlineStyle.container}>
+                    We are Young Folks, based in Austria, Vienna. We see potential in you and we want to share your talent with the whole world.
+                    Feel free to join us.
+                    editor@youngfolks.ru
+                </p>
             </MainLayoutWithNavigation>
 
         )
+    }
+}
+
+const inlineStyle = {
+    container: {
+        width: "300px",
+        textAlign: 'center'
     }
 }
 

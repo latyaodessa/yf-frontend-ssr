@@ -16,7 +16,7 @@ import {
 } from "../../../../messages/submission";
 import {Checkbox, Form, Icon, Label} from 'semantic-ui-react'
 import {connect} from "react-redux";
-import {searchCountry} from "../../../../actions/metaActions";
+// import {searchCountry} from "../../../../actions/metaActions";
 
 const FIRST_REMOVAL_EXCEPTIONS = [PARTICIPANTS_TYPE.mds.type, PARTICIPANTS_TYPE.phs.type];
 
@@ -25,20 +25,20 @@ class ParticipantCardForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            countries: ""
+            // countries: ""
         };
 
     }
 
     componentDidMount() {
 
-        this.props.dispatch(searchCountry()).then(() => {
-            this.setState({
-                countries: this.props.country.data.map(cntr => {
-                    return {key: cntr.id, value: cntr.titleRu, text: cntr.titleRu}
-                })
-            })
-        })
+    //     this.props.dispatch(searchCountry()).then(() => {
+    //         this.setState({
+    //             countries: this.props.country.data.map(cntr => {
+    //                 return {key: cntr.id, value: cntr.titleRu, text: cntr.titleRu}
+    //             })
+    //         })
+    //     })
     }
 
 
@@ -200,10 +200,7 @@ class ParticipantCardForm extends React.PureComponent {
 }
 
 function mapStateToProps(state) {
-    const {country} = state;
-
-
-    return {country: country};
+    return state;
 }
 
 export default connect(mapStateToProps)(ParticipantCardForm);

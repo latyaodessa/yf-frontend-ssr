@@ -268,6 +268,7 @@ class MainLayoutWithNavigation extends React.Component {
                 </Head>
                 <Navbar/>
                 {this.props.children}
+
             </div>)
     }
 }
