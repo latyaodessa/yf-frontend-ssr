@@ -38,7 +38,7 @@ services:
     image: 127.0.0.1:5000/yf-services
     entrypoint: "/opt/payara41/bin/startInForeground.sh --passwordfile=/opt/pwdfile -d --postbootcommandfile glassfish/domains/domain1"
     environment:
-      - TASK_NAME={{.Task.Name}}
+      - TASK_NAME_TODO_CHANGE={{.Task.Name}}
     ports:
       - "8080:8080"
       - "8181:8181"
