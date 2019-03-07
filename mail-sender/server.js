@@ -16,7 +16,7 @@ let smtpConfig = {
     secure: true,
     auth: {
         user: 'noreply@youngfolks.ru',
-        pass: 'o6Ll6hY1T0jS'
+        pass: 'bHoWlEVczy'
     }
 };
 
@@ -35,6 +35,7 @@ router.post('/send', function (req, res) {
     };
 
 
+    transporter.sendMail(mailOptions, (error, info) => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
