@@ -12,11 +12,14 @@ app.use('/rest', router);
 
 let smtpConfig = {
     host: 'mail.adm.tools',
-    port: 465,
-    secure: true,
+    port: 2525,
+    secure: false,
     auth: {
         user: 'noreply@youngfolks.ru',
         pass: 'bHoWlEVczy'
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 };
 
