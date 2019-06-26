@@ -52,15 +52,6 @@ services:
       - database
     networks:
       - nginx-proxy
-  parser:
-    container_name: parser
-    restart: always
-    build: ./../parser
-    image: 127.0.0.1:5000/parser
-    ports:
-      - "9091:8080"
-    networks:
-      - nginx-proxy
   mailsender:
     container_name: mailsender
     restart: always
@@ -110,6 +101,40 @@ services:
       - "3300:9300"
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - nginx-proxy
+  parser:
+    container_name: parser
+    restart: always
+    build: ./../parser
+    image: 127.0.0.1:5000/parser
+    depends_on:
+      - selenium-hub
+    ports:
+      - "9091:8080"
+    networks:
+      - nginx-proxy
+  selenium-hub:
+    image: selenium/hub:3.141.59-radium
+    container_name: selenium-hub
+    networks:
+      - nginx-proxy
+  chrome:
+    image: selenium/node-chrome:3.141.59-radium
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    networks:
+      - nginx-proxy
+  firefox:
+    image: selenium/node-firefox:3.141.59-radium
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
     networks:
       - nginx-proxy
 networks:
