@@ -9,6 +9,7 @@ routes
     .add('dashboard')
     .add('profile')
     .add('about')
+    .add('booking')
     .add('post', '/post/:postId')
     .add('pub', '/pub/:link')
     .add({name: 'submission', pattern: '/submission', page: 'submission'})

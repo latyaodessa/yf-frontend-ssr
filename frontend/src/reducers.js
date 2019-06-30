@@ -18,7 +18,7 @@ import postExistenceByUser from './reducers/post/post-existence-by-user-reducer'
 import {firstLastNameUpdate, nickNameUpdate} from './reducers/user/profileRedicers'
 import {login, register, requestPassword, reset, socialUser, uuid, verify} from './reducers/user/auth/authReducers'
 import {submissionPicsList, upload} from './reducers/files/uploadReducers'
-import {country} from './reducers/meta/metaReducers';
+import {countries} from './reducers/meta/metaReducers';
 import {submission, submissionsList} from "./reducers/submission/submissionReducers";
 import {userPublications} from "./reducers/user/dashboard/userPublicationRedicers";
 import {exclusiveList} from "./reducers/post/publicationListReducer";
@@ -45,7 +45,7 @@ export default combineReducers({
     login, register, requestPassword, uuid, reset, verify, socialUser,
     firstLastNameUpdate, nickNameUpdate,
     upload, submissionPicsList,
-    country,
+    countries,
     submission, submissionsList,
     userPublications,
     routing
