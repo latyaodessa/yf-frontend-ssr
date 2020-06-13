@@ -1,7 +1,9 @@
 {
   "view": {
     "panel": {
-      "countries": "Страна"
+      "countries": "Страна",
+      "from": "От",
+      "to": "По"
     }
   }
 }
