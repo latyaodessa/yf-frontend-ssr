@@ -51,6 +51,10 @@ expr.get('/.well-known/pki-validation/E2614052870FBC9733FFDA272E094F14.txt', (re
     res.status(200).sendFile('pki-validation/E2614052870FBC9733FFDA272E094F14.txt', options)
 ));
 
+expr.get('/.well-known/pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', (req, res) => (
+    res.status(200).sendFile('pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', options)
+));
+
 expr.get('/robots.txt', (req, res) => (
     res.status(200).sendFile('robots.txt', options)
 ));
