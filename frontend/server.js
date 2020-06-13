@@ -55,6 +55,11 @@ expr.get('/.well-known/pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', (re
     res.status(200).sendFile('pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', options)
 ));
 
+expr.get('/.well-known/test', (req, res) => (
+    res.status(200).send('hello world!')
+));
+
+
 expr.get('/robots.txt', (req, res) => (
     res.status(200).sendFile('robots.txt', options)
 ));
