@@ -52,7 +52,9 @@ expr.get('/.well-known/pki-validation/E2614052870FBC9733FFDA272E094F14.txt', (re
 ));
 
 expr.get('/.well-known/pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', (req, res) => (
-    res.status(200).sendFile('pki-validation/8D9C90EF70F260DE79078FEB2477BFCD.txt', options)
+    res.status(200).send(`6b6ec086d99b794ec8c3185c989aada79ca437179839ceddde05a54bb56b6302<br/>
+    comodoca.com<br/>
+    2nYcvwTWvJ0tz6WfsxxF`)
 ));
 
 
