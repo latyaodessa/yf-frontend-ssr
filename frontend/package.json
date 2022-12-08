@@ -18,7 +18,7 @@
     "body-parser": "^1.18.3",
     "body-parser-xml": "^1.1.0",
     "cloudinary-react": "^1.0.6",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "isomorphic-unfetch": "^2.0.0",
     "next": "~6.0.3",
